@@ -14,5 +14,10 @@
   {
     "name": "veggie chicken",
     "cousine": "latin american"
+  },
+
+  {
+    "name": "veggie cake",
+    "cousine": "Kenyan"
   }
 ]
