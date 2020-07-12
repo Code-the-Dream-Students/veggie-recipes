@@ -1,0 +1,14 @@
+[
+  {
+    "name": "veggie noodles",
+    "cousine": "chinese"
+  },
+  {
+    "name": "veggie burger",
+    "cousine": "american"
+  },
+  {
+    "name": "veggie curry",
+    "cousine": "indian"
+  }
+]
