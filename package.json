@@ -1,0 +1,26 @@
+{
+  "name": "veggie-recipes",
+  "version": "1.0.0",
+  "description": "Website where you can find a variety of vegetarian recipes, from anywhere in the world.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js -e js,hbs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Code-the-Dream-Students/veggie-recipes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Code-the-Dream-Students/veggie-recipes/issues"
+  },
+  "homepage": "https://github.com/Code-the-Dream-Students/veggie-recipes#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "nodemon": "^2.0.4"
+  }
+}
