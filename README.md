@@ -18,12 +18,13 @@ Website where you can find a variety of vegetarian recipes, from anywhere in the
 
 # How to work with this repo
 
-1. Clone the repo.
+1. Clone or Fork the repo.
 2. Always work in the DESIGN branch and commit all the changes to it.
 3. Push your changes to the remote url: https://github.com/Code-the-Dream-Students/veggie-recipes.git 
 
     *REMEMBER Always to work and push the changes to the DESIGN BRANCH*
-4. Create a pull request with the changes.
+    
+4. Create a pull request with all the changes you made.
 
 Thank you!
 
