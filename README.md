@@ -11,6 +11,11 @@ Website where you can find a variety of vegetarian recipes, from anywhere in the
         -Home.png
         -Modal.png
         -The Mobile version of Home and Modal.
+        
+        The criteria for the Advance Search is by: -Region
+                                                   -Cuisine
+                                                   -Ingredientes
+                                                   -Type
 
 * Style Guide: A guide in pdf format with all design elements and interactions that occur within the product, a list of UI components such as buttons, typography, color, and navigation menus, and documentation of important UX components like hover states, dropdown fills, etc.
 
