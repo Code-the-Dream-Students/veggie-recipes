@@ -13,8 +13,9 @@ app.set('view engine', 'hbs');
 // Set viewsPath to views
 app.set('views', viewsPath);
 // This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
+// Needed to parse req.body with json payload
 app.use(express.json());
-// Load router module in app (Pass middleware userRouter to app)
+// Load router module in express app (Pass middleware userRouter to app)
 app.use(userRouter);
 
 module.exports = app;

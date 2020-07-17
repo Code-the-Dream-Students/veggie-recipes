@@ -4,6 +4,7 @@ it is often referred to as a “mini-app”. */
 
 const express = require('express');
 const fetch = require('node-fetch');
+const auth = require('../middleware/auth');
 const User = require('../models/user');
 
 // Create express router module
@@ -19,8 +20,6 @@ router.post('/register', async (req, res) => {
     try {
         const user = new User(req.body);
         const token = await user.generateAuthToken();
-    
-        console.log(req.body)
 
         await user.save();
     
@@ -35,16 +34,32 @@ router.post('/register', async (req, res) => {
     }
 })
 
-// POST User login route
+// POST User login
 router.post('/user/login', async (req, res) => {
     try {
         // Find user using email and password
         const user = await User.findByCredentials(req.body.email, req.body.password);
         // Generate auth token
         const token = await user.generateAuthToken();
-        res.send({ user, token });
+        res.send(200).send();
     } catch (e) {
         res.status(400).send();
+    }
+})
+
+// POST Logout user
+router.post('/logout', async (req, res) => {
+    try {
+        // Create a new array of tokens t
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token;
+        })
+
+        await req.user.save();
+
+        res.redirect('index');
+    } catch (e) {
+
     }
 })
 
