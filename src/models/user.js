@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 // Pass model object to create mongoose schema
 const userSchema = new mongoose.Schema({
@@ -32,9 +33,9 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength: 7
     },
-    recipe: {
+    recipes: [{
         type: String
-    },
+    }],
     tokens: [{
         token: {
             type: String,
