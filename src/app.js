@@ -8,10 +8,14 @@ require('./db/mongoose');
 const app = express();
 // Path to views engine
 const viewsPath = path.join(__dirname, '/templates/views');
+// Path to public directory
+const publicDirectoryPath = path.join(__dirname, '../public');
 // Set view engine to handlebars
 app.set('view engine', 'hbs');
 // Set viewsPath to views
 app.set('views', viewsPath);
+// Needed to serve static files from publicDirectoryPath
+app.use(express.static(publicDirectoryPath));
 // This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
 // Needed to parse req.body with json payload
 app.use(express.json());

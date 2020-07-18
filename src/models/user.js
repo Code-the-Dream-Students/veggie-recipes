@@ -33,9 +33,9 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength: 7
     },
-    recipe: {
+    recipes: [{
         type: String
-    },
+    }],
     tokens: [{
         token: {
             type: String,

@@ -7,12 +7,31 @@ const fetch = require('node-fetch');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 
+const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}`;
+
 // Create express router module
 const router = new express.Router();
 
 // GET Home page route
 router.get('/', async (req, res) => {
     res.render('index');
+})
+
+// GET Spoonacular data
+router.post('/search', async (req, res) => {
+    try {
+        const newUrl = `${URL}&query=${req.body.query}&number=${req.body.number}`;
+        const response = await(await fetch(newUrl)).json();
+
+        console.log(response);
+
+        res.status(200).send({response})
+
+        // const example = JSON.stringify(response);
+        // res.status(200).render('dummy', { example });
+    } catch (e) {
+        res.status(500).send(e.message);
+    }   
 })
 
 // POST Create user
@@ -48,9 +67,10 @@ router.post('/user/login', async (req, res) => {
 })
 
 // POST Logout user
-router.post('/logout', async (req, res) => {
+router.post('/logout', auth, async (req, res) => {
     try {
-        // Create a new array of tokens t
+        // Create a new array of tokens
+        // Remove the token in the user array that matches with the token in the req
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token;
         })
@@ -59,7 +79,7 @@ router.post('/logout', async (req, res) => {
 
         res.redirect('index');
     } catch (e) {
-
+        res.status(500).send(e.message);
     }
 })
 
