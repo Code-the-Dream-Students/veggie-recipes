@@ -32,5 +32,7 @@ Website where you can find a variety of vegetarian recipes, from anywhere in the
 
 Thank you!
 
+Let me know if you have a question.
+
 
 
