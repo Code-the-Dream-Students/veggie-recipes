@@ -30,9 +30,8 @@ Website where you can find a variety of vegetarian recipes, from anywhere in the
     *REMEMBER Always to work and push the changes to the DESIGN BRANCH*
 4. Create a pull request with the changes.
 
-Thank you!
 
-Let me know if you have any questions.
+Let me know if you have any questions, thank you!
 
 
 
