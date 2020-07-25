@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Megrim&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="./style.css">
+<link rel = "icon" href = "./images/logo.png" type = "image/x-icon"> 
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<title>Vegeloper</title>
+</head>
+<body>
+  <div class="container pt-4">
+    <!-----navbar---->
+      <div class="topnav">
+        <div class="navbar navbar-expand-lg">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li>
+       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+        </a>
+        </li>
+        <li>
+        <a href="#signUp" class="signUp">Log in/Sign up <i class="far fa-user"></i></a></li>
+       <li><a href="#search" class="active">Search  <i class="fas fa-search"></i></a></li> 
+          </ul>
+      </div>
+        <!-- Navigation links (hidden by default) -->
+        <div id="myLinks">
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+        </div>     
+    </div><!-----/navbar---->
+    
+  </div>
+  
+  
+    <div class="container pt-4">
+   <!-----jumbotron---->
+  <div class="jumbotron jumbotron-fluid bg-info text-white">
+  
+   <div class="container text-sm-center pt-5">
+    
+      <div class="btn-group">
+        <div class="searchbox">
+        <form>
+          <h1 class="display-2 text-center">Find a Recipe</h1>
+         <div class="form-group mb-3">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-describedby="searchButton" />
+            <div class="input-group-append">
+              <button id="searchButton" class="btn btn-outline-success  my-2 my-sm-0" type="submit">Search</button>
+             
+            </div>
+          </div>
+          </div>
+             <div class="form-row">
+               <div class="col-md-6 mb-3">
+                <div class="input-group-prepend">
+                 <select class="custom-select">
+                  <option selected>Type</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+               </div>
+                
+             </div>
+              <!------number of people input---->
+             <div class="col-md-6 mb-3">
+               <div class="input-group-prepend">
+              
+                 <select class="custom-select">
+                  <option selected>Cuisine</option>
+                  <option value="1">African</option>
+                  <option value="2">Asian</option>
+                  <option value="3">European</option>
+                  <option value="3">Caribbean</option>
+                  <option value="3">Chinese</option>
+                  <option value="3">Italiann</option>
+                  <option value="3">Indian</option>
+                  <option value="3">Greek</option>
+                  <option value="3">Mexican</option>
+                  <option value="3">Mediterranean</option>
+                </select>
+               </div>
+               </div>
+             </div>
+            </form> 
+           </div> 
+           </div>
+        </div>
+     </div><!-----/jumbotron---->
+   </div>
+   <div class="container pt-4">
+  <!---lis of recipes---->
+  <div class="row">
+    <div class="col-md-6 col-lg-3">
+      <div id="hotyoga" class="card mb-3">
+        <img src="./images/broc-pasta.jpg" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title">Orecchiette pasta with broccoli sauce</h5>
+          <p class="card-text"> After taking a week-long cooking class in Italy, a friend brought back this traditional Tuscan recipe with him and made it for his wife. Truth be told, when she first described it, how the broccoli was cooked down and melted into a sauce, I had some reservations. 
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div id="vinyasa" class="card mb-3">
+        <img src="./images/Vegetarian-Enchiladas.jpg" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5  class="card-title">Farmers Market Vegetarian Enchiladas</h5>
+          <p class="card-text">with black beans and your choice of veggies (like red bell pepper, sweet potato zucchini or corn) and Homemade 5 Minute Enchilada Sauce! Easy, Healthy and full of delicious Mexican Flavor! Vegan and Gluten-free adaptable!</p>
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div id="yinflow" class="card mb-3">
+        <img src="./images/vegan-mushroom-wellington.jpg" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5  class="card-title">Mushroom Wellington with Rosemary and Pecans</h5>
+          <p class="card-text">a simple, elegant main dish, that can be made ahead, perfect for special gatherings or holiday dinners. This is actually VEGAN!!!.</p>
+        </div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div id="ashtanga" class="card mb-3">
+        <img src="./images/chilaquiles.jpg" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title">Chilaquiles</h5>
+          <p class="card-text"> A classic Mexican dish made with stewed corn tortillas (or chips) that can be served as breakfast, lunch or dinner. The best part? This highly adaptable meal can be made in under 20 minutes, perfect for busy weeknights! </p>
+          </div>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
+        </div>
+    </div>
+  </div><!-- /list of recipes --> 
+  <!---footer---->
+  <div class="footer row py-3">
+    <div class="col-md text-center">
+      <small class="text-white">&copy;Copyright 2020 Vegeloper Project.</small>
+        <div class="social-media-contact mt-2 ">
+          <a href="" class="instagram" target="_blank"></a>
+          <a href="" class="facebook" target="_blank"></a>
+          <a href="" class="twitter" target="_blank"></a>
+        </div>
+    </div>
+    </div><!---/footer---->
+    </div>
+  
+  <!---------------------------
+       FORM MODAL RECIPE
+    ----------------------------->
+  <!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Menu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+        <div class="col-sm-8">
+              <h1 class="card-title">Orecchiette pasta with broccoli sauce</h1>
+              <p>Orecchiette Pasta with Broccoli Sauce – a simple vegetarian pasta dish hailing from Tuscany that is easy to make, healthy and oh so delicious!</p>
+            </p>
+            <table>
+              <tr>
+                <th>Cook Time</th>
+                <th>Total Time</th>
+                <th>Yield</th>
+                <th>Category</th>
+                <th>Method</th>
+              </tr>
+              <tr>
+                <td>25 minutes</td>
+                <td>30 minutes</td>
+                <td>4 1x</td>
+                <td>vegetarian main</td>
+                <td>stove top</td>
+              </tr>
+            </table>
+            </div>
+        <div class="col-sm-4">
+             <img class="modal-img" src="./images/broc-pasta.jpg"/>
+            </div>
+          </div>
+      <div class="row">
+    <div class="col-sm-6">
+          <h2 class="card-title">Ingredients</h2>
+          <ul>
+            <li> 12 ounces broccoli florets- cut or broken into very small florets about equal size (about 6 cups packed)</li>
+            <li>8 ounces short pasta- orecchiette pasta, penne, rigatoni, etc</li> 
+            <li>2 tablespoons olive oil</li> 
+            <li> 6 garlic cloves- rough chopped</li> 
+            <li> generous pinch chili flakes</li> 
+            <li> generous pinch salt and pepper, more to taste</li> 
+            <li>1 teaspoon miso paste ( or sub 1–2 mashed anchovies)</li> 
+            <li>2 cups veggie broth or chicken broth</li> 
+            <li> Garnish: grated parmesan or pecorino cheese,  lemon zest, chili flakes, fresh basil ribbons, toasted pine nuts, toasted bread crumbs, truffle oil or kalamata olives- all optional.</li> 
+          </ul>
+        </div>
+    <div class="col-sm-6">
+          <h2 class="card-title">Preparation/Instructions</h2>
+            <ol>
+              <li>Steam small broccoli florets until very tender (easily pierced with a fork)and set aside.</li>
+              <li> Cook pasta according to directions, and save some hot pasta water when you drain.</li>
+              <li> In a large pan, saute the garlic and chili flakes in the olive oil, over medium heat until fragrant and golden, about 2-3 minutes.  Stir in the miso paste (or anchovy), then add steamed broccoli,  salt, pepper and the broth.</li>
+              <li> Bring to a gentle simmer and start breaking apart the broccoli with a metal spatula into tiny pieces. As it cooks it will get easier to break apart. You want the broccoli to basically melt down into a “sauce”.  Continue simmering gently on low heat until half of the liquid evaporates and it becomes the consisancy of a thick sauce, about 10-15 minutes.</li>
+              <li> If it seems watery and separated, just keep cooking it down. It won’t be smooth- but just broken down and very very tender.</li>
+              <li> Add the pasta. Toss well. Add more pasta water if you like it a little more ” saucy.” Taste for salt, adding more along with pepper, chili flakes and lemon zest.</li>
+              <li> Divide among bowls and top with any of the garnishes you like. Grated Parmesan or pecorino  adds depth and salt, lemon zest adds a nice brightness, which I highly recommend and a drizzle of truffle oil elevates.</li>
+              <li> Enjoy! </li>
+            </ol>
+        </div>
+  </div>
+          <h1>You may also love</h1>
+         <div class="card-group">
+          <div class="card ">
+            <img src="./images/chilaquiles.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./images/vegan-mushroom-wellington.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+            </div>
+          </div>
+          <div class="card">
+            <img src="./images/Vegetarian-Enchiladas.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+            </div>
+          </div>
+        </div>
+      
+      
+        </div><!--/modal body -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+      <!-- Optional JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script type="text/javascript" src ="./app.js"></script>
+</body>
+</html>
