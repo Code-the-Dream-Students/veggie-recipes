@@ -19,7 +19,7 @@ Website where you can find a variety of vegetarian recipes, from anywhere in the
 
 * Style Guide: A guide in pdf format with all design elements and interactions that occur within the product, a list of UI components such as buttons, typography, color, and navigation menus, and documentation of important UX components like hover states, dropdown fills, etc.
 
-* Graphics: A resource of different folders with the Font, Stock Photos, Icons and the PSD files that you may need to include in the product.
+* Graphics: A resource of different folders with the Logo, Fonts, Stock Photos, Icons and the PSD files that you may need to include in the product.
 
 # How to work with this repo
 
