@@ -34,7 +34,9 @@ const userSchema = new mongoose.Schema({
         minlength: 7
     },
     recipes: [{
-        type: String
+        recipe: {
+            type: String
+        }
     }],
     tokens: [{
         token: {
@@ -50,7 +52,11 @@ userSchema.methods.generateAuthToken = async function () {
     // Individual user that token will be generated for(Optional: So we don't have to use this.user down below)
     const user = this;
     // Create token, {_id: user._id.toString()} - payload, 'veggie-recipes' - secret
-    const token = jwt.sign({ _id: user._id.toString() }, 'veggie-recipes');
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
+    // Add token to user.tokens array
+    user.tokens = user.tokens.concat({ token });
+    // Save user
+    await user.save();
     
     return token;
 }
