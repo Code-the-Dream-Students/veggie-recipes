@@ -10,7 +10,6 @@ const auth = async (req, res, next) => {
         // Ensure the token is actually valid, created by our server, and 
         // not expired by creating a decoded payload     
         const decoded = jwt.verify(token, secret);
-
         // Find user by looking for _id in the decoded payload decoded._id
         // and the token in the tokens array
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
