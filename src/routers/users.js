@@ -4,6 +4,9 @@ it is often referred to as a “mini-app”. */
 
 const express = require('express');
 const fetch = require('node-fetch');
+const { google } = require('googleapis');
+const urlParse = require('url-parse');
+const queryParse = require('query-string');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 
@@ -17,9 +20,79 @@ const URL2 = `https://api.spoonacular.com/recipes/130320/information?apiKey=${pr
 // Create express router module
 const router = new express.Router();
 
-// GET Home page route
+// GET landing page route
 router.get('/', (req, res) => {
-    res.render('index');
+    const SCOPES = ["email"]
+    const oauth2Client = new google.auth.OAuth2(
+        // client id
+        "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
+        // client secret
+        "8Orh1sSrXq_29HU_ii3Jrbjk",
+        // link to redirect
+        "http://localhost:3000/loginGoogle"
+    )
+
+    const url = oauth2Client.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+        state: JSON.stringify({
+            callbackUrl: req.body.callbackUrl,
+            userID: req.body.userid
+        })
+    })
+
+    res.render('index', {url});
+})
+
+// GET Google oauth login dummy
+router.get('/loginGoogle', async (req, res) => {
+    try {
+        const queryURL = new urlParse(req.url);
+        const code = queryParse.parse(queryURL.query).code;
+
+        const oauth2Client = new google.auth.OAuth2(
+            // client id
+            "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
+            // client secret
+            "8Orh1sSrXq_29HU_ii3Jrbjk",
+            // link to redirect
+            "http://localhost:3000/loginGoogle"
+        )
+
+        const data = await oauth2Client.getToken(code);
+        const tokenData = data.res.data;
+
+        const tokenInfo = await oauth2Client.getTokenInfo(tokenData.access_token)
+
+        console.log(tokenInfo)
+        res.redirect('/home');
+
+        // const keys = await oauth2Client.getIapPublicKeys();
+        // const ticket = await oauth2Client.verifyIdToken({
+        //     idToken: tokenData.access_token,
+        //     audience: '901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com'  // Specify the CLIENT_ID of the app that accesses the backend
+        //     // Or, if multiple clients access the backend:
+        //     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        // });
+        // const payload = ticket.getPayload()
+
+        // // Find user using email and password
+        // const user = await User.findByCredentials(req.body.email, req.body.password);
+        // // Generate auth token
+        // const token = await user.generateAuthToken();
+        // // Put JWT in cookie
+        // res.cookie('auth_token', token);
+        // // User that logged in's first name
+        // const firstName = user.firstName;
+
+        // res.status(200).render('home', {firstName});
+    } catch (e) {
+        res.status(400).send();
+    }
+})
+
+router.get('/home', (req, res) => {
+    res.render('home');
 })
 
 // // POST Login dummy route
@@ -79,7 +152,7 @@ router.post('/login', async (req, res) => {
         // User that logged in's first name
         const firstName = user.firstName;
 
-        res.status(200).render('dummy', {firstName});
+        res.status(200).render('home', {firstName});
     } catch (e) {
         res.status(400).send();
     }
@@ -96,7 +169,7 @@ router.post('/logout', auth, async (req, res) => {
         // Save user with removed token
         await req.user.save();
         // Clear token from cookie
-        // res.clearCookie('auth_token');
+        res.clearCookie('auth_token');
 
         res.redirect('/');
     } catch (e) {
@@ -117,10 +190,70 @@ router.post('/saveRecipe', auth, async (req, res) => {
         // Save user with added recipe
         await user.save();
         
-        res.status(200).send({user})
+        res.status(200).send(user.recipes[0].recipe);
     } catch (e) {
         res.status(500).send(e.message);
     }
 })
+
+// router.get('/login', async (req, res) => {
+//     const oauth2Client = new google.auth.OAuth2(
+//         // client id
+//         "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
+//         // client secret
+//         "8Orh1sSrXq_29HU_ii3Jrbjk",
+//         // link to redirect
+//         "http://localhost:3000/home"
+//     )
+
+//     const url = oauth2Client.generateAuthUrl({
+//         access_type: "offline",
+//         scope: 'email',
+//         state: JSON.stringify({
+//             callbackUrl: req.body.callbackUrl,
+//             userID: req.body.userid
+//         })
+//     })
+
+//     try {
+//         await fetch(url)
+//         res.redirect(url);
+//     } catch (e) {
+//         console.log(e.message)
+//     }
+
+
+// })
+
+// router.get('/getUrl', async (req, res) => {
+//     const oauth2Client = new google.auth.OAuth2(
+//         // client id
+//         "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
+//         // client secret
+//         "8Orh1sSrXq_29HU_ii3Jrbjk",
+//         // link to redirect
+//         "http://localhost:3000/home"
+//     )
+
+//     const url = oauth2Client.generateAuthUrl({
+//         access_type: "offline",
+//         scope: 'email',
+//         state: JSON.stringify({
+//             callbackUrl: req.body.callbackUrl,
+//             userID: req.body.userid
+//         })
+//     })
+
+//     try {
+//         await fetch(url)
+//         res.send({url});
+//     } catch (e) {
+//         console.log(e.message)
+//     }
+
+
+// })
+
+
 
 module.exports = router;
