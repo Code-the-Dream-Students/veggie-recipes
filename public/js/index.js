@@ -8,8 +8,11 @@ form.addEventListener('submit', async (e) => {
     let formData = new FormData(form);
 
     const data = {
-        'query': formData.get('query'),
-        'number': formData.get('number')
+        'firstName': formData.get('firstName'),
+        'lastName': formData.get('lastName'),
+        'email': formData.get('email'),
+        'password': formData.get('password'),
+        'recipes': formData.get('recipes')
     };
 
     try {
@@ -20,21 +23,15 @@ form.addEventListener('submit', async (e) => {
         });
         const json = await res.json();
 
-        console.log(JSON.stringify(json))
+        console.log(json)
 
         firstDiv.innerHTML = JSON.stringify(json);
-
-
-        // if (json.status === 'Success') {
-        //     window.location.href = '/home';
-
-        // } else {
-        //     errorMessage.innerHTML = json.message;
-        // }
 
     } catch (e) {
         console.log(e.message)
     }
     
 })
+
+
 
