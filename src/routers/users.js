@@ -6,6 +6,7 @@ const express = require('express');
 const fetch = require('node-fetch');
 const { google } = require('googleapis');
 const urlParse = require('url-parse');
+const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
@@ -74,32 +75,21 @@ router.get('/loginGoogle', async (req, res) => {
             throw new Error('Unable to login');
         }
 
+        const token = jwt.sign({ _id: user._id.toString()}, process.env.JWT_SECRET);
+        // const token = jwt.sign({ _id: tokenData.id_token}, process.env.JWT_SECRET);
+
+        // Add token to user.tokens array
+        user.tokens = user.tokens.concat({ token });
+
+        // Save user
+        await user.save();
+
         // Put JWT in cookie
-        res.cookie('auth_token', tokenData.access_token);
+        res.cookie('auth_token', token);
         // Store user firstName and lastName
         const name = encodeURIComponent(`${user.firstName} ${user.lastName}`);
 
         res.redirect(302,`home/?name=${name}`)
-
-        // const keys = await oauth2Client.getIapPublicKeys();
-        // const ticket = await oauth2Client.verifyIdToken({
-        //     idToken: tokenData.access_token,
-        //     audience: '901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com'  // Specify the CLIENT_ID of the app that accesses the backend
-        //     // Or, if multiple clients access the backend:
-        //     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-        // });
-        // const payload = ticket.getPayload()
-
-        // // Find user using email and password
-        // const user = await User.findByCredentials(req.body.email, req.body.password);
-        // // Generate auth token
-        // const token = await user.generateAuthToken();
-        // // Put JWT in cookie
-        // res.cookie('auth_token', token);
-        // // User that logged in's first name
-        // const firstName = user.firstName;
-
-        // res.status(200).render('home', {firstName});
     } catch (e) {
         res.status(400).send(e.message);
     }
