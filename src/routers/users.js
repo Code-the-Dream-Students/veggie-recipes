@@ -49,7 +49,7 @@ router.get('/loginGoogle', async (req, res) => {
     try {
         const queryURL = new urlParse(req.url);
         const code = queryParse.parse(queryURL.query).code;
-
+        
         const oauth2Client = new google.auth.OAuth2(
             // client id
             "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
@@ -58,14 +58,28 @@ router.get('/loginGoogle', async (req, res) => {
             // link to redirect
             "http://localhost:3000/loginGoogle"
         )
-
+        // Get tokens
         const data = await oauth2Client.getToken(code);
+        // Get access_token, id_token from tokens
         const tokenData = data.res.data;
-
+        // Get tokenInfo
         const tokenInfo = await oauth2Client.getTokenInfo(tokenData.access_token)
+        // Get email from tokenInfo
+        const email = tokenInfo.email;
+        // Find user with email from database
+        const user = await User.findOne({ email });
 
-        console.log(tokenInfo)
-        res.redirect('/home');
+        // If user is not found, throw error
+        if (!user) {
+            throw new Error('Unable to login');
+        }
+
+        // Put JWT in cookie
+        res.cookie('auth_token', tokenData.access_token);
+        // Store user firstName and lastName
+        const name = encodeURIComponent(`${user.firstName} ${user.lastName}`);
+
+        res.redirect(302,`home/?name=${name}`)
 
         // const keys = await oauth2Client.getIapPublicKeys();
         // const ticket = await oauth2Client.verifyIdToken({
@@ -87,12 +101,12 @@ router.get('/loginGoogle', async (req, res) => {
 
         // res.status(200).render('home', {firstName});
     } catch (e) {
-        res.status(400).send();
+        res.status(400).send(e.message);
     }
 })
 
 router.get('/home', (req, res) => {
-    res.render('home');
+    res.render('home', {name: req.query.name});
 })
 
 // // POST Login dummy route
