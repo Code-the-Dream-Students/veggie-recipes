@@ -17,69 +17,91 @@ let type = "";
 let listOfRecipes = document.querySelector("#list-of-recipes");
 let searchbox = document.querySelector("#searchbox");
 let generateRecipesButton = document.querySelector("#generate-recipes");
+let modalBody = document.querySelector(".modal-body");
+let modalButton = document.querySelector("#modal-button");
+let modalTitle = document.querySelector(".modal-title");
 let cuisines = ["african", "american", "british", "cajun", "caribbean", "chinese", "eastern european", "european", "french", "german", "greek", "indian", "irish", "italian", "japanese", "jewish", "korean", "latin american", "mediterranean", "mexican", "middle eastern", "nordic", "southern", "spanish", "thai", "vietnamese"];
 let types = ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"];
 let cuisinesSelect = document.querySelector("#cuisines");
 let typesSelect = document.querySelector("#types");
-let apiKey = "c0c4732f3def410180ec614935768041";
 let recipesInformation = {};
+let apiKey = "c0c4732f3def410180ec614935768041";
+// let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
 
 const generateCuisines = () => {
-  cuisinesSelect.innerHTML = `<option onclick="onclick="cuisine = ''"></option>`;
+  cuisinesSelect.innerHTML = `<option onclick="cuisine = ''"></option>`;
   cuisinesSelect.innerHTML += cuisines.reduce((acc, cui) => acc += `<option onclick="cuisine = this.value">${cui}</option>`, "");
-}
+};
 generateCuisines();
 
 const generateTypes = () => {
   typesSelect.innerHTML = `<option "onclick="type = ''"></option>`;
   typesSelect.innerHTML += types.reduce((acc, type) => acc += `<option onclick="type = this.value">${type}</option>`, "");
-}
+};
 generateTypes();
 
 searchbox.addEventListener("keyup", (event) => recipe = event.target.value.toLowerCase());
 
-function generateRecipes () {
+const generateRecipes = () => {
   if (recipe.length >= 3 || cuisine || type) {
     listOfRecipes.innerHTML = "";
     recipesInformation = {};
-    fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&number=2&query=${recipe}&cuisine=${cuisine}&type=${type}`)
+    fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&number=1&query=${recipe}&cuisine=${cuisine}&type=${type}`)
     .then(response => response.json())
     .then(data => {
       data.results.forEach(rec => {
-        fetch(`https://api.spoonacular.com/recipes/${rec.id}/information?apiKey=${apiKey}`)
-        .then(res => res.json())
-        .then(d => {
-          console.log(d)
-          if (d.analyzedInstructions.length && d.extendedIngredients.length) {
-            recipesInformation[d.id] = {
-              title: d.title,
-              readyInMinutes: d.readyInMinutes,
-              servings: d.servings,
-              summary: d.summary,
-              steps: d.analyzedInstructions[0].steps.map(s => s.step),
-              ingredients: d.extendedIngredients.map(i => i.original)
-            }
-            listOfRecipes.innerHTML += `
-              <div class="box" id="${d.id}">
-                <img src="${d.image}" alt="${d.image}">
-                <h4>${d.title}</h4>
-                <p>${d.summary.split(" ").slice(0, 50).join(" ")}...</p>
-                <button onclick="recipeModal(this)">Read more</button>
-              </div>
-            `;
-            console.log(recipesInformation)
-          }
-        })  
+        displayRecipes(rec);        
       })
     })
   }
-} 
+}; 
+
+const displayRecipes = (rec) => {
+  fetch(`https://api.spoonacular.com/recipes/${rec.id}/information?apiKey=${apiKey}`)
+  .then(res => res.json())
+  .then(d => {
+    if (d.analyzedInstructions.length && d.extendedIngredients.length) {
+      recipesInformation[d.id] = {
+        title: d.title,
+        readyInMinutes: d.readyInMinutes,
+        servings: d.servings,
+        summary: d.summary,
+        steps: d.analyzedInstructions[0].steps.map(s => s.step),
+        ingredients: d.extendedIngredients.map(i => i.original)
+      }
+      listOfRecipes.innerHTML += `
+        <div class="box">
+          <img src="${d.image}" alt="${d.image}">
+          <h4>${d.title}</h4>
+          <p>${d.summary.split(" ").slice(0, 50).join(" ")}...</p>
+          <button id="${d.id}" onclick="recipeModal(this)">Read more</button>
+        </div>
+      `;
+      console.log(recipesInformation)
+    }
+  })
+};
 
 generateRecipesButton.addEventListener("click", generateRecipes);
 
-function recipeModal (data) {
-  console.log(recipesInformation[data.parentElement.id])
-}
+const recipeModal = (data) => {
+  const recipeInfo = recipesInformation[data.id];
+  modalTitle.textContent = recipeInfo.title;
+  modalBody.innerHTML = `
+    <p>Ready in: ${recipeInfo.readyInMinutes} minutes<p>
+    <p>Servings: ${recipeInfo.servings}<p>
+    <p>Summary: ${recipeInfo.summary}<p>
+    <p>Ingredients</p>  
+    <ul>
+      ${recipeInfo.ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"")}
+    </ul>
+    <p>Steps</p>
+    <ul>
+      ${recipeInfo.steps.reduce((acc, step) => acc += `<li>${step}</li>`,"")}
+    </ul>
+  `;
+  modalButton.click();
+};
 
 // generateRecipes.addEventListener("click", () => genRecipe(searchbox.value))
 
@@ -132,15 +154,6 @@ function recipeModal (data) {
 //       console.log(data);
 //     })
 // }
-
-
-
-
-
-
-
-
-
 
 
 // searchbox.addEventListener("keyup", (event) => {
