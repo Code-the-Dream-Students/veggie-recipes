@@ -25,8 +25,8 @@ let types = ["main course", "side dish", "dessert", "appetizer", "salad", "bread
 let cuisinesSelect = document.querySelector("#cuisines");
 let typesSelect = document.querySelector("#types");
 let recipesInformation = {};
-let apiKey = "c0c4732f3def410180ec614935768041";
-// let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
+// let apiKey = "c0c4732f3def410180ec614935768041";
+let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
 
 const generateCuisines = () => {
   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''"></option>`;
@@ -58,23 +58,23 @@ const generateRecipes = () => {
 
 const displayRecipes = (rec) => {
   fetch(`https://api.spoonacular.com/recipes/${rec.id}/information?apiKey=${apiKey}`)
-  .then(res => res.json())
-  .then(d => {
-    if (d.analyzedInstructions.length && d.extendedIngredients.length) {
-      recipesInformation[d.id] = {
-        title: d.title,
-        readyInMinutes: d.readyInMinutes,
-        servings: d.servings,
-        summary: d.summary,
-        steps: d.analyzedInstructions[0].steps.map(s => s.step),
-        ingredients: d.extendedIngredients.map(i => i.original)
+  .then(response => response.json())
+  .then(data => {
+    if (data.analyzedInstructions.length && data.extendedIngredients.length) {
+      recipesInformation[data.id] = {
+        title: data.title,
+        readyInMinutes: data.readyInMinutes,
+        servings: data.servings,
+        summary: data.summary,
+        steps: data.analyzedInstructions[0].steps.map(s => s.step),
+        ingredients: data.extendedIngredients.map(i => i.original)
       }
       listOfRecipes.innerHTML += `
         <div class="box">
-          <img src="${d.image}" alt="${d.image}">
-          <h4>${d.title}</h4>
-          <p>${d.summary.split(" ").slice(0, 50).join(" ")}...</p>
-          <button id="${d.id}" onclick="recipeModal(this)">Read more</button>
+          <img src="${data.image}" alt="${data.image}">
+          <h4>${data.title}</h4>
+          <p>${data.summary.split(" ").slice(0, 50).join(" ")}...</p>
+          <button id="${data.id}" onclick="recipeModal(this)">Read more</button>
         </div>
       `;
       console.log(recipesInformation)
