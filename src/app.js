@@ -2,12 +2,17 @@ const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
 const cookieParser = require('cookie-parser');
+// const helmet = require("helmet");
 const userRouter = require('../src/routers/users');
 // In order to create mongodb db and collection, this must be included
 require('./db/mongoose');
 
 // Create express object
 const app = express();
+// Secure the connection and data
+// app.use(helmet());
+// This header can be used to detect that the application is powered by Express, which lets hackers conduct a precise attack
+// app.disable('x-powered-by')
 // Path to views engine
 const viewsPath = path.join(__dirname, '/templates/views');
 // Path to public directory
