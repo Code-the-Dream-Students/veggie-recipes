@@ -7,6 +7,11 @@ const auth = async (req, res, next) => {
     try {
         // Get token stored in cookie
         const token = req.cookies['auth_token'];
+
+        if (!token) {
+            throw new Error();
+        }
+
         // Ensure the token is actually valid, created by our server, and 
         // not expired by creating a decoded payload     
         const decoded = jwt.verify(token, secret);
@@ -30,7 +35,8 @@ const auth = async (req, res, next) => {
         next();
     } catch (e) {
         // res.status(401).send({ error: 'Please authenticate.' });
-        res.status(401).send(e.message);
+        // res.status(401).send(e.message);
+        res.redirect(302, '/')
     }
 }
 

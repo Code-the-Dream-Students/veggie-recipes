@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
     res.render('index', {url});
 })
 
-// GET Google oauth login dummy
+// GET Google oauth login
 router.get('/loginGoogle', async (req, res) => {
     try {
         const queryURL = new urlParse(req.url);
@@ -59,7 +59,7 @@ router.get('/loginGoogle', async (req, res) => {
         if (!user) {
             throw new Error('Unable to login');
         }
-
+        // Create jwt
         const token = jwt.sign({ _id: user._id.toString()}, process.env.JWT_SECRET);
         // const token = jwt.sign({ _id: tokenData.id_token}, process.env.JWT_SECRET);
 
@@ -72,50 +72,55 @@ router.get('/loginGoogle', async (req, res) => {
         // Put JWT in cookie
         res.cookie('auth_token', token);
         // Store user firstName and lastName
-        const name = encodeURIComponent(`${user.firstName} ${user.lastName}`);
+        // const name = encodeURIComponent(`${user.firstName} ${user.lastName}`);
 
-        res.redirect(302,`home/?name=${name}`)
+        // res.redirect(302,`home/?name=${name}`)
+        res.redirect(302,'home')
     } catch (e) {
         res.status(400).send(e.message);
     }
 })
+// GET home page
+router.get('/home', auth, (req, res) => {
+    const name = `${req.user.firstName} ${req.user.lastName}`;
+    res.render('home', {name});
+})
+// GET get recipes from db
+router.get('/getRecipes', auth, async (req, res) => {
+    // Grab first recipe from array
+    let recipe = req.user.recipes[0].recipe;
+    // Parse string into json
+    recipe = JSON.parse(recipe)
+    // Get recipe value from key (key is recipe ID)
+    const steps = recipe[Object.keys(recipe)];
 
-router.get('/home', (req, res) => {
-    res.render('home', {name: req.query.name});
+    res.send(steps);
 })
 
+// GET catch all pages
+router.get('*', (req, res) => {
+    res.redirect(302, '/');
+})
 
-// GET Spoonacular data
-// router.get('/search', async (req, res) => {
-//     try {
-//         const newUrl = `${process.env.URL}/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${req.body.query}&number=${req.body.number}`;
-//         const response = await(await fetch(newUrl)).json();
-
-//         console.log(response);
-
-//         res.status(200).send({response})
-
-//         // const example = JSON.stringify(response);
-//         // res.status(200).send('dummy', { example });
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }   
-// })
-
-// GET Spoonacular data
+// POST search for recipe on spoonacular api
 router.post('/search', auth, async (req, res) => {
     try {
-        let recipe = await generateRecipes(req.body.query, req.body.number);
-        // Stringify searchResult
-        recipe = JSON.stringify(recipe);
+        let recipes = await generateRecipes(req.body.query, req.body.number);
+        
         // User info
-        const user = req.user;      
+        const user = req.user;     
         // Add searched recipe with logged in user
-        user.recipes = user.recipes.concat({ recipe });
+        recipes.forEach(recipe => {
+            // Stringify searchResult
+            recipe = JSON.stringify(recipe);
+            // user.recipes = user.recipes.concat({ recipe });
+            user.recipes = [...user.recipes, {recipe}]
+        });    
+        
         // Save user with added recipe
         await user.save();
         
-        res.status(200).send(recipe)
+        res.status(200).send(recipes)
     } catch (e) {
         res.status(500).send(e.message);
     }   
@@ -129,11 +134,11 @@ router.post('/register', async (req, res) => {
         const name = `${user.firstName} ${user.lastName}`;
         await sendWelcomeEmail(user.email, name);
         await user.save();
+
+        // Put JWT in cookie
+        res.cookie('auth_token', token);
     
-        res.status(201).send({
-            user,
-            token
-        })
+        res.redirect(201, 'home')
     } catch (e) {
         res.status(400).send({
             'message': e.message
@@ -150,10 +155,8 @@ router.post('/login', async (req, res) => {
         const token = await user.generateAuthToken();
         // Put JWT in cookie
         res.cookie('auth_token', token);
-        // User that logged in's first name
-        const firstName = user.firstName;
 
-        res.status(200).render('home', {firstName});
+        res.redirect(302, 'home');
     } catch (e) {
         res.status(400).send();
     }
@@ -255,6 +258,21 @@ router.post('/saveRecipe', auth, async (req, res) => {
 
 // })
 
+// GET Spoonacular data
+// router.get('/search', async (req, res) => {
+//     try {
+//         const newUrl = `${process.env.URL}/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${req.body.query}&number=${req.body.number}`;
+//         const response = await(await fetch(newUrl)).json();
 
+//         console.log(response);
+
+//         res.status(200).send({response})
+
+//         // const example = JSON.stringify(response);
+//         // res.status(200).send('dummy', { example });
+//     } catch (e) {
+//         res.status(500).send(e.message);
+//     }   
+// })
 
 module.exports = router;
