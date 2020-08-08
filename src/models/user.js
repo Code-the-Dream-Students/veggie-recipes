@@ -44,6 +44,8 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+    }, {
+    timestamps: true
 })
 
 // Methods user-defined function that can be used directly on the instance to generate auth token

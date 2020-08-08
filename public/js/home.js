@@ -7,11 +7,12 @@ displayRecipe.addEventListener('submit', async (e) => {
     let formData = new FormData(displayRecipe);
 
     const data = {
-        'recipeID': formData.get('recipeID')
+        'query': formData.get('query'),
+        'search': formData.get('search')
     };
 
     try {
-        const res = await fetch('/saveRecipe', {
+        const res = await fetch('/search', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json'}
@@ -20,7 +21,7 @@ displayRecipe.addEventListener('submit', async (e) => {
 
         console.log(recipe)
 
-        firstDiv.innerHTML = recipe.instructions;
+        firstDiv.innerHTML = recipe[130320].summary;
     } catch (e) {
         console.log(e.message);
     }
