@@ -4,7 +4,7 @@
   "description": "Website where you can find a variety of vegetarian recipes, from anywhere in the world.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "env-cmd -f ./config/dev.env src/index.js -e js,hbs",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js -e js,hbs"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Code-the-Dream-Students/veggie-recipes#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.3",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",

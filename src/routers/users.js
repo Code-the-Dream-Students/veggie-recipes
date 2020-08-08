@@ -10,10 +10,13 @@ const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
+const googleOAuth = require('../googleAuth/googleOAuth');
+const sendWelcomeEmail = require('../emails/account');
+const generateRecipes = require('../utils/generateRecipes');
 
-const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}`;
-const URL2 = 'https://api.spoonacular.com/recipes/';
+const SCOPES = ["email"]
 /*
+const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}`;
 https://api.spoonacular.com/recipes/complexSearch?apiKey=c0c4732f3def410180ec614935768041&query=cheese&number=2
 const URL2 = `https://api.spoonacular.com/recipes/130320/information?apiKey=${process.env.SPOONACULAR_API_KEY}`;
 */
@@ -23,17 +26,7 @@ const router = new express.Router();
 
 // GET landing page route
 router.get('/', (req, res) => {
-    const SCOPES = ["email"]
-    const oauth2Client = new google.auth.OAuth2(
-        // client id
-        "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
-        // client secret
-        "8Orh1sSrXq_29HU_ii3Jrbjk",
-        // link to redirect
-        "http://localhost:3000/loginGoogle"
-    )
-
-    const url = oauth2Client.generateAuthUrl({
+    const url = googleOAuth.generateAuthUrl({
         access_type: "offline",
         scope: SCOPES,
         state: JSON.stringify({
@@ -51,20 +44,12 @@ router.get('/loginGoogle', async (req, res) => {
         const queryURL = new urlParse(req.url);
         const code = queryParse.parse(queryURL.query).code;
         
-        const oauth2Client = new google.auth.OAuth2(
-            // client id
-            "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
-            // client secret
-            "8Orh1sSrXq_29HU_ii3Jrbjk",
-            // link to redirect
-            "http://localhost:3000/loginGoogle"
-        )
         // Get tokens
-        const data = await oauth2Client.getToken(code);
+        const data = await googleOAuth.getToken(code);
         // Get access_token, id_token from tokens
         const tokenData = data.res.data;
         // Get tokenInfo
-        const tokenInfo = await oauth2Client.getTokenInfo(tokenData.access_token)
+        const tokenInfo = await googleOAuth.getTokenInfo(tokenData.access_token)
         // Get email from tokenInfo
         const email = tokenInfo.email;
         // Find user with email from database
@@ -99,27 +84,38 @@ router.get('/home', (req, res) => {
     res.render('home', {name: req.query.name});
 })
 
-// // POST Login dummy route
-// router.post('/login', (req, res) => {
-//     let name = req.body.name;
 
-//     console.log(req.body);
+// GET Spoonacular data
+// router.get('/search', async (req, res) => {
+//     try {
+//         const newUrl = `${process.env.URL}/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${req.body.query}&number=${req.body.number}`;
+//         const response = await(await fetch(newUrl)).json();
 
-//     res.render('dummy', { name })
+//         console.log(response);
+
+//         res.status(200).send({response})
+
+//         // const example = JSON.stringify(response);
+//         // res.status(200).send('dummy', { example });
+//     } catch (e) {
+//         res.status(500).send(e.message);
+//     }   
 // })
 
 // GET Spoonacular data
-router.get('/search', async (req, res) => {
+router.post('/search', auth, async (req, res) => {
     try {
-        const newUrl = `${URL}&query=${req.body.query}&number=${req.body.number}`;
-        const response = await(await fetch(newUrl)).json();
-
-        console.log(response);
-
-        res.status(200).send({response})
-
-        // const example = JSON.stringify(response);
-        // res.status(200).send('dummy', { example });
+        let recipe = await generateRecipes(req.body.query, req.body.number);
+        // Stringify searchResult
+        recipe = JSON.stringify(recipe);
+        // User info
+        const user = req.user;      
+        // Add searched recipe with logged in user
+        user.recipes = user.recipes.concat({ recipe });
+        // Save user with added recipe
+        await user.save();
+        
+        res.status(200).send(recipe)
     } catch (e) {
         res.status(500).send(e.message);
     }   
@@ -130,7 +126,8 @@ router.post('/register', async (req, res) => {
     try {
         const user = new User(req.body);
         const token = await user.generateAuthToken();
-
+        const name = `${user.firstName} ${user.lastName}`;
+        await sendWelcomeEmail(user.email, name);
         await user.save();
     
         res.status(201).send({
