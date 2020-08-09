@@ -40,7 +40,7 @@
 
       <!-- Navigation links (hidden by default) -->
       <div id="myLinks">
-        <a href="#signUp" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in/Sign up
+        <a href="#logIn" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in
           <i class="far fa-user"></i></a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -57,10 +57,11 @@
           <div class="form-group mb-3">
             <div class="input-group mb-3 input-search">
               <i class="fa fa-search" aria-hidden="true"></i>
-              <input type="text" class="form-control " placeholder="Search" aria-describedby="searchButton" />
-
+              <input id="searchButton" class="form-control " placeholder="Search" aria-describedby="searchButton" />
             </div>
-            <button class="btn search-button" type="submit" data-target="">Search</button>
+            <div class="smooth-scroll">
+              <a class="btn search-button" href="#search-results">Search</a>
+            </div>
             <div class="advanced-search">
               <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
                 aria-controls="collapseExample">
@@ -110,7 +111,7 @@
 
   <!-----/jumbotron---->
 
-  <div class="container pt-4">
+  <div class="container pt-4" id="search-results">
     <!---lis of recipes---->
     <div class="card-header">
       <h2>The Latest 8 Recipes </h2>
@@ -171,11 +172,12 @@
        FORM MODAL RECIPE
     ----------------------------->
   <!-- Modal -->
-  <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+  <div class="modal fade bd-example-modal-xl" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
+
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb purple lighten-4">
               <li class="breadcrumb-item"><a href="#">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
@@ -191,11 +193,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="col-sm-5">
+          <div class="col-sm-4">
             <img src="./images/broc-pasta.jpg" alt="" class="modal-img">
           </div>
           <div class="row">
-            <div class="col-sm-12"">
+            <div class="col-sm-12">
               <h1 class=" main-title-modal">Orecchiette pasta with broccoli sauce</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ipsam iure libero odit ea voluptas
                 nostrum dolores. Fugit, ea eligendi? Explicabo illo molestias itaque alias autem fuga accusantium
@@ -209,7 +211,7 @@
               <h1 class="advanced-search">be the first to review it</h1>
               <section class="fieldset">
                 <div class="specs-wrapper">
-                  <h1>Specs</h1>
+                  <h4>Specs</h4>
                   <div class="specs">
                     <div class="specs-content">
                       <h2> Cook Time </h2>
@@ -226,20 +228,20 @@
                         <div class="wrapper-specs">
                           <h3>15</h3>
                         </div>
-                        <div class="specs-minutes"">minutes </div>
+                        <div class="specs-minutes">minutes </div>
                       </div>
                     </div>
                     <div class=" specs-content">
-                          <h2>Servings</h2>
-                          <div class=" specs">
-                            <div class="wrapper-specs">
-                              <h3 class="price">2</h3>
-                            </div>
-                            <div class="specs-minutes">people</div>
-                          </div>
+                      <h2>Servings</h2>
+                      <div class=" specs">
+                        <div class="wrapper-specs">
+                          <h3 class="price">2</h3>
                         </div>
+                        <div class="specs-minutes">people</div>
                       </div>
                     </div>
+                  </div>
+                </div>
               </section>
             </div>
           </div>
@@ -287,44 +289,198 @@
             <div class="modal-love">you may also love</div>
             <div class="modal-find-similar advanced-search"><a href="#search">find similar recipes <i
                   class="fas fa-search"></i></a></div>
-
           </div>
-          <div class="card-group">
-            <div class="card ">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                  <!-- Carousel indicators -->
+                  <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                  </ol>
+                  <!-- Wrapper for carousel items -->
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/chilaquiles.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/recipie1.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/recipie2.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/recipie3.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/Vegetarian-Enchiladas.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/vegetable-sandwich-1833335.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/vegan-mushroom-wellington.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="thumb-wrapper">
+                            <div class="img-box">
+                              <img src="/images/sushi.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="thumb-content">
+                              <h4>Orecchiette pasta with broccoli sauce</h4>
+                              <div class="star-rating">
+                                <ul class="list-inline">
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-              <img src="./images/recipie2.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <a href="">
-                  <h5 class="card-title">Sesame Potato</h5>
-                </a>
-              </div>
-            </div>
-            <div class="card">
-              <img src="./images/sushi.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <a href="">
-                  <h5 class="card-title">Cali sushi</h5>
-                </a>
-              </div>
-            </div>
-            <div class="card">
-              <img src="./images/vegetable-sandwich-1833335.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <a href="">
-                  <h5 class="card-title">Tomato Sandwich</h5>
-                </a>
-              </div>
-            </div>
-            <div class="card">
-              <img src="./images/recipie1.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <a href="">
-                  <h5 class="card-title">Spinach Pasta</h5>
-                </a>
+                  </div>
+                  <!-- Carousel controls -->
+                  <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <!---------------------------
+       CAROUSEL
+    ----------------------------->
+
+        <!--/carrousel-->
         <!--/modal body -->
         <div class="modal-footer">
           <button type="button" class="btn my-2" data-dismiss="modal">Close</button>
@@ -332,51 +488,51 @@
       </div>
     </div>
   </div>
-
   <!---------------------------
      FORM MODAL LOGIN
   ----------------------------->
-  <div class="modal" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+    data-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="logInModal-title">Log In</h5>
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+
         </div>
         <!------modal body---->
         <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="logInModal-title">Log In</h5>
+          </div>
           <!------name input---->
           <form class="needs-validation" novalidate>
             <!------email address input---->
-            <div class="form-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="far fa-envelope"></i>
-                </span>
-                <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
-                <div class="invalid-feedback">
-                  Please provide your email.
-                </div>
+            <div class="form-group m-4">
+              <label for="email-logIn">Email address</label>
+              <input type="email" id="email-logIn" class="form-control" placeholder="name@example.com" required>
+              <div class="invalid-feedback">
+                Please provide your email.
               </div>
             </div>
-            <div class="form-group mb-3">
-              <div class="input-group-prepend">
-                <input type="password" id="password" class="form-control" required>
-                <div class="invalid-feedback">
-                  Please provide your password.
-                </div>
+            <div class="form-group m-4">
+              <label for="password-logIn">Password</label>
+              <input type="password" id="password-logIn" class="form-control" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Please provide your password.
               </div>
             </div>
+            <div class="form-group m-4">
+              <button class="btn-success btn-lg btn-block" type="submit">Log in</button>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item text-primary text-md">New around here? Sign Up</div>
+            <div class="dropdown-item text-primary text-md mb-4">Forgot Password</div>
           </form>
         </div>
         <!------/modal body---->
-        <div class="modal-footer justify-content-center">
-          <button class="btn  my-2 my-sm-0" type="submit">Log in</button>
-          <button class="btn  my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#signUpModal">Sign
-            up</button>
-        </div>
       </div>
     </div>
   </div>
@@ -385,53 +541,62 @@
   <!---------------------------
      FORM MODAL SIGNUP
   ----------------------------->
-  <div class="modal" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+    data-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="signUpModal-title">Sign Up</h5>
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+
         </div>
         <!------modal body---->
         <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="SignUpModal-title">Sign Up</h5>
+          </div>
           <!------name input---->
           <form class="needs-validation" novalidate>
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="name" pattern="[A-Za-z]{1,}" placeholder="Name" required>
-                <div class="invalid-feedback">
-                  Please provide your name.
-                </div>
-              </div>
-              <!------last name input---->
-              <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="last-name" pattern="[A-Za-z]{1,}" placeholder="Last name"
-                  required>
-                <div class="invalid-feedback">
-                  Please provide your last name.
-                </div>
-              </div>
-            </div>
             <!------email address input---->
-            <div class="form-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="far fa-envelope"></i>
-                </span>
-                <input type="email" id="email_singUp" class="form-control" placeholder="name@example.com" required>
-                <div class="invalid-feedback">
-                  Please provide your email.
-                </div>
+            <div class="form-group m-4">
+              <label for="name-signUp">Name</label>
+              <input type="text" id="name-signUp" class="form-control" placeholder="Name" required>
+              <div class="invalid-feedback">
+                Please provide your name.
               </div>
             </div>
+            <div class="form-group m-4">
+              <label for="email-signUp">Email address</label>
+              <input type="email" id="email-signUp" class="form-control" placeholder="name@example.com" required>
+              <div class="invalid-feedback">
+                Please provide your email.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="password-signUp">Password</label>
+              <input type="password" id="password-signUp" class="form-control" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Please provide your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="confirm-password-signUp">Confirm Password</label>
+              <input type="password" id="confirm-password-signUp" class="form-control" placeholder="Confirm Password"
+                required>
+              <div class="invalid-feedback">
+                Please confirm your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <button class="btn-success btn-lg btn-block" type="submit">Sign Up</button>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item text-primary text-md mb-4">Already User? Sign In</div>
           </form>
         </div>
         <!------/modal body---->
-        <div class="modal-footer justify-content-center">
-          <button class="btn  my-2 my-sm-0" type="submit">Sign Up</button>
-        </div>
       </div>
     </div>
   </div>
@@ -452,7 +617,7 @@
   </div>
   <!---/footer---->
   <!-- Optional JavaScript -->
-  <script type="text/javascript" src="./app.js"></script>
+  <script src="./app.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
