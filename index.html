@@ -29,88 +29,96 @@
             </a>
           </li>
           <li>
-            <a href="#signUp" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Log in/Sign
-              up <i class="far fa-user"></i></a></li>
+
+          </li>
         </ul>
         <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
-        <a href="#search" class="active"><span class=" d-none d-md-block">Search</span> <i class="fas fa-search"></i></a>
+        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login
+          <i class="far fa-user"></i></a>
+        <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
       </div>
 
       <!-- Navigation links (hidden by default) -->
       <div id="myLinks">
-
         <a href="#signUp" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in/Sign up
           <i class="far fa-user"></i></a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
         <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </div>
-
     </div>
     <!-----/navbar---->
   </div>
   <!-----jumbotron---->
-  <div class="jumbotron jumbotron-fluid bg-info text-white">
+  <div class="jumbotron jumbotron-fluid  text-white">
     <div class="container text-sm-center">
-        <div class="searchbox">
-          <form>
-            <h1 class="main-title">Find a Recipe</h1>
-            <div class="form-group mb-3">
-              <div class="input-group mb-3 input-search">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                <input type="text" class="form-control " placeholder="Search"
-                   aria-describedby="searchButton" />
-                <!-- <div class="input-group-append">
-               <button id="searchButton" class="btn btn-outline-success  my-2 my-sm-0" type="submit">Search</button>
-             </div> -->
-              </div>
-            <h1 class="advanced-search text-center">advanced search</h1>
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <div class="input-group-prepend">
-                  <select class="custom-select">
-                    <option selected>Type</option>
-                    <option value="1">Main</option>
-                    <option value="2">Dessert</option>
-                    <option value="3">Salad</option>
-                  </select>
-                </div>
-              </div>
-              <!------number of people input---->
-              <div class="col-md-6 mb-3">
-                <div class="input-group-prepend">
-                  <select class="custom-select">
-                    <option selected>Cuisine</option>
-                    <option value="1">African</option>
-                    <option value="2">Asian</option>
-                    <option value="3">European</option>
-                    <option value="3">Caribbean</option>
-                    <option value="3">Chinese</option>
-                    <option value="3">Italiann</option>
-                    <option value="3">Indian</option>
-                    <option value="3">Greek</option>
-                    <option value="3">Mexican</option>
-                    <option value="3">Mediterranean</option>
-                  </select>
+      <div class="searchbox">
+        <form>
+          <h1 class="main-title">Find a Recipe</h1>
+          <div class="form-group mb-3">
+            <div class="input-group mb-3 input-search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <input type="text" class="form-control " placeholder="Search" aria-describedby="searchButton" />
+
+            </div>
+            <button class="btn search-button" type="submit" data-target="">Search</button>
+            <div class="advanced-search">
+              <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                aria-controls="collapseExample">
+                advanced search <i class="fa fa-caret-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <div class="input-group-prepend">
+                      <select class="custom-select">
+                        <option selected>Type</option>
+                        <option value="1">Main</option>
+                        <option value="2">Dessert</option>
+                        <option value="3">Salad</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!------number of people input---->
+                  <div class="col-md-6 mb-3">
+                    <div class="input-group-prepend">
+                      <select class="custom-select">
+                        <option selected>Cuisine</option>
+                        <option value="1">African</option>
+                        <option value="2">Asian</option>
+                        <option value="3">European</option>
+                        <option value="3">Caribbean</option>
+                        <option value="3">Chinese</option>
+                        <option value="3">Italiann</option>
+                        <option value="3">Indian</option>
+                        <option value="3">Greek</option>
+                        <option value="3">Mexican</option>
+                        <option value="3">Mediterranean</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+
   <!-----/jumbotron---->
 
-  <div class="container">
-
-  </div>
   <div class="container pt-4">
     <!---lis of recipes---->
+    <div class="card-header">
+      <h2>The Latest 8 Recipes </h2>
+    </div>
     <div class="row">
       <div class="col-md-6 col-lg-3 mb-5">
-        <div id="card-img-top" class="card">
-          <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top" ></div>
+        <div class="card">
+          <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top"></div>
           <div class="card-body">
             <h5 class="card-title">Orecchiette pasta with broccoli sauce</h5>
             <p class="card-text">After taking a week-long cooking class in Italy, a friend brought back this traditional
@@ -121,8 +129,8 @@
         </div>
       </div>
       <div class="col-md-6 col-lg-3 mb-5">
-        <div id="card-img-top" class="card">
-          <div style="background-image: url('./images/Vegetarian-Enchiladas.jpg')" class="card-img-top" ></div>
+        <div class="card">
+          <div style="background-image: url('./images/Vegetarian-Enchiladas.jpg')" class="card-img-top"></div>
           <div class="card-body">
             <h5 class="card-title">Farmers Market Vegetarian Enchiladas</h5>
             <p class="card-text">With black beans and your choice of veggies (like red bell pepper, sweet potato
@@ -133,8 +141,8 @@
         </div>
       </div>
       <div class="col-md-6 col-lg-3 mb-5">
-        <div id="card-img-top" class="card">
-          <div style="background-image: url('./images/vegan-mushroom-wellington.jpg')" class="card-img-top" ></div>
+        <div class="card">
+          <div style="background-image: url('./images/vegan-mushroom-wellington.jpg')" class="card-img-top"></div>
           <div class="card-body">
             <h5 class="card-title">Mushroom Wellington with Rosemary and Pecans</h5>
             <p class="card-text">Elegant main dish, that can be made ahead, perfect for special gatherings or holiday
@@ -145,8 +153,8 @@
         </div>
       </div>
       <div class="col-md-6 col-lg-3 mb-5">
-        <div id="card-img-top" class="card">
-          <div style="background-image: url('./images/chilaquiles.jpg')" class="card-img-top" ></div>
+        <div class="card">
+          <div style="background-image: url('./images/chilaquiles.jpg')" class="card-img-top"></div>
           <div class="card-body">
             <h5 class="card-title">Chilaquiles</h5>
             <p class="card-text"> A classic Mexican dish made with stewed corn tortillas (or chips) that can be served
@@ -168,17 +176,30 @@
     <div class="modal-dialog modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Menu</h5>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb purple lighten-4">
+              <li class="breadcrumb-item"><a href="#">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
+                  aria-hidden="true"></i>
+              </li>
+              <li class="breadcrumb-item"><a href="#">recipe</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
+                  aria-hidden="true"></i></li>
+              <li class="breadcrumb-item active">pasta</li>
+            </ol>
+          </nav>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+          <div class="col-sm-5">
+            <img src="./images/broc-pasta.jpg" alt="" class="modal-img">
+          </div>
           <div class="row">
-            <div class="col-sm-7">
-              <h1 class="main-title-modal">Orecchiette pasta with broccoli sauce</h1>
-              <p> Orecchiette Pasta with Broccoli Sauce – a simple vOrecchiette Pasta with Broccoli Sauce – a simple
-                vOrecchiette Pasta with BroccolOrecchiette Pasta with Broccoli Sauce – a simple vegetarian pasta dish
+            <div class="col-sm-12"">
+              <h1 class=" main-title-modal">Orecchiette pasta with broccoli sauce</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ipsam iure libero odit ea voluptas
+                nostrum dolores. Fugit, ea eligendi? Explicabo illo molestias itaque alias autem fuga accusantium
+                maiores distinctio! – a simple vegetarian pasta dish
                 hailing from Tuscany that is easy to make, healthy and oh so delicious!</p>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
@@ -187,47 +208,45 @@
               <span class="fa fa-star"></span>
               <h1 class="advanced-search">be the first to review it</h1>
               <section class="fieldset">
-                <div class="wrapper">
+                <div class="specs-wrapper">
                   <h1>Specs</h1>
                   <div class="specs">
-                    <div class="price">
-                      <h3> 25 </h3>
-                    </div>
-                    <div class="pricetab">
+                    <div class="specs-content">
                       <h2> Cook Time </h2>
-                      <div class="infos">
-                        minutes
+                      <div class="specs">
+                        <div class="wrapper-specs">
+                          <h3>15</h3>
+                        </div>
+                        <div class="specs-minutes">minutes </div>
                       </div>
                     </div>
-                    <div class="price">
-                      <h3> 30 </h3>
-                    </div>
-                    <div class="pricetab ">
-                      <h2> Total Time </h2>
-                      <div class="infos">minutes
+                    <div class="specs-content">
+                      <h2> Total</h2>
+                      <div class="specs">
+                        <div class="wrapper-specs">
+                          <h3>15</h3>
+                        </div>
+                        <div class="specs-minutes"">minutes </div>
                       </div>
                     </div>
-                    <div class="price">
-                      <h3> 4 </h3>
-                    </div>
-                    <div class="pricetab">
-                      <h2> Servings </h2>
-                      <div class="infos">
-                        people
+                    <div class=" specs-content">
+                          <h2>Servings</h2>
+                          <div class=" specs">
+                            <div class="wrapper-specs">
+                              <h3 class="price">2</h3>
+                            </div>
+                            <div class="specs-minutes">people</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
               </section>
             </div>
-            <div class="col-sm-5">
-              <img src="./images/broc-pasta.jpg" alt="" width=180px class="modal-img">
-            </div>
           </div>
-          <div class="row mt-4 pt-4">
+          <div class="row mt-2 pt-2">
             <div class="col-sm-6">
+              <h1 class="sub-title-modal">Ingredients</h1>
               <ul>
-                <h1 class="textTitle">Ingredients</h1>
                 <li> 12 ounces broccoli florets- cut or broken into very small florets about equal size (about 6 cups
                   packed)</li>
                 <li>8 ounces short pasta- orecchiette pasta, penne, rigatoni, etc</li>
@@ -242,8 +261,8 @@
               </ul>
             </div>
             <div class="col-sm-6">
-              <ol>
-                <h1 class="textTitle">Directions</h1>
+              <h1 class="sub-title-modal">Directions</h1>
+              <ul>
                 <li>Steam small broccoli florets until very tender (easily pierced with a fork)and set aside.</li>
                 <li> Cook pasta according to directions, and save some hot pasta water when you drain.</li>
                 <li> In a large pan, saute the garlic and chili flakes in the olive oil, over medium heat until fragrant
@@ -261,21 +280,22 @@
                   depth and salt, lemon zest adds a nice brightness, which I highly recommend and a drizzle of truffle
                   oil elevates.</li>
                 <li> Enjoy! </li>
-              </ol>
+              </ul>
             </div>
           </div>
-          <div class="underline">
-            <p><a href="#search" class="similarRecipeSearch">find similar recipes <i class="fas fa-search"></i></a></p>
-            <p class="modalBottom">you may also love</p>
+          <div class="additional-recipes">
+            <div class="modal-love">you may also love</div>
+            <div class="modal-find-similar advanced-search"><a href="#search">find similar recipes <i
+                  class="fas fa-search"></i></a></div>
+
           </div>
           <div class="card-group">
-
             <div class="card ">
 
               <img src="./images/recipie2.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <a href="">
-                  <h5 class="card-title searchCard">Sesame Potato</h5>
+                  <h5 class="card-title">Sesame Potato</h5>
                 </a>
               </div>
             </div>
@@ -283,7 +303,7 @@
               <img src="./images/sushi.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <a href="">
-                  <h5 class="card-title searchCard">Cali sushi</h5>
+                  <h5 class="card-title">Cali sushi</h5>
                 </a>
               </div>
             </div>
@@ -291,7 +311,7 @@
               <img src="./images/vegetable-sandwich-1833335.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <a href="">
-                  <h5 class="card-title searchCard">Tomato Sandwich</h5>
+                  <h5 class="card-title">Tomato Sandwich</h5>
                 </a>
               </div>
             </div>
@@ -299,7 +319,7 @@
               <img src="./images/recipie1.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <a href="">
-                  <h5 class="card-title searchCard">Spinach Pasta</h5>
+                  <h5 class="card-title">Spinach Pasta</h5>
                 </a>
               </div>
             </div>
@@ -307,7 +327,7 @@
         </div>
         <!--/modal body -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn my-2" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -320,7 +340,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
+          <h5 class="modal-title" id="logInModal-title">Log In</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -332,7 +352,7 @@
             <!------email address input---->
             <div class="form-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">
+                <span class="input-group-text">
                   <i class="far fa-envelope"></i>
                 </span>
                 <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
@@ -349,6 +369,7 @@
                 </div>
               </div>
             </div>
+          </form>
         </div>
         <!------/modal body---->
         <div class="modal-footer justify-content-center">
@@ -356,7 +377,6 @@
           <button class="btn  my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#signUpModal">Sign
             up</button>
         </div>
-        </form>
       </div>
     </div>
   </div>
@@ -369,7 +389,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+          <h5 class="modal-title" id="signUpModal-title">Sign Up</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -397,21 +417,21 @@
             <!------email address input---->
             <div class="form-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">
+                <span class="input-group-text">
                   <i class="far fa-envelope"></i>
                 </span>
-                <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                <input type="email" id="email_singUp" class="form-control" placeholder="name@example.com" required>
                 <div class="invalid-feedback">
                   Please provide your email.
                 </div>
               </div>
             </div>
+          </form>
         </div>
         <!------/modal body---->
         <div class="modal-footer justify-content-center">
           <button class="btn  my-2 my-sm-0" type="submit">Sign Up</button>
         </div>
-        </form>
       </div>
     </div>
   </div>
@@ -420,9 +440,12 @@
   <div class="footer py-3">
     <div class="container footer-cont">
       <div class="social-media-contact mt-2 ">
-        <a href="" class="instagram" target="_blank"><img src="media/instagram.svg" alt="instagram icon"></a>
-        <a href="" class="facebook" target="_blank"><img src="media/facebook.svg" alt="facebook icon"></a>
-        <a href="" class="linkedin" target="_blank"><img src="media/linkedin.svg" alt="linkedin icon"></a>
+        <!--Facebook-->
+        <a class="fb-ic mr-3" role="button"><i class="fab fa-md fa-facebook-f"></i></a>
+        <!--Twitter-->
+        <a class="tw-ic mr-3" role="button"><i class="fab fa-md fa-twitter"></i></a>
+        <!--Instagram-->
+        <a class="ins-ic mr-3" role="button"><i class="fab fa-md fa-instagram"></i></a>
       </div>
       <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
     </div>
@@ -433,7 +456,7 @@
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
 </body>
 
 </html>
