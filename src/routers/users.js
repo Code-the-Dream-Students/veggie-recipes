@@ -87,14 +87,16 @@ router.get('/home', auth, (req, res) => {
 })
 // GET get recipes from db
 router.get('/getRecipes', auth, async (req, res) => {
-    // Grab first recipe from array
-    let recipe = req.user.recipes[0].recipe;
-    // Parse string into json
-    recipe = JSON.parse(recipe)
-    // Get recipe value from key (key is recipe ID)
-    const steps = recipe[Object.keys(recipe)];
+    // Grab all the recipes from the db
+    const recipesData = req.user.recipes;
+    // Create an array of each recipe from data
+    const recipes = recipesData.map(obj => {
+        // Get the recipe from each obj and parse JSON string
+        obj = JSON.parse(obj.recipe);
+        return obj;
+    })
 
-    res.send(steps);
+    res.status(200).send(recipes);
 })
 
 // GET catch all pages
@@ -105,8 +107,8 @@ router.get('*', (req, res) => {
 // POST search for recipe on spoonacular api
 router.post('/search', auth, async (req, res) => {
     try {
+        // Generate recipes from search inputs
         let recipes = await generateRecipes(req.body.query, req.body.number);
-        
         // User info
         const user = req.user;     
         // Add searched recipe with logged in user
@@ -116,7 +118,6 @@ router.post('/search', auth, async (req, res) => {
             // user.recipes = user.recipes.concat({ recipe });
             user.recipes = [...user.recipes, {recipe}]
         });    
-        
         // Save user with added recipe
         await user.save();
         

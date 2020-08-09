@@ -34,12 +34,6 @@ getRecipes.addEventListener('submit', async (e) => {
         let recipes = await res.json();
 
         console.log(recipes)
-
-        recipes.forEach(recipe => {
-            recipes += recipe;
-        });
-
-        firstDiv.innerHTML = recipes;
     } catch (e) {
         console.log(e.message)
     }
