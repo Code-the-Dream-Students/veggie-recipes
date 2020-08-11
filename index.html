@@ -52,22 +52,25 @@
   <div class="jumbotron jumbotron-fluid  text-white">
     <div class="container text-sm-center">
       <div class="searchbox">
-        <form>
+        <form class="form-search-center">
           <h1 class="main-title">Find a Recipe</h1>
           <div class="form-group mb-3">
             <div class="input-group mb-3 input-search">
               <i class="fa fa-search" aria-hidden="true"></i>
               <input id="searchButton" class="form-control " placeholder="Search" aria-describedby="searchButton" />
             </div>
-            <div class="smooth-scroll">
-              <a class="btn search-button" href="#search-results">Search</a>
+            <div class="container text-center">
+              <div class="smooth-scroll">
+                <a class="btn btn-search-home" href="#search-results">Search</a>
+              </div>
+              <div class="advanced-search">
+                <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button"
+                  aria-expanded="false" aria-controls="collapseExample">
+                  advanced search <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </a>
+              </div>
             </div>
-            <div class="advanced-search">
-              <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                aria-controls="collapseExample">
-                advanced search <i class="fa fa-caret-right" aria-hidden="true"></i>
-              </a>
-            </div>
+
             <p>
             <div class="collapse" id="collapseExample">
               <div class="card card-body">
@@ -172,9 +175,9 @@
        FORM MODAL RECIPE
     ----------------------------->
   <!-- Modal -->
-  <div class="modal fade bd-example-modal-xl" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
+  <div class="modal fade bd-example-modal-lg" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
     aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
 
@@ -193,11 +196,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="col-sm-4">
-            <img src="./images/broc-pasta.jpg" alt="" class="modal-img">
-          </div>
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-4 col-md-4">
+              <img src="./images/broc-pasta.jpg" alt="Responsive image" class="img-fluid modal-img">
+            </div>
+            <div class=" col-sm-8 col-md-8">
               <h1 class=" main-title-modal">Orecchiette pasta with broccoli sauce</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ipsam iure libero odit ea voluptas
                 nostrum dolores. Fugit, ea eligendi? Explicabo illo molestias itaque alias autem fuga accusantium
@@ -245,8 +248,9 @@
               </section>
             </div>
           </div>
-          <div class="row mt-2 pt-2">
-            <div class="col-sm-6">
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
               <h1 class="sub-title-modal">Ingredients</h1>
               <ul>
                 <li> 12 ounces broccoli florets- cut or broken into very small florets about equal size (about 6 cups
@@ -262,7 +266,7 @@
                   pine nuts, toasted bread crumbs, truffle oil or kalamata olives- all optional.</li>
               </ul>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-md-6">
               <h1 class="sub-title-modal">Directions</h1>
               <ul>
                 <li>Steam small broccoli florets until very tender (easily pierced with a fork)and set aside.</li>
@@ -285,193 +289,124 @@
               </ul>
             </div>
           </div>
+
           <div class="additional-recipes">
-            <div class="modal-love">you may also love</div>
-            <div class="modal-find-similar advanced-search"><a href="#search">find similar recipes <i
-                  class="fas fa-search"></i></a></div>
+            <div class="modal-love">You may also love</div>
           </div>
+          <!--carousel-->
           <div class="container">
-            <div class="row">
+            <div class="row blog">
               <div class="col-md-12">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
-                  <!-- Carousel indicators -->
+                <div id="blogCarousel" class="carousel slide" data-ride="carousel">
                   <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#blogCarousel" data-slide-to="1"></li>
                   </ol>
-                  <!-- Wrapper for carousel items -->
+
+                  <!-- Carousel items -->
                   <div class="carousel-inner">
                     <div class="carousel-item active">
                       <div class="row">
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/chilaquiles.jpg" class="img-fluid" alt="">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/broc-pasta.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Orecchiette pasta with broccoli sauce</h3>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/recipie1.jpg" class="img-fluid" alt="">
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/chilaquiles.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Sushi</h3>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/recipie2.jpg" class="img-fluid" alt="">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/vegetable-sandwich-1833335.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Farmers Market Vegetarian Enchiladas</h3>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/recipie3.jpg" class="img-fluid" alt="">
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/vegan-mushroom-wellington.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Mushroom Wellington with Rosemary and Pecans</h3>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <!--.row-->
                     </div>
+                    <!--.item-->
+
                     <div class="carousel-item">
                       <div class="row">
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/Vegetarian-Enchiladas.jpg" class="img-fluid" alt="">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/broc-pasta.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Orecchiette pasta with broccoli sauce</h3>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/vegetable-sandwich-1833335.jpg" class="img-fluid" alt="">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/chilaquiles.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Sushi</h3>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/vegan-mushroom-wellington.jpg" class="img-fluid" alt="">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/vegetable-sandwich-1833335.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Farmers Market Vegetarian Enchiladas</h3>
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="thumb-wrapper">
-                            <div class="img-box">
-                              <img src="./images/sushi.jpg" class="img-fluid" alt="">
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="similar-recipe">
+                            <div class="pic">
+                              <img class="img-fluid img-thumbnail" src="/images/vegan-mushroom-wellington.jpg">
                             </div>
-                            <div class="thumb-content">
-                              <h4>Orecchiette pasta with broccoli sauce</h4>
-                              <div class="star-rating">
-                                <ul class="list-inline">
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                  <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                </ul>
-                              </div>
+                            <div class="recipe-content">
+                              <h3 class="title">Mushroom Wellington with Rosemary and Pecans</h3>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <!--.row-->
                     </div>
+                    <!--.item-->
 
                   </div>
-                  <!-- Carousel controls -->
-                  <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                  </a>
-                  <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                  </a>
+                  <!--.carousel-inner-->
                 </div>
+                <!--.Carousel-->
+
               </div>
             </div>
           </div>
@@ -479,7 +414,6 @@
         <!---------------------------
        CAROUSEL
     ----------------------------->
-
         <!--/carrousel-->
         <!--/modal body -->
         <div class="modal-footer">
