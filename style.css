@@ -140,7 +140,7 @@ body, h1, h2, .btn, .searchbox{
 }
 
 .advanced-search {
-  margin:10px;
+  margin-top:10px;
   font-variant: small-caps;
   font-weight: 520;
   color: #061404; 
@@ -167,6 +167,7 @@ body, h1, h2, .btn, .searchbox{
 .card-header {
   background-color: #fff;
   margin:0 auto;
+  border:none;
 } 
 .card-header h2 {
   display: flex;
@@ -301,13 +302,21 @@ text-decoration: none; }
   color: #ff914d; }
 
 /* SPECS*/
+section{
+  display:flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin:0 auto;
+}
 .fieldset {
-  margin-top: 40px;
+  margin-top: 20px;
   position: relative;
   border-top: 1px solid #b7b8b0;
   border-bottom: 1px solid #b7b8b0;
   padding: 4px;
   margin-bottom:20px;
+
 }
 
 .fieldset h4 {
@@ -321,6 +330,7 @@ text-decoration: none; }
   /* half of font-size */
   background: #fff;
   padding: 0 10px; 
+  
 
 }
 
@@ -329,6 +339,7 @@ text-decoration: none; }
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .specs {
@@ -336,7 +347,6 @@ text-decoration: none; }
   display: flex;
   padding:0;
   margin: 0 auto;
-
 }
 .specs-content{
  margin:0 auto;
@@ -394,7 +404,7 @@ text-decoration: none; }
 
 /* The colour of the indicators */
 .blog .carousel-indicators li {
-    background: #a3a3a3;
+    background: #b7b8b0;
     border-radius: 50%;
     width: 18px;
     height: 18px;
@@ -451,14 +461,15 @@ margin-bottom:10px;
 }
 
 .similar-recipe .pic img {
-  height: auto;
+  max-width:100%; 
+  outline: 2px solid #fff;
+  outline-offset: -10px;
+  background-size: cover;
+  background-position: center; 
   transition: all 0.9s ease 0s;
   position: relative;
   z-index: 2;
-
-
 }
-
 .similar-recipe .recipe-content {
   margin-bottom:10px;  
 }
@@ -471,48 +482,7 @@ margin-bottom:10px;
   margin-top: 15px;
 }
 
-
-@media (min-width:320px) and (max-width:576px){
-  .similar-recipe {
-    margin-bottom: 10px;
-  }
-  .similar-recipe {
-    max-width: 80%;
-    height: auto;  
-  }
-  .similar-recipe .pic img {
-   width: 80%;
-    transition: all 0.9s ease 0s;
-    position: relative;
-    z-index: 2;
-
-  }
-
-}
-
-
-/*#a, #g {
-  color: #bdc3c7;
-  list-style: none; }
-
-.pic {
-  margin: +5% 0 0;
-  border: 3px solid #061404;
-  float: right; }
-
-.sections {
-  height: 100px;
-  background-color: #6d6d6d; }
-
-.info {
-  margin: +5% 10px;
-  float: left; }
-
-*/
-
 /*MEDIA QUERIES*/
-
-
 
 /*home*/
 @media only screen and (max-width: 767px) {
@@ -526,9 +496,28 @@ margin-bottom:10px;
     margin-bottom: 30px; }
 
   .main-title {
-    font-size: 40px; } 
-  }
-  
+    font-size: 40px; }
 
+  .fieldset {
+      margin-top: 20px;
+    }
+
+  }
+  /*carousel*/
+ @media (min-width:320px) and (max-width:576px){
+    .similar-recipe {
+      margin-bottom: 10px;
+    }
+    .similar-recipe {
+      max-width: 80%;
+      height: auto;  
+    }
+    .similar-recipe .pic img {
+     width: 80%;
+      transition: all 0.9s ease 0s;
+      position: relative;
+      z-index: 2;
+    }
+}
 /*# sourceMappingURL=style.css.map */
 /*modal*/
