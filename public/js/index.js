@@ -1,36 +1,28 @@
-// const form = document.getElementById('registerForm');
-// const firstDiv = document.getElementById('1');
-// const secondDiv = document.getElementById('2');
-
-// form.addEventListener('submit', async (e) => {
-//     e.preventDefault();
-
-//     let formData = new FormData(form);
-
-//     const data = {
-//         'firstName': formData.get('firstName'),
-//         'lastName': formData.get('lastName'),
-//         'email': formData.get('email'),
-//         'password': formData.get('password')
-//     };
-
-//     try {
-//         const res = await fetch('/register', {
-//             method: 'POST',
-//             body: JSON.stringify(data),
-//             headers: {'Content-Type': 'application/json'}
-//         });
-//         const json = await res.json();
-
-//         console.log(json)
-
-//         firstDiv.innerHTML = JSON.stringify(json);
-
-//     } catch (e) {
-//         console.log(e.message)
-//     }
-    
-// })
+const forgotPasswordForm = document.getElementById('forgotPassword')
 
 
+// forgotPasswordForm.onsubmit = forgotPassword;
 
+forgotPasswordForm.addEventListener('submit', async (e) => {
+    try {
+        e.preventDefault();
+
+        let formData = new FormData(forgotPasswordForm);
+
+        const data = {
+            'email': formData.get('email'),
+        };
+
+        const res = await fetch('/forgotPassword', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        let recipes = await res.json();
+        console.log(recipes)
+
+    } catch (e) {
+        console.log(e.message);
+    }
+
+})

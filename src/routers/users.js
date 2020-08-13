@@ -8,10 +8,11 @@ const { google } = require('googleapis');
 const urlParse = require('url-parse');
 const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
+const bcrypt = require('bcryptjs');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
-const sendWelcomeEmail = require('../emails/account');
+const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail } = require('../emails/account');
 const generateRecipes = require('../utils/generateRecipes');
 
 const SCOPES = ["email"]
@@ -26,6 +27,7 @@ const router = new express.Router();
 
 // GET landing page route
 router.get('/', (req, res) => {
+    // Create google OAuth url
     const url = googleOAuth.generateAuthUrl({
         access_type: "offline",
         scope: SCOPES,
@@ -64,17 +66,15 @@ router.get('/loginGoogle', async (req, res) => {
         // const token = jwt.sign({ _id: tokenData.id_token}, process.env.JWT_SECRET);
 
         // Add token to user.tokens array
-        user.tokens = user.tokens.concat({ token });
+        // user.tokens = user.tokens.concat({ token });
+        user.tokens = [...user.tokens, {token}];
 
         // Save user
         await user.save();
 
         // Put JWT in cookie
         res.cookie('auth_token', token);
-        // Store user firstName and lastName
-        // const name = encodeURIComponent(`${user.firstName} ${user.lastName}`);
 
-        // res.redirect(302,`home/?name=${name}`)
         res.redirect(302,'home')
     } catch (e) {
         res.status(400).send(e.message);
@@ -82,6 +82,7 @@ router.get('/loginGoogle', async (req, res) => {
 })
 // GET home page
 router.get('/home', auth, (req, res) => {
+    // Form first and last name
     const name = `${req.user.firstName} ${req.user.lastName}`;
     res.render('home', {name});
 })
@@ -104,27 +105,99 @@ router.get('*', (req, res) => {
     res.redirect(302, '/');
 })
 
+// POST forgot password
+router.post('/forgotPassword', async (req, res) => {
+    try {
+        // Find user based on email provided
+        const user = await User.findOne({ email: req.body.email });
+        // If can't find user
+        if (!user) {
+            throw new Error();
+        }
+        // Create name using first and last name of user
+        const name = `${user.firstName} ${user.lastName}`;
+        // Create new password
+        const newPassword = require('crypto').randomBytes(32).toString('hex');
+        // Assign new password to user's password
+        user.password = newPassword;
+        // Save user with new password
+        await user.save();
+        // Send user new password
+        await resetPasswordEmail(user.email, name, newPassword);
+
+        res.redirect('/');
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+})
+// POST change password
+router.post('/changePassword', auth, async (req, res) => {
+    try {
+        // Get user from auth middleware
+        const user = req.user;
+        // Create name using first and last name of user
+        const name = `${user.firstName} ${user.lastName}`;
+        // Password submitted by user
+        const newPassword = req.body.password;
+        // Confirmed password
+        const confirmedPassword = req.body.confirmPassword;
+        // User's old password
+        const oldPassword = user.password;
+        // Compare old password to new password
+        const isMatch = await bcrypt.compare(newPassword, oldPassword);
+        // Throw error if old password is the same as the new password
+        if (isMatch) {
+            throw new Error('Please use a new password.');
+        }
+        // Save new password
+        if (newPassword === confirmedPassword) {
+            // Save new password for the user's account
+            user.password = newPassword;
+            // Save user with new password
+            await user.save();
+            // Send user new password
+            await newPasswordEmail(user.email, name);
+
+            res.status(200).send({message: 'You have successfully changed your password!'})
+        } else {
+            throw new Error('Passwords don\'t match');
+        }
+    } catch (e) {
+        res.status(500).send({message: e.message})
+    }
+})
+
 // POST search for recipe on spoonacular api
 router.post('/search', auth, async (req, res) => {
     try {
         // Generate recipes from search inputs
         let recipes = await generateRecipes(req.body.query, req.body.number);
+        
         // User info
         const user = req.user;     
-        // Add searched recipe with logged in user
-        recipes.forEach(recipe => {
-            // Stringify searchResult
-            recipe = JSON.stringify(recipe);
-            // user.recipes = user.recipes.concat({ recipe });
-            user.recipes = [...user.recipes, {recipe}]
-        });    
-        // Save user with added recipe
-        await user.save();
         
         res.status(200).send(recipes)
     } catch (e) {
         res.status(500).send(e.message);
     }   
+})
+
+// POST Save recipe
+router.post('/saveRecipe', auth, async (req, res) => {
+    try {
+        // Recipe to save
+        const recipe = req.body.recipe;
+        // User info
+        const user = req.user;
+        // user.recipes = user.recipes.concat({ recipe });
+        user.recipes = [...user.recipes, {recipe}]
+        // Save user with added recipe
+        await user.save();
+
+        res.status(200).send();
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
 })
 
 // POST Create users
@@ -159,7 +232,7 @@ router.post('/login', async (req, res) => {
 
         res.redirect(302, 'home');
     } catch (e) {
-        res.status(400).send();
+        res.status(400).send('Error logging in');
     }
 })
 
