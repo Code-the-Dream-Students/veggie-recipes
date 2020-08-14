@@ -273,6 +273,31 @@ router.post('/saveRecipe', auth, async (req, res) => {
         res.status(500).send(e.message);
     }
 })
+// PATCH Update a user by id
+router.patch('/updateUser', auth, async (req, res) => {
+    const user = req.user;
+    // Get updates from form
+    const updates = Object.keys(req.body);
+    const updatesMade = [];
+
+    try {
+        // Update each property of user that needs to be updated
+        updates.forEach(update => {
+            // Check if user property is not the same as the submitted update
+            if (user[update] !== req.body[update]) {
+                user[update] = req.body[update]
+                updatesMade.push(update)
+            }
+        })
+
+        await user.save();
+
+        res.status(200).send({ updates: updatesMade });
+    } catch (e) {
+        res.status(400).send(e);
+    }
+
+})
 
 // router.get('/login', async (req, res) => {
 //     const oauth2Client = new google.auth.OAuth2(
