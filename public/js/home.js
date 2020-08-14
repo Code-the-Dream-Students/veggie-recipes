@@ -3,6 +3,7 @@ const getRecipes = document.getElementById('getRecipes');
 const firstDiv = document.getElementById('1');
 const changePasswordForm = document.getElementById('changePassword');
 const changePasswordDiv = document.getElementById('changePasswordDiv');
+const updateUserForm = document.getElementById('updateUser');
 
 displayRecipe.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -61,6 +62,29 @@ changePasswordForm.addEventListener('submit', async (e) => {
         let message = await res.json();
 
         changePasswordDiv.innerHTML = message.message;
+    } catch (e) {
+        changePasswordDiv.innerHTML = e.message;    
+    }
+})
+
+updateUserForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let formData = new FormData(updateUserForm);
+
+    const data = {
+        'firstName': formData.get('firstName'),
+    };
+
+    try {
+        const res = await fetch('/updateUser', {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        console.log(res)
+        let message = await res.json();
+        console.log(message)
+        // changePasswordDiv.innerHTML = message.message;
     } catch (e) {
         changePasswordDiv.innerHTML = e.message;    
     }
