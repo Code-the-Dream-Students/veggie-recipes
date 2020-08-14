@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-let url = process.env.DEPLOYED_MONGODB_URL;
+let url = process.env.MONGODB_URI;
 
 // Connects to the database
 mongoose.connect(url, {
