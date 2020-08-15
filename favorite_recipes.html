@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -14,67 +14,17 @@
     <title>favourite recipes</title>
 </head>
 <body>
-    <div class="container pt-4" id="search-results_fav">
-        <!---lis of recipes---->
-        <div class="card-header">
-          <h2>My Favourite Recipes</h2>
-          <div class="input-group mb-3 input-search">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <input id="searchButton_fav" class="form-control " placeholder="Search" aria-describedby="searchButton" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-3 mb-5">
-            <div class="card">
-              <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top"></div>
-              <div class="card-body">
-                <h5 class="card-title">Orecchiette pasta with broccoli sauce</h5>
-                <p class="card-text">After taking a week-long cooking class in Italy, a friend brought back this traditional
-                  Tuscan recipe with him and made it for his wife. Truth be told, when she first described it, how the
-                  broccoli was cooked down and melted into a sauce, I had some reservations.
-              </div>
-              <button class="btn  my-2" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-5">
-            <div class="card">
-              <div style="background-image: url('./images/Vegetarian-Enchiladas.jpg')" class="card-img-top"></div>
-              <div class="card-body">
-                <h5 class="card-title">Farmers Market Vegetarian Enchiladas</h5>
-                <p class="card-text">With black beans and your choice of veggies (like red bell pepper, sweet potato
-                  zucchini or corn) and Homemade 5 Minute Enchilada Sauce! Easy, Healthy and full of delicious Mexican
-                  Flavor! Vegan and Gluten-free adaptable!</p>
-              </div>
-              <button class="btn  my-2" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-5">
-            <div class="card">
-              <div style="background-image: url('./images/vegan-mushroom-wellington.jpg')" class="card-img-top"></div>
-              <div class="card-body">
-                <h5 class="card-title">Mushroom Wellington with Rosemary and Pecans</h5>
-                <p class="card-text">Elegant main dish, that can be made ahead, perfect for special gatherings or holiday
-                  dinners. I recommend reading it all the way through before starting. After you do it once, you’ll find
-                  other ways to fill it.</p>
-              </div>
-              <button class="btn my-2" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-5">
-            <div class="card">
-              <div style="background-image: url('./images/chilaquiles.jpg')" class="card-img-top"></div>
-              <div class="card-body">
-                <h5 class="card-title">Chilaquiles</h5>
-                <p class="card-text"> A classic Mexican dish made with stewed corn tortillas (or chips) that can be served
-                  as breakfast, lunch or dinner. The best part? This highly adaptable meal can be made in under 20 minutes,
-                  perfect for busy weeknights! To make Chilaquiles “healthy” use Corn tortillas! </p>
-              </div>
-              <button class="btn my-2" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
-            </div>
-          </div>
-        </div><!-- /list of recipes -->
+  <div class="container pt-4" id="search-results_fav">
+    <!---lis of recipes---->
+    <div class="card-header">
+      <h2>My Favourite Recipes</h2>
+      <div class="input-group mb-3 input-search">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input id="searchbox-fav" class="form-control " placeholder="Search" aria-describedby="searchButton" />
       </div>
-    
-    
+    </div>
+    <div id="list-of-favorite-recipes" class="row"></div><!-- /list of recipes -->
+  </div>
+  <script src="./app.js"></script> 
 </body>
 </html>
