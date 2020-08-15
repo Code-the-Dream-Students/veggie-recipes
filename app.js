@@ -91,6 +91,23 @@ const displayRecipes = (rec) => {
   })
 };
 
+const generateOptionalRecipes = (num1, num2) => {
+  return recipesForCarrousel.slice(num1, num2).reduce((acc, rec) => {
+    return acc += `
+      <div id="${rec.id}" style="cursor: pointer" onclick="recipeModal(this)" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="similar-recipe">
+          <div class="pic">
+            <img class="img-responsive" src="${rec.image}" alt="">
+          </div>
+          <div class="recipe-content">
+            <h3 class="title">${rec.title}</h3>
+          </div>
+        </div>
+      </div>
+    `;
+  }, "")
+}
+
 generateRecipesButton.addEventListener("click", generateRecipes);
 
 const recipeModal = (data) => {
@@ -180,24 +197,7 @@ const recipeModal = (data) => {
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <div class="row">
-
-                  ${recipesForCarrousel.reduce((acc, rec, index) => {
-                    if (index < 4) {
-                      return acc += `
-                        <div id="${rec.id}" style="cursor: pointer" onclick="recipeModal(this)" class="col-lg-3 col-md-6 col-sm-6">
-                          <div class="similar-recipe">
-                            <div class="pic">
-                              <img class="img-responsive" src="${rec.image}" alt="">
-                            </div>
-                            <div class="recipe-content">
-                              <h3 class="title">${rec.title}</h3>
-                            </div>
-                          </div>
-                        </div>
-                      `;
-                    }
-                    return acc;
-                  }, "")}        
+                  ${generateOptionalRecipes(0, 4)}        
                 </div>
                 <!--.row-->
               </div>
@@ -205,23 +205,7 @@ const recipeModal = (data) => {
 
               <div class="carousel-item">
                 <div class="row">
-                  ${recipesForCarrousel.reduce((acc, rec, index) => {
-                    if (index >= 4 && index < 8) {
-                      return acc += `
-                        <div id="${rec.id}" style="cursor: pointer" onclick="recipeModal(this)" class="col-lg-3 col-md-6 col-sm-6">
-                          <div class="similar-recipe">
-                            <div class="pic">
-                              <img class="img-responsive" src="${rec.image}" alt="">
-                            </div>
-                            <div class="recipe-content">
-                              <h3 class="title">${rec.title}</h3>
-                            </div>
-                          </div>
-                        </div>
-                      `;
-                    }
-                    return acc;
-                  }, "")}      
+                  ${generateOptionalRecipes(4, 8)}      
                 </div>
                 <!--.row-->
               </div>
