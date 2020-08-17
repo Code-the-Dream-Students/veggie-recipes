@@ -36,6 +36,7 @@
         <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login
           <i class="far fa-user"></i></a>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+        <button class="btn signup" type="submit" data-toggle="modal" data-target="#updateModal">Update</button>
       </div>
 
       <!-- Navigation links (hidden by default) -->
@@ -112,8 +113,7 @@
   <div class="modal fade bd-example-modal-lg" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
     aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        
+      <div class="modal-content">    
         <div class="additional-recipes">
           <div class="modal-love">You may also love</div>
         </div>
@@ -161,6 +161,59 @@
             </div>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item text-primary text-md">New around here? Sign Up</div>
+            <div class="dropdown-item text-primary text-md mb-4">Forgot Password</div>
+          </form>
+        </div>
+        <!------/modal body---->
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+    data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <!------modal body---->
+        <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="updateModal-title">Update</h5>
+          </div>
+          <!------name input---->
+          <form class="needs-validation" novalidate>
+            <div class="form-group m-4">
+              <label for="name-update">New user name</label>
+              <input type="text" id="name-update" class="form-control" placeholder="Name" required>
+              <div class="invalid-feedback">
+                Please provide your name.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="current-password-update">Current password</label>
+              <input type="password" id="current-password-update" class="form-control" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Please provide your current password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="password-update">New password</label>
+              <input type="password" id="password-update" class="form-control" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Please provide your new password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <button class="btn-success btn-lg btn-block" type="submit">Update</button>
+            </div>
+            <div class="dropdown-divider"></div>
             <div class="dropdown-item text-primary text-md mb-4">Forgot Password</div>
           </form>
         </div>
