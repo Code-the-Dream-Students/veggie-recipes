@@ -1,3 +1,12 @@
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
 let recipe = "";
 let cuisine = "";
 let type = "";
@@ -60,11 +69,13 @@ const displayRecipes = (rec) => {
   .then(response => response.json())
   .then(data => {
     data.forEach(rec => {
+      console.log(rec);
       if (rec.analyzedInstructions.length && rec.extendedIngredients.length) {
         recipesInformation[rec.id] = {
           id: rec.id,
           title: rec.title,
           image: rec.image,
+          cookingMinutes: rec.cookingMinutes,
           readyInMinutes: rec.readyInMinutes,
           servings: rec.servings,
           summary: rec.summary,
@@ -144,6 +155,17 @@ const recipeModal = (data) => {
         <div class="specs-wrapper">
           <h4>Specs</h4>
           <div class="specs">
+
+            <div class="specs-content">
+              <h2> Cook Time </h2>
+              <div class="specs">
+                <div class="wrapper-specs">
+                  <h3>${recipeInfo.cookingMinutes ? recipeInfo.cookingMinutes : recipeInfo.readyInMinutes}</h3>
+                </div>
+                <div class="specs-minutes">minutes </div>
+              </div>
+            </div>
+
             <div class="specs-content">
               <h2> Total</h2>
               <div class="specs">
