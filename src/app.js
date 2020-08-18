@@ -23,6 +23,9 @@ const partialsPath = path.join(__dirname, '/templates/partials');
 app.set('view engine', 'hbs');
 // Set viewsPath to views
 app.set('views', viewsPath);
+hbs.registerHelper('splitString', function(url) {return url.split(" ").slice(0, 50).join(" ");})
+hbs.registerHelper('reduceIngredients', function(ingredients) {return ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"")}) 
+hbs.registerHelper('reduceSteps', function(steps) {return steps.reduce((acc, step) => acc += `<li>${step}</li>`,"")}) 
 // Set partials path to hbs engine
 hbs.registerPartials(partialsPath);
 // Needed to serve static files from publicDirectoryPath

@@ -9,6 +9,7 @@ const urlParse = require('url-parse');
 const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
 const bcrypt = require('bcryptjs');
+const pjax = require('express-pjax');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
@@ -38,6 +39,19 @@ router.get('/', (req, res) => {
     })
 
     res.render('index', {url});
+})
+// GET favorite recipes
+router.get('/favoriteRecipes', auth, (req, res) => {
+    // Grab all the recipes from the db
+    const recipesData = req.user.recipes;
+    // Create an array of each recipe from data
+    const recipes = recipesData.map(obj => {
+        // Get the recipe from each obj and parse JSON string
+        obj = JSON.parse(obj.recipe);
+        return obj;
+    })
+    
+    res.render('favoriteRecipes', {recipes});
 })
 
 // GET Google oauth login
@@ -84,6 +98,7 @@ router.get('/loginGoogle', async (req, res) => {
 router.get('/home', auth, (req, res) => {
     // Form first and last name
     const name = `${req.user.firstName} ${req.user.lastName}`;
+    
     res.render('home', {name});
 })
 // GET get recipes from db
@@ -168,14 +183,11 @@ router.post('/changePassword', auth, async (req, res) => {
 })
 
 // POST search for recipe on spoonacular api
-router.post('/search', auth, async (req, res) => {
+router.post('/search', async (req, res) => {
     try {
         // Generate recipes from search inputs
-        let recipes = await generateRecipes(req.body.query, req.body.number);
-        
-        // User info
-        const user = req.user;     
-        
+        let recipes = await generateRecipes(req.body.query);   
+
         res.status(200).send(recipes)
     } catch (e) {
         res.status(500).send(e.message);
@@ -230,7 +242,7 @@ router.post('/login', async (req, res) => {
         // Put JWT in cookie
         res.cookie('auth_token', token);
 
-        res.redirect(302, 'home');
+        res.redirect(302, 'favoriteRecipes');
     } catch (e) {
         res.status(400).send('Error logging in');
     }
