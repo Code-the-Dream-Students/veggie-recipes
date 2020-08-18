@@ -1,26 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <div class="container">
+    <!-----navbar---->
+    <div class="topnav">
+      <div class="navbar navbar-expand-lg">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </li>
+          <li>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url}}">Google Login</a>
-      </li>
-    </ul>
-    <form id="forgotPassword" class="form-inline my-2 my-lg-0">
-      <input name="email" class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Forgot Password</button>
-    </form>
-    <form method="POST" action="/login" id="exampleLogin" class="form-inline my-2 my-lg-0">
-      <input name="email" class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search">
-      <input name="password" class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+          </li>
+        </ul>
+        <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
+        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login
+          <i class="far fa-user"></i></a>
+        <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+      </div>
+
+      <!-- Navigation links (hidden by default) -->
+      <div id="myLinks">
+        <a href="#logIn" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in
+          <i class="far fa-user"></i></a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <!-----/navbar---->
   </div>
-</nav>
