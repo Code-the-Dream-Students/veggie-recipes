@@ -14,8 +14,7 @@ let type = "";
 let listOfRecipes = document.querySelector("#list-of-recipes");
 let searchbox = document.querySelector("#searchbox");
 let generateRecipesButton = document.querySelector("#generate-recipes");
-let modalBody = document.querySelector(".modal-content");
-let modalButton = document.querySelector("#modal-button");
+let modalBody = document.querySelector("#modal-body");
 let modalTitle = document.querySelector(".modal-title");
 let cuisines = ["african", "american", "british", "cajun", "caribbean", "chinese", "eastern european", "european", "french", "german", "greek", "indian", "irish", "italian", "japanese", "jewish", "korean", "latin american", "mediterranean", "mexican", "middle eastern", "nordic", "southern", "spanish", "thai", "vietnamese"];
 let types = ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"];
@@ -23,8 +22,8 @@ let cuisinesSelect = document.querySelector("#cuisines");
 let typesSelect = document.querySelector("#types");
 let recipesInformation = {};
 let recipesForCarrousel = [];
-// let apiKey = "c0c4732f3def410180ec614935768041";
-let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
+let apiKey = "c0c4732f3def410180ec614935768041";
+// let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
 
 const generateCuisines = () => {
   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
@@ -106,151 +105,51 @@ const generateOptionalRecipes = (num1, num2) => {
   return recipesForCarrousel.slice(num1, num2).reduce((acc, rec) => {
     return acc += `
       <div id="${rec.id}" style="cursor: pointer" onclick="recipeModal(this)" class="col-lg-3 col-md-6 col-sm-6">
-        <div class="similar-recipe">
-          <div class="pic">
-            <img class="img-responsive" src="${rec.image}" alt="">
+        <a href="#recipe-title-h1">
+          <div class="similar-recipe">
+            <div class="pic">
+              <img class="img-responsive" src="${rec.image}" alt="">
+            </div>
+            <div class="recipe-content">
+              <h3 class="title">${rec.title}</h3>
+            </div>
           </div>
-          <div class="recipe-content">
-            <h3 class="title">${rec.title}</h3>
-          </div>
-        </div>
+        </a> 
       </div>
     `;
   }, "")
 }
 
+
+let recipeTitle = document.querySelector("#recipe-title");
+let recipeTitleH1 = document.querySelector("#recipe-title-h1");
+let recipeImage = document.querySelector("#recipe-image");
+let recipeSummary = document.querySelector("#recipe-summary");
+let recipeCookingMinutes = document.querySelector("#recipe-cooking-minutes");
+let recipeReadyInMinutes = document.querySelector("#recipe-ready-in-minutes");
+let recipeServings = document.querySelector("#recipe-servings");
+let recipeIngredients = document.querySelector("#recipe-ingredients");
+let recipeSteps = document.querySelector("#recipe-steps");
+let optionalRecipes1 = document.querySelector("#optional-recipes1");
+let optionalRecipes2 = document.querySelector("#optional-recipes2");
+
+
 generateRecipesButton.addEventListener("click", generateRecipes);
 
 const recipeModal = (data) => {
   const recipeInfo = recipesInformation[data.id];
-  modalTitle.textContent = recipeInfo.title;
-  modalBody.innerHTML = `
-
-    <div class="modal-header">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb purple lighten-4">
-          <li class="breadcrumb-item"><a href="#">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
-              aria-hidden="true"></i>
-          </li>
-          <li class="breadcrumb-item"><a href="#">recipe</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
-              aria-hidden="true"></i></li>
-          <li class="breadcrumb-item active">${recipeInfo.title}</li>
-        </ol>
-      </nav>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-sm-4 col-md-4">
-          <img src="${recipeInfo.image}" alt="Responsive image" class="img-responsive modal-img">
-        </div>
-        <div class=" col-sm-8 col-md-8">
-          <h1 class=" main-title-modal">${recipeInfo.title}</h1>
-          <p>${recipeInfo.summary}</p>
-        </div>
-      </div>
-      <section class="fieldset">
-        <div class="specs-wrapper">
-          <h4>Specs</h4>
-          <div class="specs">
-
-            <div class="specs-content">
-              <h2> Cook Time </h2>
-              <div class="specs">
-                <div class="wrapper-specs">
-                  <h3>${recipeInfo.cookingMinutes ? recipeInfo.cookingMinutes : recipeInfo.readyInMinutes}</h3>
-                </div>
-                <div class="specs-minutes">minutes </div>
-              </div>
-            </div>
-
-            <div class="specs-content">
-              <h2> Total</h2>
-              <div class="specs">
-                <div class="wrapper-specs">
-                  <h3>${recipeInfo.readyInMinutes}</h3>
-                </div>
-                <div class="specs-minutes">minutes </div>
-              </div>
-            </div>
-            <div class=" specs-content">
-              <h2>Servings</h2>
-              <div class=" specs">
-                <div class="wrapper-specs">
-                  <h3 class="price">${recipeInfo.servings}</h3>
-                </div>
-                <div class="specs-minutes">people</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <div class="row">
-        <div class="col-sm-6 col-md-6">
-          <h1 class="sub-title-modal">Ingredients</h1>
-          <ul>
-            ${recipeInfo.ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"")}
-          </ul>
-        </div>
-        <div class="col-sm-6 col-md-6">
-          <h1 class="sub-title-modal">Steps</h1>
-          <ul>
-            ${recipeInfo.steps.reduce((acc, step) => acc += `<li>${step}</li>`,"")}
-          </ul>
-        </div>
-      </div>
-      <div class="additional-recipes">
-      <div class="modal-love">You may also love</div>
-    </div>
-
-    <!--carousel-->
-    <div class="container">
-      <div class="row blog">
-        <div class="col-md-12">
-          <div id="blogCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#blogCarousel" data-slide-to="1"></li>
-            </ol>
-
-            <!-- Carousel items -->
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  ${generateOptionalRecipes(0, 4)}        
-                </div>
-                <!--.row-->
-              </div>
-              <!--.item-->
-
-              <div class="carousel-item">
-                <div class="row">
-                  ${generateOptionalRecipes(4, 8)}      
-                </div>
-                <!--.row-->
-              </div>
-              <!--.item-->
-
-            </div>
-            <!--.carousel-inner-->
-          </div>
-          <!--.Carousel-->
-
-        </div>
-      </div>
-    </div>
-    <!---------------------------
-    CAROUSEL
-    ----------------------------->
-    <!--/carrousel-->
-    <!--/modal body -->
-    <div class="modal-footer">
-      <button type="button" class="btn my-2" data-dismiss="modal">Close</button>
-    </div>
-  `;
-  // modalButton.click();
+  const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps } = recipeInfo;
+  recipeTitle.innerHTML = title;
+  recipeTitleH1.innerHTML = title;
+  recipeImage.setAttribute("src", image);
+  recipeSummary.innerHTML = summary;
+  recipeCookingMinutes.innerHTML = cookingMinutes ? cookingMinutes : readyInMinutes;
+  recipeReadyInMinutes.innerHTML = readyInMinutes;
+  recipeServings.innerHTML = servings;
+  recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
+  recipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
+  optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);  
+  optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);  
 };
 
 // generateRecipes.addEventListener("click", () => genRecipe(searchbox.value))
