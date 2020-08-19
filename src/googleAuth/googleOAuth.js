@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 
 const LOCAL_LINK = "http://localhost:3000/loginGoogle";
-const LINK = "https://vegeloper-app.herokuapp.com/loginGoogle";
+const LINK = "https://vegeloper.herokuapp.com/loginGoogle";
 
 
 const oauth2Client = new google.auth.OAuth2(
