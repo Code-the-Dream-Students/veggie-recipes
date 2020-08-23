@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
 const bcrypt = require('bcryptjs');
 const pjax = require('express-pjax');
+const loginAuth = require('../middleware/loginAuth');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
@@ -27,7 +28,11 @@ const URL2 = `https://api.spoonacular.com/recipes/130320/information?apiKey=${pr
 const router = new express.Router();
 
 // GET landing page route
-router.get('/', (req, res) => {
+router.get('/', loginAuth, (req, res) => {
+    let home;
+    if (req.token) {
+        home = true
+    }
     // Create google OAuth url
     const url = googleOAuth.generateAuthUrl({
         access_type: "offline",
@@ -38,7 +43,7 @@ router.get('/', (req, res) => {
         })
     })
 
-    res.render('index', {url});
+    res.render('index', {url, home});
 })
 // GET favorite recipes
 router.get('/favoriteRecipes', auth, (req, res) => {
@@ -51,7 +56,21 @@ router.get('/favoriteRecipes', auth, (req, res) => {
         return obj;
     })
     
-    res.render('favoriteRecipes', {recipes});
+    res.render('favoriteRecipes', {recipes, home: true});
+})
+
+// GET favorite recipes
+router.get('/getFavoriteRecipes', auth, (req, res) => {
+    // Grab all the recipes from the db
+    const recipesData = req.user.recipes;
+    // Create an array of each recipe from data
+    const recipes = recipesData.map(obj => {
+        // Get the recipe from each obj and parse JSON string
+        obj = JSON.parse(obj.recipe);
+        return obj;
+    })
+    
+    res.send(recipes)
 })
 
 // GET Google oauth login
@@ -186,9 +205,20 @@ router.post('/changePassword', auth, async (req, res) => {
 router.post('/search', async (req, res) => {
     try {
         // Generate recipes from search inputs
-        let recipes = await generateRecipes(req.body.query);   
+        let recipes = await generateRecipes(req.body.query, req.body.cuisine, req.body.type);   
 
         res.status(200).send(recipes)
+
+        // // User info
+        // const user = req.user;
+        // // user.recipes = user.recipes.concat({ recipe });
+        // recipes.forEach(recipe => {
+        //     recipe = JSON.stringify(recipe);
+        //     user.recipes = [...user.recipes, {recipe}]
+        // })
+        // console.log(recipes)
+        // // Save user with added recipe
+        // await user.save();
     } catch (e) {
         res.status(500).send(e.message);
     }   
