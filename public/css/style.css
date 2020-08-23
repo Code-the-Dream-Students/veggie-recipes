@@ -5,15 +5,20 @@ html {
   scroll-behavior: smooth;
 }
 
+
+/*reset*/
 *,
 *:before,
 *:after {
   box-sizing: inherit; }
 
+ul li {
+    list-style: none;
+  }
+
 body, h1, h2, .btn, .searchbox{
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-}
+  font-size: 1rem;}
 
 /* NAV */
 .logo-text {
@@ -40,7 +45,12 @@ body, h1, h2, .btn, .searchbox{
 
 .navbar-nav {
   display: flex;
+  align-items: center; 
   flex-direction: row; }
+
+  .navbar li {
+    list-style: none;
+  }
 
 /* Hide the links inside the navigation menu (except for logo/home) */
 .topnav #myLinks {
@@ -94,6 +104,22 @@ body, h1, h2, .btn, .searchbox{
     border: 1px solid #218838;
     background-color: #fff;
     color: #061404; }
+
+/*google btn*/
+.modal-body .btn-google {
+  width: 100%;
+  display: block;
+  text-align: center;
+
+}
+.modal-body .btn-google:hover {
+  text-decoration: none;
+}
+.modal-body .btn-success {
+  border: 0;
+}
+.modal-body .btn-google span {
+  padding-right: 0; }
 
 
 /* JUMBOTRON */
