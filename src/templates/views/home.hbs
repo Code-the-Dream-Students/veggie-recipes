@@ -1,71 +1,86 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/font.css">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <title>favourite recipes</title>
+</head>
+<body>
+      <!-----navbar---->
+  {{!-- <div class="topnav">
+    <div class="navbar navbar-expand-lg">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </li>
+        <li>
+        </li>
+      </ul>
+      <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
+      {{#if home}}
+      <a href="/favoriteRecipes" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
+        <form  method="POST" action="/logout">
+          <button class="btn signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
+        </form>
+      {{else}}
+      <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login<i class="far fa-user"></i></a>
+      <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+      {{/if}}
+    </div>
+    <!-- Navigation links (hidden by default) -->
+    <div id="myLinks">
+      <a href="#logIn" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in
+        <i class="far fa-user"></i></a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div> --}}
 
-        <h1>Welcome {{name}}! Login was successful!</h1>
+  {{>navbar}}
+      <!-----/navbar---->
+  <div class="container pt-4" id="search-results_fav">
+    <!---lis of recipes---->
+    <div class="card-header mt-5">
+      <h2>My Favorite Recipes</h2>
+      <div class="input-group mb-3 input-search">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input id="searchbox-fav" class="form-control " placeholder="Search" aria-describedby="searchButton" />
+      </div>
+    </div>
 
-        <div class="container">
-            <form id="displayRecipe">
-                <div class="form-group">
-                    <label for="query">Query</label>
-                    <input name="query" type="text" class="form-control" id="query">
-                    <label for="number">Number</label>
-                    <input name="number" type="text" class="form-control" id="number">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+    <div id="list-of-favorite-recipes" class="row">
+        {{!-- {{#each recipes as | recipe | }}
+    <div class="col-md-6 col-lg-3 mb-5">
+      <div class="card">
+        <div style="background-image: url({{image}})" class="card-img-top"></div>
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p>{{{splitString summary}}}...</p>
         </div>
-        {{!-- <div class="container">
-            <form id="displayRecipe">
-                <div class="form-group">
-                    <label for="recipeID">ID</label>
-                    <input name="recipeID" type="text" class="form-control" id="recipeID">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div> --}}
-
-        <div id="1"></div>
-
         
-        <div class="container">
-            <form method="POST" action="/logout">
-                <button>Logout</button>
-            </form>
-        </div>
+        <button id="{{id}}" class="btn my-2" type="button" onclick="recipeModal({{id}})" data-toggle="modal" data-target="#recipeModal2">Read Recipe</button>
+      </div>
+    </div>
+        {{/each}} --}}
+    </div><!-- /list of recipes -->
+  </div>
+ 
+    {{>modalDummy }}
+    {{!-- {{renderPartial id this}} --}}
 
-        <div class="container">
-            <form id="getRecipes">
-                <button>Get Recipes</button>
-            </form>
-        </div>
-
-        <div id="changePasswordDiv" class="container">
-            <form id="changePassword" class="form-inline my-2 my-lg-0">
-                <input name="password" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Search">
-                <input name="confirmPassword" class="form-control mr-sm-2" type="password" placeholder="Confirm Password" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save new Password</button>
-            </form>
-        </div>
-
-        <div class="container">
-            <form id="updateUser">
-                <input name="firstName" class="form-control mr-sm-2" type="text" placeholder="name">
-                <button>Update User</button>
-            </form>
-        </div>
-        
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="/js/home.js" async defer></script>
-    </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="/js/favoriteRecipes.js"></script>
+</body>
 </html>

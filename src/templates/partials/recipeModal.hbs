@@ -1,5 +1,5 @@
 <div class="modal fade bd-example-modal-lg" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
-      aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      aria-hidden="true"  data-keyboard="false">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div id="modal-content" class="modal-content">
 
@@ -76,6 +76,43 @@
             </div>
             <div class="additional-recipes">
           </div>
+
+          <!--carousel-->
+        <div class="container">
+          <div class="row blog">
+            <div class="col-md-12">
+              <div id="recipeCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li id="firstCarouselLi" data-target="#recipeCarousel" data-slide-to="0" class="active"></li>
+                  <li id="secondCarouselLi" data-target="#recipeCarousel" data-slide-to="1"></li>
+                </ol>
+    
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                  <div id="nondisposableCarouselItem" class="carousel-item">
+                    <div id="optional-recipes1" class="row">
+                    </div>
+                    <!--.row-->
+                  </div>
+                  <!--.item-->
+    
+                  <div id="disposableCarouselItem" class="carousel-item">
+                    <div id="optional-recipes2" class="row">
+                    </div>
+                    <!--.row-->
+                  </div>
+                  <!--.item-->
+    
+                </div>
+                <!--.carousel-inner-->
+              </div>
+              <!--.Carousel-->
+    
+            </div>
+          </div>
+        </div>
+
+
           <div class="modal-footer">
             <button type="button" class="btn my-2" data-dismiss="modal">Close</button>
           </div>

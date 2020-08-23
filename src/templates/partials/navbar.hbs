@@ -13,10 +13,10 @@
           </li>
         </ul>
         <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
-        {{#if home}}
-        <a href="/" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
+        {{#if loggedIn}}
+        <a href="/home" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
         <form  method="POST" action="/logout">
-          <button class="signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
+          <button class="btn signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
         </form>
         {{else}}
         {{!-- <a class="loginBtn loginBtn--google" type="submit" href="{{url}}">Login with Google</a> --}}

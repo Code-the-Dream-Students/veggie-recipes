@@ -29,9 +29,9 @@ const router = new express.Router();
 
 // GET landing page route
 router.get('/', loginAuth, (req, res) => {
-    let home;
+    let loggedIn;
     if (req.token) {
-        home = true
+        loggedIn = true
     }
     // Create google OAuth url
     const url = googleOAuth.generateAuthUrl({
@@ -43,10 +43,10 @@ router.get('/', loginAuth, (req, res) => {
         })
     })
 
-    res.render('index', {url, home});
+    res.render('index', {url, loggedIn});
 })
 // GET favorite recipes
-router.get('/favoriteRecipes', auth, (req, res) => {
+router.get('/home', auth, (req, res) => {
     // Grab all the recipes from the db
     const recipesData = req.user.recipes;
     // Create an array of each recipe from data
@@ -56,7 +56,7 @@ router.get('/favoriteRecipes', auth, (req, res) => {
         return obj;
     })
     
-    res.render('favoriteRecipes', {recipes, home: true});
+    res.render('home', {recipes, loggedIn: true});
 })
 
 // GET favorite recipes
@@ -114,12 +114,12 @@ router.get('/loginGoogle', async (req, res) => {
     }
 })
 // GET home page
-router.get('/home', auth, (req, res) => {
-    // Form first and last name
-    const name = `${req.user.firstName} ${req.user.lastName}`;
+// router.get('/home', auth, (req, res) => {
+//     // Form first and last name
+//     const name = `${req.user.firstName} ${req.user.lastName}`;
     
-    res.render('home', {name});
-})
+//     res.render('home', {name});
+// })
 // GET get recipes from db
 router.get('/getRecipes', auth, async (req, res) => {
     // Grab all the recipes from the db
@@ -272,7 +272,7 @@ router.post('/login', async (req, res) => {
         // Put JWT in cookie
         res.cookie('auth_token', token);
 
-        res.redirect(302, 'favoriteRecipes');
+        res.redirect(302, 'home');
     } catch (e) {
         res.status(400).send('Error logging in');
     }
