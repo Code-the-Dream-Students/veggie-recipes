@@ -9,7 +9,8 @@ html {
 
 body, h1, h2, .btn {
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px; }
+  font-size: 16px; 
+}
 
 /* Style the navigation menu */
 .topnav {
@@ -29,7 +30,8 @@ body, h1, h2, .btn {
     font-size: 2rem; }
 
 .navbar-nav {
-  flex-direction: row; }
+  flex-direction: row;
+  align-items: center;}
 
 /* Hide the links inside the navigation menu (except for logo/home) */
 .topnav #myLinks {
@@ -70,6 +72,17 @@ body, h1, h2, .btn {
   border: 1px solid #ff914d;
   background-color: white;
   color: black; }
+
+  /*google btn*/
+.topnav .btn-google {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  padding-left: 44px;
+  color: #fff;}
+
+.topnav .btn-google span {
+  padding-right: 0; }
 
 .jumbotron {
   background: #abbdf0 url("./images/jumboback.jpg") no-repeat center;
