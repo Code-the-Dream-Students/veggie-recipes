@@ -54,6 +54,8 @@ generateRecipesButton.addEventListener("click", async (e) => {
           recipesInformation[recipe.id] = recipe;
         })
 
+        recipesForCarrousel = []; 
+
         generateRecipes(recipes)
         
     } catch (e) {
@@ -114,26 +116,26 @@ const recipeModal = (data) => {
   recipeServings.innerHTML = servings;
   recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
   recipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
-  // optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);  
-  // optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);  
+  optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);  
+  optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8); 
 };
 
-// const generateOptionalRecipes = (num1, num2) => {
-//   return recipesForCarrousel.slice(num1, num2).reduce((acc, rec) => {
-//     return acc += `
-//       <div id="${rec.id}" style="cursor: pointer" onclick="recipeModal(this)" class="col-lg-3 col-md-6 col-sm-6">
-//         <div class="similar-recipe">
-//           <div class="pic">
-//             <img class="img-responsive" src="${rec.image}" alt="">
-//           </div>
-//           <div class="recipe-content">
-//             <h3 class="title">${rec.title}</h3>
-//           </div>
-//         </div>
-//       </div>
-//     `;
-//   }, "")
-// }
+const generateOptionalRecipes = (num1, num2) => {
+  return recipesForCarrousel.slice(num1, num2).reduce((acc, rec) => {
+    return acc += `
+      <div id="${rec.id}" style="cursor: pointer" onclick="recipeModal(this)" class="col-lg-3 col-md-6 col-sm-6">
+        <div class="similar-recipe">
+          <div class="pic">
+            <img class="img-responsive" src="${rec.image}" alt="">
+          </div>
+          <div class="recipe-content">
+            <h3 class="title">${rec.title}</h3>
+          </div>
+        </div>
+      </div>
+    `;
+  }, "")
+}
 
 // generateRecipesButton.addEventListener("click", generateRecipes);
 
