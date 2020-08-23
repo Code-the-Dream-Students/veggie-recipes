@@ -102,6 +102,11 @@ let recipeIngredients = document.querySelector("#recipe-ingredients");
 let recipeSteps = document.querySelector("#recipe-steps");
 let optionalRecipes1 = document.querySelector("#optional-recipes1");
 let optionalRecipes2 = document.querySelector("#optional-recipes2");
+const secondCarouselLi = document.getElementById('secondCarouselLi');
+const recipeCarousel = document.getElementById('recipeCarousel');
+const carouselItem = document.getElementById('carouselItem');
+const disposableCarouselItem = document.getElementById('disposableCarouselItem');
+const nondisposableCarouselItem = document.getElementById('nondisposableCarouselItem');
 
 
 const recipeModal = (data) => {
@@ -116,8 +121,21 @@ const recipeModal = (data) => {
   recipeServings.innerHTML = servings;
   recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
   recipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
-  optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);  
-  optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8); 
+  optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);
+  // optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8); 
+  if (recipesForCarrousel.length > 4) {
+    optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
+    // disposableCarouselItem.classList.add('carousel-item'); 
+    // disposableCarouselItem.classList.remove('d-none');
+    disposableCarouselItem.classList.replace('d-none', 'carousel-item');
+    nondisposableCarouselItem.classList.remove('active')
+  } else {
+    // disposableCarouselItem.classList.remove('carousel-item'); 
+    // disposableCarouselItem.classList.add('d-none');
+    disposableCarouselItem.classList.replace('carousel-item', 'd-none');
+    nondisposableCarouselItem.classList.add('active')
+  }
+  
 };
 
 const generateOptionalRecipes = (num1, num2) => {

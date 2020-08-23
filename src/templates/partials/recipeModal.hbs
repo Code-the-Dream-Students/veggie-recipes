@@ -1,5 +1,5 @@
 <div class="modal fade bd-example-modal-lg" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
-      aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      aria-hidden="true"  data-keyboard="false">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div id="modal-content" class="modal-content">
 
@@ -81,22 +81,22 @@
         <div class="container">
           <div class="row blog">
             <div class="col-md-12">
-              <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+              <div id="recipeCarousel" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                  <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-                  <li data-target="#blogCarousel" data-slide-to="1"></li>
+                  <li id="firstCarouselLi" data-target="#recipeCarousel" data-slide-to="0" class="active"></li>
+                  <li id="secondCarouselLi" data-target="#recipeCarousel" data-slide-to="1"></li>
                 </ol>
     
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
+                  <div id="nondisposableCarouselItem" class="carousel-item">
                     <div id="optional-recipes1" class="row">
                     </div>
                     <!--.row-->
                   </div>
                   <!--.item-->
     
-                  <div class="carousel-item">
+                  <div id="disposableCarouselItem" class="carousel-item">
                     <div id="optional-recipes2" class="row">
                     </div>
                     <!--.row-->
