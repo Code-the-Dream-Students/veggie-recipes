@@ -23,11 +23,16 @@ const partialsPath = path.join(__dirname, '/templates/partials');
 app.set('view engine', 'hbs');
 // Set viewsPath to views
 app.set('views', viewsPath);
-hbs.registerHelper('splitString', function(url) {return url.split(" ").slice(0, 50).join(" ");})
-hbs.registerHelper('reduceIngredients', function(ingredients) {return ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"")}) 
-hbs.registerHelper('reduceSteps', function(steps) {return steps.reduce((acc, step) => acc += `<li>${step}</li>`,"")}) 
 // Set partials path to hbs engine
 hbs.registerPartials(partialsPath);
+// Hbs helper functions
+hbs.registerHelper('splitString', function(url) {return url.split(" ").slice(0, 50).join(" ");})
+hbs.registerHelper('renderPartial', function(id, context) {
+    console.log(id)
+    console.log(context)
+});
+hbs.registerHelper('reduceIngredients', function(ingredients) {return ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"")}) 
+hbs.registerHelper('reduceSteps', function(steps) {return steps.reduce((acc, step) => acc += `<li>${step}</li>`,"")}) 
 // Needed to serve static files from publicDirectoryPath
 app.use(express.static(publicDirectoryPath));
 // This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.

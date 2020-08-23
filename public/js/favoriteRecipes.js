@@ -40,3 +40,36 @@
 // genRec();
 
 // searchboxFav.addEventListener("keyup", (event) => genRec(event));
+
+let fRecipeTitle = document.querySelector("#f-recipe-title");
+let fRecipeTitleH1 = document.querySelector("#f-recipe-title-h1");
+let fRecipeImage = document.querySelector("#f-recipe-image");
+let fRecipeSummary = document.querySelector("#f-recipe-summary");
+let fRecipeCookingMinutes = document.querySelector("#f-recipe-cooking-minutes");
+let fRecipeReadyInMinutes = document.querySelector("#f-recipe-ready-in-minutes");
+let fRecipeServings = document.querySelector("#f-recipe-servings");
+let fRecipeIngredients = document.querySelector("#f-recipe-ingredients");
+let fRecipeSteps = document.querySelector("#f-recipe-steps");
+let recipesInformation = {};
+
+const recipeModal = (id) => {
+    recipesInformation = {}
+    fetch('/getFavoriteRecipes')
+    .then(response => response.json())
+    .then((recipes) => {
+        recipes.forEach(recipe => {
+            recipesInformation[recipe.id] = recipe;
+        })
+        const recipeInfo = recipesInformation[id];
+        const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps } = recipeInfo;
+        fRecipeTitle.innerHTML = title;
+        fRecipeTitleH1.innerHTML = title;
+        fRecipeImage.setAttribute("src", image);
+        fRecipeSummary.innerHTML = summary;
+        fRecipeCookingMinutes.innerHTML = cookingMinutes ? cookingMinutes : readyInMinutes;
+        fRecipeReadyInMinutes.innerHTML = readyInMinutes;
+        fRecipeServings.innerHTML = servings;
+        fRecipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
+        fRecipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
+    })
+};

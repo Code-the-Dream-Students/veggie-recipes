@@ -13,9 +13,19 @@
           </li>
         </ul>
         <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
-        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login
-          <i class="far fa-user"></i></a>
+        {{#if home}}
+        <a href="/" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
+        <form  method="POST" action="/logout">
+          <button class="signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
+        </form>
+        {{else}}
+        {{!-- <a class="loginBtn loginBtn--google" type="submit" href="{{url}}">Login with Google</a> --}}
+        <a class="btn btn-block btn-social btn-google" href="{{url}}">
+          <span class="fa fa-google"></span> Sign in with Google
+        </a> 
+        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login<i class="far fa-user"></i></a>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+        {{/if}}
       </div>
 
       <!-- Navigation links (hidden by default) -->

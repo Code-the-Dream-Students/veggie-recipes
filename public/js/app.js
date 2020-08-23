@@ -17,79 +17,106 @@ let recipesForCarrousel = [];
 let apiKey = "c0c4732f3def410180ec614935768041";
 // let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
 
-// const generateCuisines = () => {
-//   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
-//   cuisinesSelect.innerHTML += cuisines.reduce((acc, cui) => acc += `<option onclick="cuisine = this.value">${cui}</option>`, "");
-// };
-// generateCuisines();
+const generateCuisines = () => {
+  cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
+  cuisinesSelect.innerHTML += cuisines.reduce((acc, cui) => acc += `<option value=${cui} onclick="cuisine = this.value">${cui}</option>`, "");
+};
+generateCuisines();
 
-// const generateTypes = () => {
-//   typesSelect.innerHTML = `<option "onclick="type = ''">Type</option>`;
-//   typesSelect.innerHTML += types.reduce((acc, type) => acc += `<option onclick="type = this.value">${type}</option>`, "");
-// };
-// generateTypes();
+const generateTypes = () => {
+  typesSelect.innerHTML = `<option "onclick="type = ''">Type</option>`;
+  typesSelect.innerHTML += types.reduce((acc, type) => acc += `<option value=${type} onclick="type = this.value">${type}</option>`, "");
+};
+generateTypes();
 
-// searchbox.addEventListener("keyup", (event) => recipe = event.target.value.toLowerCase());
+searchbox.addEventListener("keyup", (event) => recipe = event.target.value.toLowerCase());
 
-// const generateRecipes = () => {
-//   if (recipe.length >= 3 || cuisine || type) {
-//     listOfRecipes.innerHTML = "";
-//     recipesInformation = {};
-//     recipesForCarrousel = [];
-//     fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&number=12&query=${recipe}&cuisine=${cuisine}&type=${type}`)
-//     .then(response => response.json())
-//     .then(data => {
-//       // data.results.forEach(rec => {
-//       //   displayRecipes(rec);        
-//       // })
-//       let recipesID = data.results.reduce((acc, rec, index) => {
-//         acc += rec.id;
-//         if (!(index === data.results.length - 1)) {
-//           return acc += ",";
-//         }
-//         return acc;
-//       }, "");
-//       displayRecipes(recipesID)
-//     })
-//   }
-// }; 
+generateRecipesButton.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-// const displayRecipes = (rec) => {
-//   fetch(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${rec}`)
-//   // fetch(`https://api.spoonacular.com/recipes/${rec.id}/information?apiKey=${apiKey}`)
-//   .then(response => response.json())
-//   .then(data => {
-//     data.forEach(rec => {
-//       if (rec.analyzedInstructions.length && rec.extendedIngredients.length) {
-//         recipesInformation[rec.id] = {
-//           id: rec.id,
-//           title: rec.title,
-//           image: rec.image,
-//           readyInMinutes: rec.readyInMinutes,
-//           servings: rec.servings,
-//           summary: rec.summary,
-//           steps: rec.analyzedInstructions[0].steps.map(s => s.step),
-//           ingredients: rec.extendedIngredients.map(i => i.original)
-//         };
+    let formData = new FormData(searchRecipesForm);
 
-//         recipesForCarrousel.push(recipesInformation[rec.id]);
+    const data = {
+        'query': formData.get('query'),
+        'cuisine': formData.get('cuisine'),
+        'type': formData.get('type')
+    };
 
-//         listOfRecipes.innerHTML += `
-//           <div class="col-md-6 col-lg-3 mb-5">
-//             <div class="card">
-//               <div style="background-image: url(${rec.image})" class="card-img-top"></div>
-//               <div class="card-body">
-//                 <h5 class="card-title">${rec.title}</h5>
-//                 <p class="card-text">${rec.summary.split(" ").slice(0, 40).join(" ")}...</p>
-//               </div>
-//               <button id="${rec.id}" onclick="recipeModal(this)" class="btn  my-2" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
-//             </div>
-//           </div>
-//         `;
-//       }       
-//     })
-//   })
-// };
+    try {
+        const res = await fetch('/search', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        let recipes = await res.json();
+
+        recipes.forEach(recipe => {
+          recipesInformation[recipe.id] = recipe;
+        })
+
+        generateRecipes(recipes)
+        
+    } catch (e) {
+        console.log(e.message);
+    }
+});
+
+const displayRecipes = (rec) => {
+    recipesForCarrousel.push(recipesInformation[rec.id]);
+    listOfRecipes.innerHTML += `
+          <div class="col-md-6 col-lg-3 mb-5">
+            <div class="card">
+              <div style="background-image: url(${rec.image})" class="card-img-top"></div>
+              <div class="card-body">
+                <h5 class="card-title">${rec.title}</h5>
+                <p class="card-text">${rec.summary.split(" ").slice(0, 40).join(" ")}...</p>
+              </div>
+              <button id="${rec.id}" onclick="recipeModal(this)" class="btn  my-2" type="submit" data-toggle="modal" data-target="#recipeModal">Read Recipe</button>
+            </div>
+          </div>
+        `;
+};
+
+
+const generateRecipes = (recipes) => {
+  listOfRecipes.innerHTML = '';
+  if (recipes[0].notFound) {
+    listOfRecipes.innerHTML += '<div>There are not recipes for your search! Please modify your search to see recipes.</div>';
+    return;
+  }
+  recipes.forEach(rec => {
+    displayRecipes(rec);        
+  })
+}; 
+
+let recipeTitle = document.querySelector("#recipe-title");
+let recipeTitleH1 = document.querySelector("#recipe-title-h1");
+let recipeImage = document.querySelector("#recipe-image");
+let recipeSummary = document.querySelector("#recipe-summary");
+let recipeCookingMinutes = document.querySelector("#recipe-cooking-minutes");
+let recipeReadyInMinutes = document.querySelector("#recipe-ready-in-minutes");
+let recipeServings = document.querySelector("#recipe-servings");
+let recipeIngredients = document.querySelector("#recipe-ingredients");
+let recipeSteps = document.querySelector("#recipe-steps");
+let optionalRecipes1 = document.querySelector("#optional-recipes1");
+let optionalRecipes2 = document.querySelector("#optional-recipes2");
+
+
+const recipeModal = (data) => {
+  const recipeInfo = recipesInformation[data.id];
+  const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps } = recipeInfo;
+  recipeTitle.innerHTML = title;
+  recipeTitleH1.innerHTML = title;
+  recipeImage.setAttribute("src", image);
+  recipeSummary.innerHTML = summary;
+  recipeCookingMinutes.innerHTML = cookingMinutes ? cookingMinutes : readyInMinutes;
+  recipeReadyInMinutes.innerHTML = readyInMinutes;
+  recipeServings.innerHTML = servings;
+  recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
+  recipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
+  // optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);  
+  // optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);  
+};
 
 // const generateOptionalRecipes = (num1, num2) => {
 //   return recipesForCarrousel.slice(num1, num2).reduce((acc, rec) => {
@@ -316,7 +343,7 @@ let apiKey = "c0c4732f3def410180ec614935768041";
 //   }
 // }
 
-// generateRecipes.addEventListener("click", test);
+
 
 // function test () {
 //   fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=vegetarian&number=2&query=curry&cuisine=&type=`)

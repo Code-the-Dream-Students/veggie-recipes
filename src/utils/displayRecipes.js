@@ -23,6 +23,7 @@ const displayRecipes = async (ids) => {
         const recipes = recipeInfo.reduce((recipes2, recipe) => {
             if (recipe.analyzedInstructions.length && recipe.extendedIngredients.length) {
                 recipes2.push(recipesInformation[recipe.id] = {
+                    id: recipe.id,
                     title: recipe.title,
                     readyInMinutes: recipe.readyInMinutes,
                     servings: recipe.servings,
