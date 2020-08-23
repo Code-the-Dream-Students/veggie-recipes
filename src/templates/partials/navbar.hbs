@@ -1,0 +1,40 @@
+  <div class="container">
+    <!-----navbar---->
+    <div class="topnav">
+      <div class="navbar navbar-expand-lg">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </li>
+          <li>
+
+          </li>
+        </ul>
+        <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
+        {{#if home}}
+        <a href="/" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
+        <form  method="POST" action="/logout">
+          <button class="signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
+        </form>
+        {{else}}
+        {{!-- <a class="loginBtn loginBtn--google" type="submit" href="{{url}}">Login with Google</a> --}}
+        <a class="btn btn-block btn-social btn-google" href="{{url}}">
+          <span class="fa fa-google"></span> Sign in with Google
+        </a> 
+        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login<i class="far fa-user"></i></a>
+        <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+        {{/if}}
+      </div>
+
+      <!-- Navigation links (hidden by default) -->
+      <div id="myLinks">
+        <a href="#logIn" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in
+          <i class="far fa-user"></i></a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <!-----/navbar---->
+  </div>
