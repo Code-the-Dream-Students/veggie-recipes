@@ -26,13 +26,13 @@
                 <div class="form-row">
                   <div class="col-md-6 mb-3">
                     <div class="input-group-prepend">
-                      <select id="cuisines" class="custom-select"></select>
+                      <select id="cuisines" class="custom-select" name="cuisine"></select>
                     </div>
                   </div>
                   <!------number of people input---->
                   <div class="col-md-6 mb-3">
                     <div class="input-group-prepend">
-                      <select id="types" class="custom-select"></select>
+                      <select id="types" class="custom-select" name="type"></select>
                     </div>
                   </div>
                 </div>
@@ -42,4 +42,12 @@
         </form>
       </div>
     </div>
+  </div>
+
+    <div class="container pt-4" id="search-results">
+    <!---lis of recipes---->
+    <!-- <div class="card-header">
+      <h2>The Latest 8 Recipes </h2>
+    </div> -->
+    <div id="list-of-recipes" class="row"></div><!-- /list of recipes -->
   </div>
