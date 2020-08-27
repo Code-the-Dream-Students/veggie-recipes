@@ -22,8 +22,9 @@ let cuisinesSelect = document.querySelector("#cuisines");
 let typesSelect = document.querySelector("#types");
 let recipesInformation = {};
 let recipesForCarrousel = [];
-let apiKey = "c0c4732f3def410180ec614935768041";
+// let apiKey = "c0c4732f3def410180ec614935768041";
 // let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
+let apiKey = "d79c553657b744e3bc3de5b2ede22824";
 
 const generateCuisines = () => {
   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
@@ -64,7 +65,6 @@ const generateRecipes = () => {
 
 const displayRecipes = (rec) => {
   fetch(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${rec}`)
-  // fetch(`https://api.spoonacular.com/recipes/${rec.id}/information?apiKey=${apiKey}`)
   .then(response => response.json())
   .then(data => {
     data.forEach(rec => {
@@ -79,7 +79,8 @@ const displayRecipes = (rec) => {
           servings: rec.servings,
           summary: rec.summary,
           steps: rec.analyzedInstructions[0].steps.map(s => s.step),
-          ingredients: rec.extendedIngredients.map(i => i.original)
+          ingredients: rec.extendedIngredients.map(i => i.original),
+          favorite: false
         };
 
         recipesForCarrousel.push(recipesInformation[rec.id]);
@@ -132,13 +133,30 @@ let recipeIngredients = document.querySelector("#recipe-ingredients");
 let recipeSteps = document.querySelector("#recipe-steps");
 let optionalRecipes1 = document.querySelector("#optional-recipes1");
 let optionalRecipes2 = document.querySelector("#optional-recipes2");
+let buttonFavorite = document.querySelector("#button-favorite");
 
+buttonFavorite.addEventListener("click", (event) => event.preventDefault())
+
+const favfav = (something) => {
+  let fav = recipesInformation[something.split("f")[1]];
+  fav.favorite = !fav.favorite;
+  recipeModal(fav);
+}
 
 generateRecipesButton.addEventListener("click", generateRecipes);
 
 const recipeModal = (data) => {
   const recipeInfo = recipesInformation[data.id];
-  const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps } = recipeInfo;
+  const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps, favorite } = recipeInfo;
+  buttonFavorite.innerHTML = `
+    <img 
+      onclick="favfav(this.id)" 
+      class="false" 
+      height="50px" 
+      width="50px" 
+      id="f${data.id}" 
+      src="${favorite ? './images/heart1.png' : './images/heart2.png'}">
+  `;  
   recipeTitle.innerHTML = title;
   recipeTitleH1.innerHTML = title;
   recipeImage.setAttribute("src", image);
@@ -148,8 +166,19 @@ const recipeModal = (data) => {
   recipeServings.innerHTML = servings;
   recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
   recipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
-  optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);  
-  optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);  
+  optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);
+
+  const disp = document.querySelector("#disposable");
+  const nonDisp = document.querySelector("#non-disposable");
+
+  if (recipesForCarrousel.length > 4) {
+    optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8); 
+    disp.classList.replace("d-none", "carousel-item");
+    nonDisp.classList.add("active");
+  } else {
+    disp.classList.replace("carousel-item", "d-none");
+    nonDisp.classList.remove("active");
+  } 
 };
 
 // generateRecipes.addEventListener("click", () => genRecipe(searchbox.value))

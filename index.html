@@ -131,6 +131,9 @@
           </button>
         </div>
         <div class="modal-body">
+          <form>
+            <button id="button-favorite" class="float-right" type="submit" ></button>
+          </form>
           <div class="row">
             <div class="col-sm-4 col-md-4">
               <img id="recipe-image" alt="Responsive image" class="img-responsive modal-img">
@@ -204,14 +207,15 @@
     
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
+
+                  <div id="non-disposable" class="carousel-item active">
                     <div id="optional-recipes1" class="row">
                     </div>
                     <!--.row-->
                   </div>
                   <!--.item-->
     
-                  <div class="carousel-item">
+                  <div id="disposable" class="carousel-item">
                     <div id="optional-recipes2" class="row">
                     </div>
                     <!--.row-->
