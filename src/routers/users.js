@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
 const bcrypt = require('bcryptjs');
 const pjax = require('express-pjax');
-const loginAuth = require('../middleware/loginAuth');
+const searchAuth = require('../middleware/searchAuth');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
@@ -28,7 +28,7 @@ const URL2 = `https://api.spoonacular.com/recipes/130320/information?apiKey=${pr
 const router = new express.Router();
 
 // GET landing page route
-router.get('/', loginAuth, (req, res) => {
+router.get('/', searchAuth, (req, res) => {
     let loggedIn;
     if (req.token) {
         loggedIn = true
@@ -56,7 +56,7 @@ router.get('/home', auth, (req, res) => {
         return obj;
     })
     
-    res.render('home', {recipes, loggedIn: true});
+    res.render('home', {recipes, loggedIn: true, user: req.user});
 })
 
 // GET favorite recipes
@@ -202,23 +202,69 @@ router.post('/changePassword', auth, async (req, res) => {
 })
 
 // POST search for recipe on spoonacular api
-router.post('/search', async (req, res) => {
+router.post('/search', searchAuth, async (req, res) => {
     try {
         // Generate recipes from search inputs
-        let recipes = await generateRecipes(req.body.query, req.body.cuisine, req.body.type);   
+        let newRecipes = await generateRecipes(req.body.query, req.body.cuisine, req.body.type);  
+        let savedRecipes;
 
-        res.status(200).send(recipes)
+        if (req.user) {
+            savedRecipes = req.user.recipes;
+            
+            let mySet = new Set();
+
+            for (let i = 0; i < savedRecipes.length; i++) {
+                const savedParsedRecipes = JSON.parse(savedRecipes[i].recipe);
+                mySet.add(savedParsedRecipes.id);     
+            }
+
+            for (let i = 0; i < newRecipes.length; i++) {
+                if (mySet.has(newRecipes[i].id)) {
+                    newRecipes[i] = {...newRecipes[i], favorite: true};
+                }
+            }
+            // for (let i = 0; i < newRecipes.length; i++) {
+            //     mySet.add(newRecipes[i].id);     
+            // }
+            // console.log(mySet)
+            // for (let j = 0; j < savedRecipes.length; j++) {
+            //     const savedParsedRecipe = JSON.parse(savedRecipes[j].recipe);
+            //     console.log(j)
+            //     console.log(savedParsedRecipe.id)
+            //     console.log(mySet.has(savedParsedRecipe.id))
+
+            //     if (mySet.has(savedParsedRecipe.id)) {
+            //         console.log({...newRecipes[j]})
+            //         newRecipes[j] = {...newRecipes[j], favorite: true};
+            //     }
+            // }
+
+            // for (let i = 0; i < newRecipes.length; i++) {
+            //     for (let j = 0; j < savedRecipes.length; j++) {
+            //         const savedParsedRecipe = JSON.parse(savedRecipes[j].recipe);
+            //         if (newRecipes[i].id === savedParsedRecipe.id) {
+            //             newRecipes[i] = {...newRecipes[i], favorite: true};
+            //             break;
+            //         }
+            //     }
+            // }
+        }
+
+        res.status(200).send(newRecipes)
 
         // // User info
         // const user = req.user;
         // // user.recipes = user.recipes.concat({ recipe });
         // recipes.forEach(recipe => {
         //     recipe = JSON.stringify(recipe);
+        //     console.log(recipe)
         //     user.recipes = [...user.recipes, {recipe}]
         // })
-        // console.log(recipes)
+        // console.log(user.recipes)
         // // Save user with added recipe
         // await user.save();
+
+        // res.status(200).send(recipes)
     } catch (e) {
         res.status(500).send(e.message);
     }   
@@ -227,16 +273,54 @@ router.post('/search', async (req, res) => {
 // POST Save recipe
 router.post('/saveRecipe', auth, async (req, res) => {
     try {
-        // Recipe to save
-        const recipe = req.body.recipe;
+        // Saved or not saved message
+        let message;
         // User info
         const user = req.user;
-        // user.recipes = user.recipes.concat({ recipe });
-        user.recipes = [...user.recipes, {recipe}]
-        // Save user with added recipe
-        await user.save();
+        // Recipe to save
+        let newRecipe = req.body;
+        // Saved recipes from db
+        const savedRecipes = req.user.recipes;
+        
+        if (newRecipe.favorite) {
+           user.recipes = savedRecipes.reduce((acc, recipe) => {
+            const parsedRecipe = JSON.parse(recipe.recipe);
 
-        res.status(200).send();
+            if (parsedRecipe.id === newRecipe.id) {
+                // delete parsedRecipe.favorite;
+
+                return [...acc];
+            }
+
+            return [...acc, {recipe: recipe.recipe}];
+
+            }, [])
+
+            message = 'Recipe deleted!';
+            
+            await user.save();
+            return res.status(200).send({ recipes: user.recipes, message, saved: false });
+        }
+
+        // // Check if new recipe is in db
+        // for (let i = 0; i < savedRecipes.length; i++) {
+        //     // Parse from string to obj
+        //     const parsedRecipe = JSON.parse(savedRecipes[i].recipe)
+        //     // If new recipe is in db, return 'recipe already saved' message
+        //     if (parsedRecipe.id === newRecipe.id) {
+        //         message = 'Sorry recipe already saved!';
+        //         return res.status(400).send({message, saved: false});
+        //     }
+        // }
+
+        // Add new recipe to user
+        user.recipes = [...user.recipes, { recipe: JSON.stringify(newRecipe) }]
+        // Save user
+        await user.save();
+        // Saved recipe message
+        message = 'Recipe saved!';
+
+        res.status(200).send({recipes: user.recipes, message, saved: true});
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -297,26 +381,47 @@ router.post('/logout', auth, async (req, res) => {
     }
 })
 
-// POST Save Recipe
-router.post('/saveRecipe', auth, async (req, res) => {
-    try {
-        // const newUrl = `${URL}&query=${req.body.query}&number=${req.body.number}`;
-        const newUrl = `${URL2}/${req.body.recipeID}/information?apiKey=${process.env.SPOONACULAR_API_KEY}`;
-        const user = req.user;
-        const response = await(await fetch(newUrl)).json();
-        const recipe = JSON.stringify(response);
-        // Add searched recipe with logged in user
-        user.recipes = user.recipes.concat({ recipe });
-        // Save user with added recipe
-        await user.save();
+// // POST Save Recipe
+// router.post('/saveRecipe', auth, async (req, res) => {
+//     try {
+//         console.log('hello')
+//         const user = req.user;
+//         const savedRecipes = req.user.recipes;
+//         console.log(req.body.recipeInfo)
+
+//         const response = await(await fetch(newUrl)).json();
+//         const newRecipe = JSON.stringify(response);
+
+//         // Add searched recipe with logged in user
+//         user.recipes = user.recipes.concat({ recipe: newRecipe });
+//         // Save user with added recipe
+//         await user.save();
         
-        res.status(200).send(user.recipes[0].recipe);
-    } catch (e) {
-        res.status(500).send(e.message);
-    }
-})
-// PATCH Update a user by id
-router.patch('/updateUser', auth, async (req, res) => {
+//         res.status(200).send(user.recipes[0].recipe);
+//     } catch (e) {
+//         res.status(500).send(e.message);
+//     }
+// })
+// // POST Save Recipe
+// router.post('/saveRecipe', auth, async (req, res) => {
+//     try {
+//         // const newUrl = `${URL}&query=${req.body.query}&number=${req.body.number}`;
+//         const newUrl = `${URL2}/${req.body.recipeID}/information?apiKey=${process.env.SPOONACULAR_API_KEY}`;
+//         const user = req.user;
+//         const response = await(await fetch(newUrl)).json();
+//         const newRecipe = JSON.stringify(response);
+//         // Add searched recipe with logged in user
+//         user.recipes = user.recipes.concat({ recipe: newRecipe });
+//         // Save user with added recipe
+//         await user.save();
+        
+//         res.status(200).send(user.recipes[0].recipe);
+//     } catch (e) {
+//         res.status(500).send(e.message);
+//     }
+// })
+// POST Update a user by id
+router.post('/updateUser', auth, async (req, res) => {
     const user = req.user;
     // Get updates from form
     const updates = Object.keys(req.body);
@@ -325,8 +430,8 @@ router.patch('/updateUser', auth, async (req, res) => {
     try {
         // Update each property of user that needs to be updated
         updates.forEach(update => {
-            // Check if user property is not the same as the submitted update
-            if (user[update] !== req.body[update]) {
+            // Check if user property is not the same as the submitted update and non empty
+            if (user[update] !== req.body[update] && req.body[update] !== '') {
                 user[update] = req.body[update]
                 updatesMade.push(update)
             }
@@ -334,7 +439,7 @@ router.patch('/updateUser', auth, async (req, res) => {
 
         await user.save();
 
-        res.status(200).send({ updates: updatesMade });
+        res.status(200).send({ updates: user[updatesMade] });
     } catch (e) {
         res.status(400).send(e);
     }

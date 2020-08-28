@@ -2,17 +2,17 @@
 // let apiURL = './app.json';
 
 let currRecipe;
-let searchboxFav = document.querySelector("#searchbox-fav");
-let listOfFavoriteRecipes = document.querySelector("#list-of-favorite-recipes");
-let fRecipeTitle = document.querySelector("#f-recipe-title");
-let fRecipeTitleH1 = document.querySelector("#f-recipe-title-h1");
-let fRecipeImage = document.querySelector("#f-recipe-image");
-let fRecipeSummary = document.querySelector("#f-recipe-summary");
-let fRecipeCookingMinutes = document.querySelector("#f-recipe-cooking-minutes");
-let fRecipeReadyInMinutes = document.querySelector("#f-recipe-ready-in-minutes");
-let fRecipeServings = document.querySelector("#f-recipe-servings");
-let fRecipeIngredients = document.querySelector("#f-recipe-ingredients");
-let fRecipeSteps = document.querySelector("#f-recipe-steps");
+const searchboxFav = document.querySelector("#searchbox-fav");
+const listOfFavoriteRecipes = document.querySelector("#list-of-favorite-recipes");
+const fRecipeTitle = document.querySelector("#f-recipe-title");
+const fRecipeTitleH1 = document.querySelector("#f-recipe-title-h1");
+const fRecipeImage = document.querySelector("#f-recipe-image");
+const fRecipeSummary = document.querySelector("#f-recipe-summary");
+const fRecipeCookingMinutes = document.querySelector("#f-recipe-cooking-minutes");
+const fRecipeReadyInMinutes = document.querySelector("#f-recipe-ready-in-minutes");
+const fRecipeServings = document.querySelector("#f-recipe-servings");
+const fRecipeIngredients = document.querySelector("#f-recipe-ingredients");
+const fRecipeSteps = document.querySelector("#f-recipe-steps");
 let recipesInformationGlobal = {};
 let recipesInformation = [];
 

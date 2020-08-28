@@ -2,20 +2,19 @@ let recipe = "";
 let cuisine = "";
 let type = "";
 const searchRecipesForm = document.getElementById('searchRecipes');
-let listOfRecipes = document.querySelector("#list-of-recipes");
-let searchbox = document.querySelector("#searchbox");
-let generateRecipesButton = document.querySelector("#generate-recipes");
-let modalBody = document.querySelector(".modal-content");
-let modalButton = document.querySelector("#modal-button");
-let modalTitle = document.querySelector(".modal-title");
-let cuisines = ["african", "american", "british", "cajun", "caribbean", "chinese", "eastern european", "european", "french", "german", "greek", "indian", "irish", "italian", "japanese", "jewish", "korean", "latin american", "mediterranean", "mexican", "middle eastern", "nordic", "southern", "spanish", "thai", "vietnamese"];
-let types = ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"];
-let cuisinesSelect = document.querySelector("#cuisines");
-let typesSelect = document.querySelector("#types");
+const listOfRecipes = document.querySelector("#list-of-recipes");
+const searchbox = document.querySelector("#searchbox");
+const generateRecipesButton = document.querySelector("#generate-recipes");
+const modalBody = document.querySelector(".modal-content");
+const modalButton = document.querySelector("#modal-button");
+const modalTitle = document.querySelector(".modal-title");
+const cuisines = ["african", "american", "british", "cajun", "caribbean", "chinese", "eastern european", "european", "french", "german", "greek", "indian", "irish", "italian", "japanese", "jewish", "korean", "latin american", "mediterranean", "mexican", "middle eastern", "nordic", "southern", "spanish", "thai", "vietnamese"];
+const types = ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"];
+const cuisinesSelect = document.querySelector("#cuisines");
+const typesSelect = document.querySelector("#types");
 let recipesInformation = {};
 let recipesForCarrousel = [];
-let apiKey = "c0c4732f3def410180ec614935768041";
-// let apiKey = "5c2bbde5c4f847dca86facba65aa4231";
+
 
 const generateCuisines = () => {
   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
@@ -91,27 +90,44 @@ const generateRecipes = (recipes) => {
   })
 }; 
 
-let recipeTitle = document.querySelector("#recipe-title");
-let recipeTitleH1 = document.querySelector("#recipe-title-h1");
-let recipeImage = document.querySelector("#recipe-image");
-let recipeSummary = document.querySelector("#recipe-summary");
-let recipeCookingMinutes = document.querySelector("#recipe-cooking-minutes");
-let recipeReadyInMinutes = document.querySelector("#recipe-ready-in-minutes");
-let recipeServings = document.querySelector("#recipe-servings");
-let recipeIngredients = document.querySelector("#recipe-ingredients");
-let recipeSteps = document.querySelector("#recipe-steps");
-let optionalRecipes1 = document.querySelector("#optional-recipes1");
-let optionalRecipes2 = document.querySelector("#optional-recipes2");
+let recipeInfo;
+const recipeTitle = document.querySelector("#recipe-title");
+const recipeTitleH1 = document.querySelector("#recipe-title-h1");
+const recipeImage = document.querySelector("#recipe-image");
+const recipeSummary = document.querySelector("#recipe-summary");
+const recipeCookingMinutes = document.querySelector("#recipe-cooking-minutes");
+const recipeReadyInMinutes = document.querySelector("#recipe-ready-in-minutes");
+const recipeServings = document.querySelector("#recipe-servings");
+const recipeIngredients = document.querySelector("#recipe-ingredients");
+const recipeSteps = document.querySelector("#recipe-steps");
+const optionalRecipes1 = document.querySelector("#optional-recipes1");
+const optionalRecipes2 = document.querySelector("#optional-recipes2");
 const secondCarouselLi = document.getElementById('secondCarouselLi');
 const recipeCarousel = document.getElementById('recipeCarousel');
 const carouselItem = document.getElementById('carouselItem');
 const disposableCarouselItem = document.getElementById('disposableCarouselItem');
 const nondisposableCarouselItem = document.getElementById('nondisposableCarouselItem');
+const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
+
+// const favfav = (something) => {
+//   let fav = recipesInformation[something.split("f")[1]];
+//   fav.favorite = !fav.favorite;
+//   recipeModal(fav);
+// }
 
 
 const recipeModal = (data) => {
-  const recipeInfo = recipesInformation[data.id];
-  const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps } = recipeInfo;
+  recipeInfo = recipesInformation[data.id];
+  const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps, favorite } = recipeInfo;
+
+  buttonRecipeFavorite.innerHTML = `
+    <img 
+      class="false" 
+      height="50px" 
+      width="50px" 
+      id="f${data.id}" 
+      src="${favorite ? './images/heart2.png' : './images/heart1.png'}">
+  `;  
   recipeTitle.innerHTML = title;
   recipeTitleH1.innerHTML = title;
   recipeImage.setAttribute("src", image);
@@ -154,6 +170,36 @@ const generateOptionalRecipes = (num1, num2) => {
     `;
   }, "")
 }
+// Save recipe modal button
+saveRecipeBtn.addEventListener('click', async () => {
+  try {
+      const res = await fetch('/saveRecipe', {
+          method: 'POST',
+          body: JSON.stringify(recipeInfo),
+          headers: {'Content-Type': 'application/json'}
+      });
+      let data = await res.json();
+      recipesInformation = data.recipes;
+      
+      if (recipeInfo.favorite) {
+        recipeInfo.favorite = false;
+      } else {
+        recipeInfo.favorite = true;
+      }
+
+      buttonRecipeFavorite.innerHTML = `
+        <img 
+          class="false" 
+          height="50px" 
+          width="50px" 
+          src="${data.saved ? './images/heart2.png' : './images/heart1.png'}"
+        >`; 
+      
+
+  } catch (e) {
+      console.log(e.message);
+  }
+})
 
 // generateRecipesButton.addEventListener("click", generateRecipes);
 
