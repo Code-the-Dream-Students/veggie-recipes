@@ -13,8 +13,10 @@ const fRecipeReadyInMinutes = document.querySelector("#f-recipe-ready-in-minutes
 const fRecipeServings = document.querySelector("#f-recipe-servings");
 const fRecipeIngredients = document.querySelector("#f-recipe-ingredients");
 const fRecipeSteps = document.querySelector("#f-recipe-steps");
+const emailRecipeBtn = document.getElementById('emailRecipeBtn');
 let recipesInformationGlobal = {};
 let recipesInformation = [];
+let recipeInfo;
 
 const card = (rec) => {
     return `
@@ -69,8 +71,7 @@ const recipeModal = (id) => {
     //     recipes.forEach(recipe => {
     //         recipesInformation[recipe.id] = recipe;
     //     })
-
-        const recipeInfo = recipesInformationGlobal[id];
+        recipeInfo = recipesInformationGlobal[id];
         const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps } = recipeInfo;
         fRecipeTitle.innerHTML = title;
         fRecipeTitleH1.innerHTML = title;
@@ -83,3 +84,19 @@ const recipeModal = (id) => {
         fRecipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
     // })
 };
+
+// Save recipe modal button
+emailRecipeBtn.addEventListener('click', async () => {
+  try {
+      const res = await fetch('/emailRecipe', {
+          method: 'POST',
+          body: JSON.stringify(recipeInfo),
+          headers: {'Content-Type': 'application/json'}
+      });
+      let data = await res.json();
+      console.log('email sent')
+
+  } catch (e) {
+      console.log(e.message);
+  }
+})

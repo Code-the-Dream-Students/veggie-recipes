@@ -14,7 +14,7 @@ const searchAuth = require('../middleware/searchAuth');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
-const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail } = require('../emails/account');
+const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail, recipeEmail } = require('../emails/account');
 const generateRecipes = require('../utils/generateRecipes');
 
 const SCOPES = ["email"]
@@ -217,8 +217,9 @@ router.post('/search', searchAuth, async (req, res) => {
                 const savedParsedRecipes = JSON.parse(savedRecipes[i].recipe);
                 mySet.add(savedParsedRecipes.id);     
             }
-
+            console.log(mySet)
             for (let i = 0; i < newRecipes.length; i++) {
+
                 if (mySet.has(newRecipes[i].id)) {
                     newRecipes[i] = {...newRecipes[i], favorite: true};
                 }
@@ -271,35 +272,49 @@ router.post('/search', searchAuth, async (req, res) => {
 })
 
 // POST Save recipe
-router.post('/saveRecipe', auth, async (req, res) => {
+router.post('/saveRecipe', searchAuth, async (req, res) => {
     try {
         // Saved or not saved message
         let message;
+        console.log('goodbye')
+
         // User info
         const user = req.user;
-        // Recipe to save
-        let newRecipe = req.body;
-        // Saved recipes from db
-        const savedRecipes = req.user.recipes;
-        
-        if (newRecipe.favorite) {
-           user.recipes = savedRecipes.reduce((acc, recipe) => {
-            const parsedRecipe = JSON.parse(recipe.recipe);
 
-            if (parsedRecipe.id === newRecipe.id) {
-                // delete parsedRecipe.favorite;
+        if (user) {
+            // Recipe to save
+            let newRecipe = req.body;
+            // Saved recipes from db
+            const savedRecipes = req.user.recipes;
 
-                return [...acc];
+            if (newRecipe.favorite) {
+                user.recipes = savedRecipes.reduce((acc, recipe) => {
+                const parsedRecipe = JSON.parse(recipe.recipe);
+
+                if (parsedRecipe.id === newRecipe.id) {
+                    // delete parsedRecipe.favorite;
+
+                    return [...acc];
+                }
+
+                return [...acc, {recipe: recipe.recipe}];
+
+                }, [])
+
+                message = 'Recipe deleted!';
+    
+                await user.save();
+                return res.status(200).send({ recipes: user.recipes, message, saved: false });
             }
 
-            return [...acc, {recipe: recipe.recipe}];
-
-            }, [])
-
-            message = 'Recipe deleted!';
-            
+            // Add new recipe to user
+            user.recipes = [...user.recipes, { recipe: JSON.stringify(newRecipe) }]
+            // Save user
             await user.save();
-            return res.status(200).send({ recipes: user.recipes, message, saved: false });
+            // Saved recipe message
+            message = 'Recipe saved!';
+
+            return res.status(200).send({recipes: user.recipes, message, saved: true});
         }
 
         // // Check if new recipe is in db
@@ -313,16 +328,34 @@ router.post('/saveRecipe', auth, async (req, res) => {
         //     }
         // }
 
-        // Add new recipe to user
-        user.recipes = [...user.recipes, { recipe: JSON.stringify(newRecipe) }]
-        // Save user
-        await user.save();
         // Saved recipe message
-        message = 'Recipe saved!';
-
-        res.status(200).send({recipes: user.recipes, message, saved: true});
+        message = 'Log in to save recipe!';
+        console.log('hello')
+        return res.status(200).send({message, saved: false});
     } catch (e) {
         res.status(500).send(e.message);
+    }
+})
+
+// POST email recipe
+router.post('/emailRecipe', auth, async (req, res) => {
+    try {
+        // Get user info
+        const user = req.user;
+        // Set user email
+        const email = req.user.email;
+        // Set user full name
+        const name = `${user.firstName} ${user.lastName}`;
+        // Get recipe that we want to send
+        const recipe = req.body;
+        // Completion message
+        const message = 'Email sent!';
+        // Send email with user info, recipe
+        await recipeEmail(email, name, recipe);
+
+        res.status(200).send({message});
+    } catch (e) {
+        res.status(500).send(e.message)
     }
 })
 

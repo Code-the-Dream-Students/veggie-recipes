@@ -179,7 +179,7 @@ saveRecipeBtn.addEventListener('click', async () => {
           headers: {'Content-Type': 'application/json'}
       });
       let data = await res.json();
-      recipesInformation = data.recipes;
+      // recipesInformation = data.recipes;
       
       if (recipeInfo.favorite) {
         recipeInfo.favorite = false;
@@ -194,7 +194,7 @@ saveRecipeBtn.addEventListener('click', async () => {
           width="50px" 
           src="${data.saved ? './images/heart2.png' : './images/heart1.png'}"
         >`; 
-      
+      console.log(data.message)
 
   } catch (e) {
       console.log(e.message);
