@@ -33,8 +33,12 @@
           </li>
         </ul>
         <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
+        
+        <a class="d-none d-md-block" data-toggle="modal" data-target="#forgotModal">Forgot Password?</a>
+
         <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login
-          <i class="far fa-user"></i></a>
+          <i class="far fa-user"></i>
+        </a>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#updateModal">Update</button>
       </div>
@@ -244,6 +248,58 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+
+  <div class="modal fade" id="forgotModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+    data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <!------modal body---->
+        <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="forgotModal-title">Forgot Password?</h5>
+          </div>
+          <!------name input---->
+          <form class="needs-validation" novalidate>
+            <!------email address input---->
+            <div class="form-group m-4">
+              <label for="email-logIn">Email address</label>
+              <input type="email" id="email-logIn" class="form-control" placeholder="name@example.com" required>
+              <div class="invalid-feedback">
+                Please provide your email.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <button class="btn-success btn-lg btn-block" type="submit">Recover Password</button>
+            </div>
+            <div class="dropdown-divider"></div>
+          </form>
+        </div>
+        <!------/modal body---->
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
   <!---------------------------
      FORM MODAL LOGIN
   ----------------------------->
