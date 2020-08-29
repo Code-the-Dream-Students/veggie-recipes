@@ -180,7 +180,7 @@ router.post('/changePassword', auth, async (req, res) => {
         // Compare old password to new password
         const isMatch = await bcrypt.compare(newPassword, oldPassword);
         // Throw error if old password is the same as the new password
-        if (isMatch) {
+        if (!isMatch) {
             throw new Error('Please use a new password.');
         }
         // Save new password
@@ -219,7 +219,6 @@ router.post('/search', searchAuth, async (req, res) => {
             }
             console.log(mySet)
             for (let i = 0; i < newRecipes.length; i++) {
-
                 if (mySet.has(newRecipes[i].id)) {
                     newRecipes[i] = {...newRecipes[i], favorite: true};
                 }

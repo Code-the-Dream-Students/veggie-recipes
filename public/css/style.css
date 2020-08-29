@@ -112,6 +112,7 @@ body, h1, h2, .btn, .searchbox{
   text-align: center;
 
 }
+
 .modal-body .btn-google:hover {
   text-decoration: none;
 }
@@ -270,7 +271,9 @@ text-decoration: none; }
     padding:.8rem; }
 
 /*   MODAL CSS */
-
+.modal {
+  overflow-y:auto;
+}
 /*   MODAL delete borders */
 .modal-header, .modal-footer{
   border:none;

@@ -18,6 +18,16 @@ let recipesInformationGlobal = {};
 let recipesInformation = [];
 let recipeInfo;
 
+
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
 const card = (rec) => {
     return `
     <div class="col-md-6 col-lg-3 mb-5">

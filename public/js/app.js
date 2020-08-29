@@ -16,6 +16,16 @@ let recipesInformation = {};
 let recipesForCarrousel = [];
 
 
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+
 const generateCuisines = () => {
   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
   cuisinesSelect.innerHTML += cuisines.reduce((acc, cui) => acc += `<option value=${cui} onclick="cuisine = this.value">${cui}</option>`, "");
