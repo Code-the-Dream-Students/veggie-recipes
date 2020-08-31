@@ -148,8 +148,6 @@ router.post('/forgotPassword', async (req, res) => {
         if (!user) {
             throw new Error();
         }
-        // Create name using first and last name of user
-        const name = `${user.firstName} ${user.lastName}`;
         // Create new password
         const newPassword = require('crypto').randomBytes(32).toString('hex');
         // Assign new password to user's password
@@ -157,7 +155,7 @@ router.post('/forgotPassword', async (req, res) => {
         // Save user with new password
         await user.save();
         // Send user new password
-        await resetPasswordEmail(user.email, name, newPassword);
+        await resetPasswordEmail(user.email, user.userName, newPassword);
 
         res.redirect('/');
     } catch (e) {
@@ -169,8 +167,6 @@ router.post('/changePassword', auth, async (req, res) => {
     try {
         // Get user from auth middleware
         const user = req.user;
-        // Create name using first and last name of user
-        const name = `${user.firstName} ${user.lastName}`;
         // Password submitted by user
         const newPassword = req.body.password;
         // Confirmed password
@@ -190,7 +186,7 @@ router.post('/changePassword', auth, async (req, res) => {
             // Save user with new password
             await user.save();
             // Send user new password
-            await newPasswordEmail(user.email, name);
+            await newPasswordEmail(user.email, user.userName);
 
             res.status(200).send({message: 'You have successfully changed your password!'})
         } else {
@@ -217,7 +213,7 @@ router.post('/search', searchAuth, async (req, res) => {
                 const savedParsedRecipes = JSON.parse(savedRecipes[i].recipe);
                 mySet.add(savedParsedRecipes.id);     
             }
-            console.log(mySet)
+            
             for (let i = 0; i < newRecipes.length; i++) {
                 if (mySet.has(newRecipes[i].id)) {
                     newRecipes[i] = {...newRecipes[i], favorite: true};
@@ -275,7 +271,6 @@ router.post('/saveRecipe', searchAuth, async (req, res) => {
     try {
         // Saved or not saved message
         let message;
-        console.log('goodbye')
 
         // User info
         const user = req.user;
@@ -329,7 +324,7 @@ router.post('/saveRecipe', searchAuth, async (req, res) => {
 
         // Saved recipe message
         message = 'Log in to save recipe!';
-        console.log('hello')
+
         return res.status(200).send({message, saved: false});
     } catch (e) {
         res.status(500).send(e.message);
@@ -343,14 +338,12 @@ router.post('/emailRecipe', auth, async (req, res) => {
         const user = req.user;
         // Set user email
         const email = req.user.email;
-        // Set user full name
-        const name = `${user.firstName} ${user.lastName}`;
         // Get recipe that we want to send
         const recipe = req.body;
         // Completion message
         const message = 'Email sent!';
         // Send email with user info, recipe
-        await recipeEmail(email, name, recipe);
+        await recipeEmail(email, user.userName, recipe);
 
         res.status(200).send({message});
     } catch (e) {
@@ -363,8 +356,7 @@ router.post('/register', async (req, res) => {
     try {
         const user = new User(req.body);
         const token = await user.generateAuthToken();
-        const name = `${user.firstName} ${user.lastName}`;
-        await sendWelcomeEmail(user.email, name);
+        await sendWelcomeEmail(user.email, user.userName);
         await user.save();
 
         // Put JWT in cookie
@@ -452,18 +444,23 @@ router.post('/logout', auth, async (req, res) => {
 //         res.status(500).send(e.message);
 //     }
 // })
-// POST Update a user by id
-router.post('/updateUser', auth, async (req, res) => {
+// PATCH Update a user by id
+router.patch('/updateUser', auth, async (req, res) => {
     const user = req.user;
     // Get updates from form
     const updates = Object.keys(req.body);
     const updatesMade = [];
+    let isMatch;
+
+    if (req.body['password']) {
+        isMatch = await bcrypt.compare(req.body['password'], user.password);
+    } 
 
     try {
         // Update each property of user that needs to be updated
         updates.forEach(update => {
             // Check if user property is not the same as the submitted update and non empty
-            if (user[update] !== req.body[update] && req.body[update] !== '') {
+            if (user[update] !== req.body[update] && req.body[update] !== '' && !isMatch) {
                 user[update] = req.body[update]
                 updatesMade.push(update)
             }

@@ -98,7 +98,7 @@ changePasswordForm.addEventListener('submit', async (e) => {
 
 updateUser.addEventListener('submit', async event => {
     event.preventDefault();
-
+    console.log('hello')
     let formData = new FormData(updateUser);
 
     const data = {
@@ -109,7 +109,7 @@ updateUser.addEventListener('submit', async event => {
 
     try {
         const res = await fetch('/updateUser', {
-            method: 'POST',
+            method: 'PATCH',
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json'}
         });
