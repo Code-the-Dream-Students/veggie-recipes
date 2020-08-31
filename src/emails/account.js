@@ -120,9 +120,19 @@ const recipeEmail = (email, name, recipe) => {
     })
 }
 
+const updateUserEmail = (email, name) => {
+  sgMail.send({
+    to: email,
+    from: 'jgabitto1792@gmail.com',
+    subject: `Hello ${name}! You have successfully updated your user information!`,
+    html: `Hello ${name}! You have succesfully updated your user information!`
+  })
+}
+
 module.exports = {
     sendWelcomeEmail,
     resetPasswordEmail,
     newPasswordEmail,
-    recipeEmail
+    recipeEmail,
+    updateUserEmail
 };

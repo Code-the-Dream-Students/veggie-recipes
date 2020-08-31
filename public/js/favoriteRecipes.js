@@ -25,6 +25,7 @@ const updateOldPassword = document.querySelector("#update-old-password");
 const updateNewPassword = document.querySelector("#update-new-password");
 const updateUserForm = document.getElementById('updateUser');
 const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
+const recipeModal = document.getElementById('recipeModal2');
 
 
 // updateName.value = information.name;
@@ -78,7 +79,7 @@ const card = (rec) => {
           <h5 class="card-title">${rec.title}</h5>
           <p>${rec.summary.split(" ").slice(0, 50).join(" ")}...</p>
         </div>
-        <button id="${rec.id}" onclick="recipeModal(${rec.id})" class="btn  my-2" type="submit" data-toggle="modal" data-target="#recipeModal2">Read Recipe</button>
+        <button id="${rec.id}" onclick="displayRecipeModal(${rec.id})" class="btn  my-2" type="submit" data-toggle="modal" data-target="#recipeModal2">Read Recipe</button>
       </div>
     </div>
   `;
@@ -113,10 +114,12 @@ genRec();
 searchboxFav.addEventListener("keyup", (event) => genRec(event));
 
 
-const recipeModal = (id) => {
+const displayRecipeModal = (id) => {
   recipeInfo = recipesInformationGlobal[id];
+  recipeInfo.favorite = true;
   const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps, favorite } = recipeInfo;
-  console.log(favorite)
+
+
   buttonRecipeFavorite.innerHTML = `
     <img 
       class="false" 
@@ -135,8 +138,12 @@ const recipeModal = (id) => {
         fRecipeServings.innerHTML = servings;
         fRecipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"");
         fRecipeSteps.innerHTML = steps.reduce((acc, step) => acc += `<li>${step}</li>`,"");
-    // })
+    
 };
+// Rerender recipes after modal closes
+$(recipeModal).on('hidden.bs.modal', function (e) {
+  genRec();
+})
 
 // Save recipe modal button
 emailRecipeBtn.addEventListener('click', async () => {

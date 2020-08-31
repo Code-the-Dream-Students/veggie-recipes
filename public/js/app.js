@@ -122,7 +122,7 @@ const recipeCarousel = document.getElementById('recipeCarousel');
 const carouselItem = document.getElementById('carouselItem');
 const disposableCarouselItem = document.getElementById('disposableCarouselItem');
 const nondisposableCarouselItem = document.getElementById('nondisposableCarouselItem');
-const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
+
 
 // const favfav = (something) => {
 //   let fav = recipesInformation[something.split("f")[1]];
@@ -134,7 +134,7 @@ const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
 const recipeModal = (data) => {
   recipeInfo = recipesInformation[data.id];
   const { title, image, summary, cookingMinutes, readyInMinutes, servings, ingredients, steps, favorite } = recipeInfo;
-
+  
   buttonRecipeFavorite.innerHTML = `
     <img 
       class="false" 
@@ -185,6 +185,44 @@ const generateOptionalRecipes = (num1, num2) => {
     `;
   }, "")
 }
+
+
+const fields = document.querySelector("#fields");
+const updateName = document.querySelector("#update-name");
+const updateEmail = document.querySelector("#update-email");
+const updateOldPassword = document.querySelector("#update-old-password");
+const updateNewPassword = document.querySelector("#update-new-password");
+const updateUserForm = document.getElementById('updateUser');
+const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
+
+const toggling = () => {
+  let toggle = true;  
+  return () => {
+    toggle = !toggle
+    updateName.readOnly = 
+    updateEmail.readOnly = 
+    updateOldPassword.readOnly = 
+    updateNewPassword.readOnly = toggle;
+
+    if (toggle) {
+      event.target.textContent = "Enable fields";
+      event.target.classList.replace("btn-danger", "btn-primary");
+    } else {
+      event.target.textContent = "Disable fields";
+      event.target.classList.replace("btn-primary", "btn-danger");
+    }
+  };
+}
+
+const enableDisable = toggling();
+
+const buttonChange = (event) => {
+  event.preventDefault();
+  enableDisable();
+}
+
+fields.addEventListener("click", buttonChange)
+
 // Save recipe modal button
 buttonRecipeFavorite.addEventListener('click', async () => {
   try {
@@ -210,6 +248,34 @@ buttonRecipeFavorite.addEventListener('click', async () => {
           src="${data.saved ? './images/heart2.png' : './images/heart1.png'}"
         >`; 
       console.log(data.message)
+
+  } catch (e) {
+      console.log(e.message);
+  }
+})
+
+// Save recipe modal button
+updateUserForm.addEventListener('submit', async (event) => {
+  try {
+    event.preventDefault();
+
+    let formData = new FormData(updateUserForm);
+
+    const data = {
+        'userName': formData.get('userName'),
+        'email': formData.get('email'),
+        'password': formData.get('newPassword')
+    };
+    
+      const res = await fetch('/updateUser', {
+          method: 'PATCH',
+          body: JSON.stringify(data),
+          headers: {'Content-Type': 'application/json'}
+      });
+
+      let updatesMade = await res.json();
+
+      console.log(updatesMade)
 
   } catch (e) {
       console.log(e.message);

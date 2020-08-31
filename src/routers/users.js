@@ -14,7 +14,7 @@ const searchAuth = require('../middleware/searchAuth');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
-const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail, recipeEmail } = require('../emails/account');
+const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail, recipeEmail, updateUserEmail } = require('../emails/account');
 const generateRecipes = require('../utils/generateRecipes');
 
 const SCOPES = ["email"]
@@ -30,6 +30,8 @@ const router = new express.Router();
 // GET landing page route
 router.get('/', searchAuth, (req, res) => {
     let loggedIn;
+    let userName;
+    let email;
     if (req.token) {
         loggedIn = true
     }
@@ -43,7 +45,12 @@ router.get('/', searchAuth, (req, res) => {
         })
     })
 
-    res.render('index', {url, loggedIn});
+    if (req.user) {
+        userName = req.user.userName;
+        email = req.user.email;
+    }
+
+    res.render('index', {url, loggedIn, userName, email});
 })
 // GET favorite recipes
 router.get('/home', auth, (req, res) => {
@@ -56,7 +63,7 @@ router.get('/home', auth, (req, res) => {
         return obj;
     })
     
-    res.render('home', {recipes, loggedIn: true, user: req.user});
+    res.render('home', {recipes, loggedIn: true, email: req.user.email, userName: req.user.userName});
 })
 
 // GET favorite recipes
@@ -467,6 +474,8 @@ router.patch('/updateUser', auth, async (req, res) => {
         })
 
         await user.save();
+
+        await updateUserEmail(user.email, user.userName);
 
         res.status(200).send({ updates: user[updatesMade] });
     } catch (e) {
