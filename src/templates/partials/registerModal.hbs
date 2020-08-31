@@ -1,6 +1,6 @@
 <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true" 
     data-keyboard="false">
-    <div class="modal-dialog">
+    <div class="modal-dialog ">
       <div class="modal-content">
         <div class="modal-header bg-light text white">
           <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
@@ -18,17 +18,10 @@
           <form action="/register" method="POST" class="needs-validation" novalidate>
             <!------email address input---->
             <div class="form-group m-4">
-              <label for="name-signUp">First Name</label>
-              <input name="firstName" type="text" id="firstName-signUp" class="form-control" placeholder="First name" required>
+              <label for="name-signUp">User Name</label>
+              <input name="userName" type="text" id="lastName-signUp" class="form-control" placeholder="User name" required>
               <div class="invalid-feedback">
-                Please provide your name.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="name-signUp">Last Name</label>
-              <input name="lastName" type="text" id="lastName-signUp" class="form-control" placeholder="Last name" required>
-              <div class="invalid-feedback">
-                Please provide your name.
+                Please provide your username.
               </div>
             </div>
             <div class="form-group m-4">

@@ -15,6 +15,7 @@
         <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
         {{#if loggedIn}}
         <a href="/home" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
+        <button class="btn signup" type="submit" data-toggle="modal" data-target="#updateModal">Update</button>
         <form  method="POST" action="/logout">
           <button class="btn signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
         </form>
@@ -23,7 +24,7 @@
         {{!-- <a class="btn btn-block btn-social btn-google" href="{{url}}">
           <span class="fa fa-google"></span> Sign in with Google
         </a>  --}}
-        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login<i class="far fa-user"></i></a>
+        <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login <i class="far fa-user"></i></a>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
         {{/if}}
       </div>

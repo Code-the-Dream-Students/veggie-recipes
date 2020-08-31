@@ -29,22 +29,26 @@ displayRecipe.addEventListener('submit', async (e) => {
     }
 })
 
-getRecipes.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// getRecipes.addEventListener('submit', async (e) => {
+//     e.preventDefault();
 
-    try {
-        const res = await fetch('/getRecipes');
+//     try {
+//         const res = await fetch('/getRecipes');
 
-        let recipes = await res.json();
+//         let recipes = await res.json();
 
-        console.log(recipes)
-    } catch (e) {
-        console.log(e.message)
-    }
-})
+//         console.log(recipes)
+//     } catch (e) {
+//         console.log(e.message)
+//     }
+// })
+
+// console.log('hello')
+
 
 changePasswordForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     let formData = new FormData(changePasswordForm);
 
     const data = {
@@ -60,19 +64,47 @@ changePasswordForm.addEventListener('submit', async (e) => {
         });
         
         let message = await res.json();
-
+        console.log(message)
         changePasswordDiv.innerHTML = message.message;
     } catch (e) {
         changePasswordDiv.innerHTML = e.message;    
     }
 })
 
-updateUserForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    let formData = new FormData(updateUserForm);
+// updateUserForm.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     let formData = new FormData(updateUserForm);
+
+//     const data = {
+//         'firstName': formData.get('firstName'),
+//         'lastName': formData.get('lastName'),
+//         'email': formData.get('email')
+//     };
+
+//     try {
+//         const res = await fetch('/updateUser', {
+//             method: 'POST',
+//             body: JSON.stringify(data),
+//             headers: {'Content-Type': 'application/json'}
+//         });
+//         console.log(res)
+//         let message = await res.json();
+//         console.log(message)
+//         // changePasswordDiv.innerHTML = message.message;
+//     } catch (e) {
+//         changePasswordDiv.innerHTML = e.message;    
+//     }
+// })
+
+updateUser.addEventListener('submit', async event => {
+    event.preventDefault();
+    console.log('hello')
+    let formData = new FormData(updateUser);
 
     const data = {
         'firstName': formData.get('firstName'),
+        'lastName': formData.get('lastName'),
+        'email': formData.get('email')
     };
 
     try {
@@ -81,11 +113,10 @@ updateUserForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json'}
         });
-        console.log(res)
-        let message = await res.json();
-        console.log(message)
-        // changePasswordDiv.innerHTML = message.message;
+        let user = await res.json();
+        console.log(user)
+
     } catch (e) {
-        changePasswordDiv.innerHTML = e.message;    
+        console.log(e.message);
     }
 })

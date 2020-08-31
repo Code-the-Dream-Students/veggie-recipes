@@ -105,6 +105,18 @@ body, h1, h2, .btn, .searchbox{
     background-color: #fff;
     color: #061404; }
 
+/*Save recipe button*/
+.saveRecipeBtn {
+  border: 0!important;
+  background: transparent;
+  outline: 0!important;
+  transition: all .2s ease-in-out;
+  
+}
+.saveRecipeBtn:hover {
+  transform: scale(1.3);
+}
+
 /*google btn*/
 .modal-body .btn-google {
   width: 100%;
@@ -112,6 +124,7 @@ body, h1, h2, .btn, .searchbox{
   text-align: center;
 
 }
+
 .modal-body .btn-google:hover {
   text-decoration: none;
 }
@@ -270,7 +283,9 @@ text-decoration: none; }
     padding:.8rem; }
 
 /*   MODAL CSS */
-
+.modal {
+  overflow-y:auto;
+}
 /*   MODAL delete borders */
 .modal-header, .modal-footer{
   border:none;
