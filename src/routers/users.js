@@ -87,7 +87,7 @@ router.get('/contact', searchAuth, (req, res) => {
     if (req.user) {
         userName = req.user.userName;
         email = req.user.email;
-        return res.render('about', {url, loggedIn, email: req.user.email, userName: req.user.userName});
+        return res.render('contact', {url, loggedIn, email: req.user.email, userName: req.user.userName});
     }
     
     res.render('contact', {url, loggedIn});

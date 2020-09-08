@@ -23,7 +23,9 @@ body, h1, h2, .btn, .searchbox{
   .hide {
     display: none;
   }
-
+.container-height {
+  min-height: calc(100vh - 96px);
+}
 /* NAV */
 .logo-text, .unsuccessful {
   color: #ff914d; }
@@ -170,7 +172,9 @@ body, h1, h2, .btn, .searchbox{
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center; 
+  margin-bottom: 0;
+}
 
 .main-title {
   font-weight: 600;
