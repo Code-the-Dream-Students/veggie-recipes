@@ -68,11 +68,57 @@ router.get('/home', auth, (req, res) => {
 // GET contact
 router.get('/contact', searchAuth, (req, res) => {
     let loggedIn;
+    let userName;
+    let email;
     if (req.token) {
         loggedIn = true
     }
+
+    // Create google OAuth url
+    const url = googleOAuth.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+        state: JSON.stringify({
+            callbackUrl: req.body.callbackUrl,
+            userID: req.body.userid
+        })
+    })
+
+    if (req.user) {
+        userName = req.user.userName;
+        email = req.user.email;
+        return res.render('about', {url, loggedIn, email: req.user.email, userName: req.user.userName});
+    }
     
-    res.render('contact', {loggedIn, email: req.user.email, userName: req.user.userName});
+    res.render('contact', {url, loggedIn});
+})
+// GET about
+router.get('/about', searchAuth, (req, res) => {
+    let loggedIn;
+    let userName;
+    let email;
+    if (req.token) {
+        loggedIn = true
+    }
+
+    // Create google OAuth url
+    const url = googleOAuth.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+        state: JSON.stringify({
+            callbackUrl: req.body.callbackUrl,
+            userID: req.body.userid
+        })
+    })
+
+    if (req.user) {
+        userName = req.user.userName;
+        email = req.user.email;
+
+        return res.render('about', {url, loggedIn, email: req.user.email, userName: req.user.userName});
+    }
+    
+     return res.render('about', {url, loggedIn});
 })
 
 // GET favorite recipes

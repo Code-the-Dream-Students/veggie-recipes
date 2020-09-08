@@ -138,6 +138,30 @@ body, h1, h2, .btn, .searchbox{
 .modal-body .btn-google span {
   padding-right: 0; }
 
+  /* About */
+  .about-jumbo.jumbotron {
+    background: #ABBDF0 url("/images/couple-cooking.jpg") no-repeat center;
+    background-size: cover;
+  }
+  .about-jumbo p {
+    color: #000;
+  }
+  .about-jumbo .searchbox {
+    position: relative;
+    background: none;
+    z-index: 2;
+  }
+  .about-jumbo .searchbox::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: .8;
+    z-index: -1;
+  }
 
 /* JUMBOTRON */
 .jumbotron {
