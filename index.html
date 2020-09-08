@@ -36,8 +36,6 @@
         <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login
           <i class="far fa-user"></i></a>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
-        <button class="btn signup" type="submit" data-toggle="modal" data-target="#updateModal">Update</button>
-        <button class="btn signup" type="submit" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</button>
       </div>
 
       <!-- Navigation links (hidden by default) -->
@@ -50,307 +48,83 @@
     </div>
     <!-----/navbar---->
   </div>
-  <!-----jumbotron---->
-  <div class="jumbotron jumbotron-fluid  text-white">
-    <div class="container text-sm-center">
-      <div class="searchbox">
-        <form class="form-search-center">
-          <h1 class="main-title">Find a Recipe</h1>
-          <div class="form-group mb-3">
-            <div class="input-group mb-3 input-search">
-              <i class="fa fa-search" aria-hidden="true"></i>
-              <input autocomplete="off" id="searchbox" class="form-control " placeholder="Search" aria-describedby="searchButton" />
-            </div>
-            <div class="container text-center">
-              <div class="smooth-scroll">
-                <a id="generate-recipes" class="btn btn-search-home" href="#search-results">Search</a>
-              </div>
-              <div class="advanced-search">
-                <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button"
-                  aria-expanded="false" aria-controls="collapseExample">
-                  advanced search <i class="fa fa-caret-right" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
 
-            <p>
-            <div class="collapse" id="collapseExample">
-              <div class="card card-body">
-                <div class="form-row">
-                  <div class="col-md-6 mb-3">
-                    <div class="input-group-prepend">
-                      <select id="cuisines" class="custom-select"></select>
-                    </div>
-                  </div>
-                  <!------number of people input---->
-                  <div class="col-md-6 mb-3">
-                    <div class="input-group-prepend">
-                      <select id="types" class="custom-select"></select>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="container pt-5" id="search-results_fav">
+        <!---lis of recipes---->
+    <div class="card-header pt-5">
+      <h2>Contact</h2>
+    </div>
+    <div class="row d-flex justify-content-between">
+
+      <div class="b col-md-6 col-lg-4 mb-5 p-3">
+        <div class="card border rounded">
+          <img src="./images/profilePicture.jpg" class="mt-4 w-75 mx-auto border rounded-circle" alt="">
+          <!-- <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top"></div> -->
+          <div class="card-body">
+            <h5 class="card-title">Johan Ochoa</h5>
+            <p class="card-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.
+            </p>
+            <div class="d-flex justify-content-between">
+              <button class="btn bg-primary mr-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                Linkedin
+              </button>
+              <button class="btn bg-success ml-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+                <i class="fab fa-github"></i>
+                GitHub
+              </button>
             </div>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-----/jumbotron---->
-
-  <div class="container pt-4" id="search-results">
-    <!---lis of recipes---->
-    <!-- <div class="card-header">
-      <h2>The Latest 8 Recipes </h2>
-    </div> -->
-    <div id="list-of-recipes" class="row"></div><!-- /list of recipes -->
-  </div>
-
-  <!---------------------------
-       FORM MODAL RECIPE
-    ----------------------------->
-  <!-- Modal -->
-  <div class="modal fade bd-example-modal-lg" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
-    aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        
-        <div class="additional-recipes">
-          <div class="modal-love">You may also love</div>
         </div>
       </div>
-    </div>
-  </div>
-  <!---------------------------
-     FORM MODAL LOGIN
-  ----------------------------->
-  <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-    data-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-light text white">
-          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
 
-        </div>
-        <!------modal body---->
-        <div class="modal-body">
-          <div class="modal-title">
-            <h5 class="mb-4 mt-4 text-dark text-center" id="logInModal-title">Log In</h5>
+      <div class="b col-md-6 col-lg-4 mb-5 p-3">
+        <div class="card border rounded">
+          <img src="./images/profilePicture.jpg" class="mt-4 w-75 mx-auto border rounded-circle" alt="">
+          <!-- <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top"></div> -->
+          <div class="card-body">
+            <h5 class="card-title">Johan Ochoa</h5>
+            <p class="card-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.
+            </p>
+            <div class="d-flex justify-content-between">
+              <button class="btn bg-primary mr-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                Linkedin
+              </button>
+              <button class="btn bg-success ml-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+                <i class="fab fa-github"></i>
+                GitHub
+              </button>
+            </div>
           </div>
-          <!------name input---->
-          <form class="needs-validation" novalidate>
-            <!------email address input---->
-            <div class="form-group m-4">
-              <label for="email-logIn">Email address</label>
-              <input type="email" id="email-logIn" class="form-control" placeholder="name@example.com" required>
-              <div class="invalid-feedback">
-                Please provide your email.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="password-logIn">Password</label>
-              <input type="password" id="password-logIn" class="form-control" placeholder="Password" required>
-              <div class="invalid-feedback">
-                Please provide your password.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <button class="btn-success btn-lg btn-block" type="submit">Log in</button>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item text-primary text-md">New around here? Sign Up</div>
-            <div class="dropdown-item text-primary text-md mb-4">Forgot Password</div>
-          </form>
         </div>
-        <!------/modal body---->
       </div>
-    </div>
-  </div>
 
-
-  <!---------------------------
-     FORM MODAL UPDATE
-  ----------------------------->
-  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-light text white">
-          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-
-        </div>
-        <!------modal body---->
-        <div class="modal-body">
-          <div class="modal-title">
-            <h5 class="mb-4 mt-4 text-dark text-center" id="update-title">Update</h5>
+      <div class="b col-md-6 col-lg-4 mb-5 p-3">
+        <div class="card border rounded">
+          <img src="./images/profilePicture.jpg" class="mt-4 w-75 mx-auto border rounded-circle" alt="">
+          <!-- <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top"></div> -->
+          <div class="card-body">
+            <h5 class="card-title">Johan Ochoa</h5>
+            <p class="card-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.
+            </p>
+            <div class="d-flex justify-content-between">
+              <button class="btn bg-primary mr-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                Linkedin
+              </button>
+              <button class="btn bg-success ml-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+                <i class="fab fa-github"></i>
+                GitHub
+              </button>
+            </div>
           </div>
-          <!------name input---->
-          <form autocomplete="off" class="needs-validation" novalidate>
-            <div class="form-group m-4">
-              <label for="update-name">User name</label>
-              <input id="update-name" type="text" class="form-control" placeholder="Name" disabled="true" required>
-              <div class="invalid-feedback">
-                Please provide your user name.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="update-email">Email address</label>
-              <input id="update-email" type="email" class="form-control" placeholder="name@example.com" disabled="true" required>
-              <div class="invalid-feedback">
-                Please provide your email.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="update-old-password">Old Password</label>
-              <input id="update-old-password" type="password" class="form-control" placeholder="Password" disabled="true" required>
-              <div class="invalid-feedback">
-                Please provide your password.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="update-new-password">New Password</label>
-              <input id="update-new-password" type="password" class="form-control" placeholder="Password" disabled="true" required>
-              <div class="invalid-feedback">
-                Please provide your password.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <button id="fields" class="btn-primary btn-lg btn-block" >Enable fields</button>
-              <br>
-              <button class="btn-success btn-lg btn-block" type="submit">Update Information</button>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item text-primary text-md mb-4">Forgot Password</div>
-          </form>
         </div>
-        <!------/modal body---->
       </div>
-    </div>
-  </div>
 
-
-  <!---------------------------
-     FORM MODAL FORGOT PASSWORD
-  ----------------------------->
-  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-light text white">
-          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-
-        </div>
-        <!------modal body---->
-        <div class="modal-body">
-          <div class="modal-title">
-            <h5 class="mb-4 mt-4 text-dark text-center" id="forgot-password-title">Forgot password?</h5>
-          </div>
-          <!------name input---->
-          <form class="needs-validation" novalidate>
-
-            <div class="form-group m-4">
-              <label for="email-forgot-password">Email address</label>
-              <input id="email-forgot-password" type="email" class="form-control" placeholder="name@example.com" required>
-              <div class="invalid-feedback">
-                Please provide your email.
-              </div>
-            </div>
-  
-            <div class="form-group m-4">
-              <button class="btn-success btn-lg btn-block" type="submit">Send email</button>
-            </div>
-            <div class="dropdown-divider"></div>
-          </form>
-        </div>
-        <!------/modal body---->
-      </div>
-    </div>
-  </div>
-
-
-  <!---------------------------
-     FORM MODAL SIGNUP
-  ----------------------------->
-  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-    data-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-light text white">
-          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-
-        </div>
-        <!------modal body---->
-        <div class="modal-body">
-          <div class="modal-title">
-            <h5 class="mb-4 mt-4 text-dark text-center" id="SignUpModal-title">Sign Up</h5>
-          </div>
-          <!------name input---->
-          <form class="needs-validation" novalidate>
-            <!------email address input---->
-            <div class="form-group m-4">
-              <label for="name-signUp">Name</label>
-              <input type="text" id="name-signUp" class="form-control" placeholder="Name" required>
-              <div class="invalid-feedback">
-                Please provide your name.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="email-signUp">Email address</label>
-              <input type="email" id="email-signUp" class="form-control" placeholder="name@example.com" required>
-              <div class="invalid-feedback">
-                Please provide your email.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="password-signUp">Password</label>
-              <input type="password" id="password-signUp" class="form-control" placeholder="Password" required>
-              <div class="invalid-feedback">
-                Please provide your password.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <label for="confirm-password-signUp">Confirm Password</label>
-              <input type="password" id="confirm-password-signUp" class="form-control" placeholder="Confirm Password"
-                required>
-              <div class="invalid-feedback">
-                Please confirm your password.
-              </div>
-            </div>
-            <div class="form-group m-4">
-              <button class="btn-success btn-lg btn-block" type="submit">Sign Up</button>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item text-primary text-md mb-4">Already User? Sign In</div>
-          </form>
-        </div>
-        <!------/modal body---->
-      </div>
-    </div>
-  </div>
-  <!---footer---->
-
-  <div class="footer py-3">
-    <div class="container footer-cont">
-      <div class="social-media-contact mt-2 ">
-        <!--Facebook-->
-        <a class="fb-ic mr-3" role="button"><i class="fab fa-md fa-facebook-f"></i></a>
-        <!--Twitter-->
-        <a class="tw-ic mr-3" role="button"><i class="fab fa-md fa-twitter"></i></a>
-        <!--Instagram-->
-        <a class="ins-ic mr-3" role="button"><i class="fab fa-md fa-instagram"></i></a>
-      </div>
-      <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
     </div>
   </div>
   <!---/footer---->

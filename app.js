@@ -13,7 +13,7 @@ updateName.value = information.name;
 updateEmail.value = information.email;
 
 const toggling = () => {
-  let toggle = true;  
+  let toggle = true; 
   return () => {
     toggle = !toggle
     updateName.disabled = 
@@ -29,16 +29,16 @@ const toggling = () => {
       event.target.classList.replace("btn-primary", "btn-danger");
     }
   };
-}
+};
 
 const enableDisable = toggling();
 
 const buttonChange = (event) => {
   event.preventDefault();
   enableDisable();
-}
+};
 
-fields.addEventListener("click", buttonChange)
+fields.addEventListener("click", buttonChange);
 
 
 
