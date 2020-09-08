@@ -22,7 +22,6 @@
     "@sendgrid/mail": "^7.2.3",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
-    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "express-pjax": "0.0.1",
     "googleapis": "^58.0.0",
@@ -38,6 +37,7 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.4"
   }
 }

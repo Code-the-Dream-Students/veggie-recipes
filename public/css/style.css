@@ -20,11 +20,15 @@ body, h1, h2, .btn, .searchbox{
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;}
 
+  .hide {
+    display: none;
+  }
+
 /* NAV */
-.logo-text {
+.logo-text, .unsuccessful {
   color: #ff914d; }
 
-.logo-text span {
+.logo-text span, .successful {
     color: #74a322; }
 
 .topnav {
