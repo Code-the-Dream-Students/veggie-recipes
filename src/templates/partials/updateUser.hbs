@@ -20,6 +20,7 @@
           <form id="updateUser" autocomplete="off" class="needs-validation" novalidate>
             <div class="form-group m-4">
               <label for="update-name">User name</label>
+              <div id="newUserNameMessage" class="hide"></div>
               <input id="update-name" value={{userName}} name="userName" type="text" class="form-control" placeholder="Name" readonly required>
               <div class="invalid-feedback">
                 Please provide your user name.
@@ -27,6 +28,7 @@
             </div>
             <div class="form-group m-4">
               <label for="update-email">Email address</label>
+              <div id="newEmailMessage" class="hide"></div>
               <input id="update-email" value={{email}} name="email" type="email" class="form-control" placeholder="Email" readonly required>
               <div class="invalid-feedback">
                 Please provide your email.

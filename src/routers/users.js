@@ -65,6 +65,15 @@ router.get('/home', auth, (req, res) => {
     
     res.render('home', {recipes, loggedIn: true, email: req.user.email, userName: req.user.userName});
 })
+// GET contact
+router.get('/contact', searchAuth, (req, res) => {
+    let loggedIn;
+    if (req.token) {
+        loggedIn = true
+    }
+    
+    res.render('contact', {loggedIn, email: req.user.email, userName: req.user.userName});
+})
 
 // GET favorite recipes
 router.get('/getFavoriteRecipes', auth, (req, res) => {
@@ -460,20 +469,21 @@ router.patch('/updateUser', auth, async (req, res) => {
     const updatesMade = [];
     let isMatchOld;
     let isMatchNew;
-    
+
     try {
-        if (req.body['oldPassword']) {
+        if (req.body['oldPassword'] && req.body['oldPassword'] !== '') {
             isMatchOld = await bcrypt.compare(req.body['oldPassword'], user.password);
             isMatchNew = await bcrypt.compare(req.body['password'], user.password);
+
+            if (!isMatchOld) {
+                return res.status(400).send({ message: 'Password is incorrect', type: 'unsuccessfulOld'});
+            }
+    
+            if (isMatchNew) {
+                return res.status(400).send({ message: 'Please enter a new password', type: 'unsuccessfulNew'});
+            }
         }
 
-        if (!isMatchOld) {
-            return res.status(400).send({ message: 'Password is incorrect', type: 'unsuccessfulOld'});
-        }
-
-        if (isMatchNew) {
-            return res.status(400).send({ message: 'Please enter a new password', type: 'unsuccessfulNew'});
-        }
 
         // Update each property of user that needs to be updated
         updates.forEach(update => {
@@ -484,13 +494,22 @@ router.patch('/updateUser', auth, async (req, res) => {
             }
         })
         
-        await user.save();
+        if (user.isModified('password') || user.isModified('userName') || user.isModified('email')) {
+            await user.save();
+            await updateUserEmail(user.email, user.userName);
+            return res.status(200).send({ updates: user[updatesMade], message: 'User was updated successfully!', type: 'successful' });
+        }
 
-        await updateUserEmail(user.email, user.userName);
+        if (req.body['email'] !== '') return res.status(400).send({ message: 'Please enter a new email or delete email.', type: 'unsuccessfulEmail'});
 
-        res.status(200).send({ updates: user[updatesMade], message: 'User was updated successfully!', type: 'successful' });
+        if (req.body['userName'] !== '') return res.status(400).send({ message: 'Please enter a new username or delete username.', type: 'unsuccessfulUserName'});
+
+        
     } catch (e) {
-        res.status(400).send(e);
+        if (e.code === 11000) {
+            return res.status(400).send({message: 'Email is already used by another user!', type: 'unsuccessfulDuplicateEmail'});
+        }
+        return res.status(400).send({message: e.message});
     }
 
 })

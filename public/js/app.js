@@ -200,6 +200,8 @@ const forgotPasswordModal = document.getElementById('forgotPasswordModal');
 const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
 const oldPasswordMessage = document.getElementById('oldPasswordMessage');
 const newPasswordMessage = document.getElementById('newPasswordMessage');
+const newEmailMessage = document.getElementById('newEmailMessage');
+const newUserNameMessage = document.getElementById('newUserNameMessage');
 const updateModal = document.getElementById('updateModal');
 const updateUserSuccessMessage = document.getElementById('updateUserSuccessMessage');
 const recipeSaveModal = document.getElementById('recipeSaveModal');
@@ -285,18 +287,29 @@ updateUserForm.addEventListener('submit', async (event) => {
           headers: {'Content-Type': 'application/json'}
       });
 
-      let updatesMade = await res.json();
-
-      if (updatesMade.type === 'unsuccessfulOld') {
+      let message = await res.json();
+      
+      if (message.type === 'unsuccessfulOld') {
         oldPasswordMessage.classList.replace('hide', 'unsuccessful');
-        oldPasswordMessage.innerHTML = `${updatesMade.message}`;
-      } else if (updatesMade.type === 'unsuccessfulNew') {
+        oldPasswordMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulNew') {
         newPasswordMessage.classList.replace('hide', 'unsuccessful');
-        newPasswordMessage.innerHTML = `${updatesMade.message}`;
+        newPasswordMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulEmail') {
+          newEmailMessage.classList.replace('hide', 'unsuccessful');
+          newEmailMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulUserName') {
+          newUserNameMessage.classList.replace('hide', 'unsuccessful');
+          newUserNameMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulDuplicateEmail')  {
+          updateUserForm.classList.add('hide');
+        updateUserSuccessMessage.classList.replace('successful', 'unsuccessful');
+        updateUserSuccessMessage.classList.remove('hide');
+        updateUserSuccessMessage.innerHTML = `${message.message}`;
       } else {
         updateUserForm.classList.add('hide');
         updateUserSuccessMessage.classList.remove('hide');
-        updateUserSuccessMessage.innerHTML = `${updatesMade.message}`;
+        updateUserSuccessMessage.innerHTML = `${message.message}`;
       }
 
   } catch (e) {
@@ -314,11 +327,21 @@ $(updateModal).on('hidden.bs.modal', function () {
     newPasswordMessage.classList.replace('unsuccessful','hide')
   }
 
+  if (newEmailMessage.classList.contains('unsuccessful')) {
+      newEmailMessage.classList.replace('unsuccessful','hide')
+  }
+
+  if (newUserNameMessage.classList.contains('unsuccessful')) {
+      newUserNameMessage.classList.replace('unsuccessful','hide')
+  }
+
   if (updateUserForm.classList.contains('hide')) {
     updateUserForm.classList.remove('hide');
   }
   
   updateUserSuccessMessage.classList.add('hide')
+  updateUserSuccessMessage.classList.add('successful')
+  updateUserSuccessMessage.classList.remove('unsuccessful')
 })
 
 // Save recipe modal button
