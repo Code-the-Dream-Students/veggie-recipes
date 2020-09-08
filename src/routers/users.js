@@ -65,6 +65,61 @@ router.get('/home', auth, (req, res) => {
     
     res.render('home', {recipes, loggedIn: true, email: req.user.email, userName: req.user.userName});
 })
+// GET contact
+router.get('/contact', searchAuth, (req, res) => {
+    let loggedIn;
+    let userName;
+    let email;
+    if (req.token) {
+        loggedIn = true
+    }
+
+    // Create google OAuth url
+    const url = googleOAuth.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+        state: JSON.stringify({
+            callbackUrl: req.body.callbackUrl,
+            userID: req.body.userid
+        })
+    })
+
+    if (req.user) {
+        userName = req.user.userName;
+        email = req.user.email;
+        return res.render('contact', {url, loggedIn, email: req.user.email, userName: req.user.userName});
+    }
+    
+    res.render('contact', {url, loggedIn});
+})
+// GET about
+router.get('/about', searchAuth, (req, res) => {
+    let loggedIn;
+    let userName;
+    let email;
+    if (req.token) {
+        loggedIn = true
+    }
+
+    // Create google OAuth url
+    const url = googleOAuth.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+        state: JSON.stringify({
+            callbackUrl: req.body.callbackUrl,
+            userID: req.body.userid
+        })
+    })
+
+    if (req.user) {
+        userName = req.user.userName;
+        email = req.user.email;
+
+        return res.render('about', {url, loggedIn, email: req.user.email, userName: req.user.userName});
+    }
+    
+     return res.render('about', {url, loggedIn});
+})
 
 // GET favorite recipes
 router.get('/getFavoriteRecipes', auth, (req, res) => {
@@ -153,8 +208,9 @@ router.post('/forgotPassword', async (req, res) => {
         const user = await User.findOne({ email: req.body.email });
         // If can't find user
         if (!user) {
-            throw new Error();
+            return res.send({message: 'User does not exist with the email provided.', type: 'failure'})
         }
+
         // Create new password
         const newPassword = require('crypto').randomBytes(32).toString('hex');
         // Assign new password to user's password
@@ -164,7 +220,7 @@ router.post('/forgotPassword', async (req, res) => {
         // Send user new password
         await resetPasswordEmail(user.email, user.userName, newPassword);
 
-        res.redirect('/');
+        res.send({message: 'Password reset was successful.', type: 'success'})
     } catch (e) {
         res.status(500).send(e.message)
     }
@@ -457,29 +513,49 @@ router.patch('/updateUser', auth, async (req, res) => {
     // Get updates from form
     const updates = Object.keys(req.body);
     const updatesMade = [];
-    let isMatch;
-
-    if (req.body['password']) {
-        isMatch = await bcrypt.compare(req.body['password'], user.password);
-    } 
+    let isMatchOld;
+    let isMatchNew;
 
     try {
+        if (req.body['oldPassword'] && req.body['oldPassword'] !== '') {
+            isMatchOld = await bcrypt.compare(req.body['oldPassword'], user.password);
+            isMatchNew = await bcrypt.compare(req.body['password'], user.password);
+
+            if (!isMatchOld) {
+                return res.status(400).send({ message: 'Password is incorrect', type: 'unsuccessfulOld'});
+            }
+    
+            if (isMatchNew) {
+                return res.status(400).send({ message: 'Please enter a new password', type: 'unsuccessfulNew'});
+            }
+        }
+
+
         // Update each property of user that needs to be updated
         updates.forEach(update => {
             // Check if user property is not the same as the submitted update and non empty
-            if (user[update] !== req.body[update] && req.body[update] !== '' && !isMatch) {
+            if (user[update] !== req.body[update] && req.body[update] !== '' && update !== 'oldPassword') {
                 user[update] = req.body[update]
                 updatesMade.push(update)
             }
         })
+        
+        if (user.isModified('password') || user.isModified('userName') || user.isModified('email')) {
+            await user.save();
+            await updateUserEmail(user.email, user.userName);
+            return res.status(200).send({ updates: user[updatesMade], message: 'User was updated successfully!', type: 'successful' });
+        }
 
-        await user.save();
+        if (req.body['email'] !== '') return res.status(400).send({ message: 'Please enter a new email or delete email.', type: 'unsuccessfulEmail'});
 
-        await updateUserEmail(user.email, user.userName);
+        if (req.body['userName'] !== '') return res.status(400).send({ message: 'Please enter a new username or delete username.', type: 'unsuccessfulUserName'});
 
-        res.status(200).send({ updates: user[updatesMade] });
+        
     } catch (e) {
-        res.status(400).send(e);
+        if (e.code === 11000) {
+            return res.status(400).send({message: 'Email is already used by another user!', type: 'unsuccessfulDuplicateEmail'});
+        }
+        return res.status(400).send({message: e.message});
     }
 
 })

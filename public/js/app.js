@@ -12,6 +12,7 @@ const cuisines = ["african", "american", "british", "cajun", "caribbean", "chine
 const types = ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"];
 const cuisinesSelect = document.querySelector("#cuisines");
 const typesSelect = document.querySelector("#types");
+const recipeNotFoundModal = document.getElementById('recipeNotFoundModal');
 let recipesInformation = {};
 let recipesForCarrousel = [];
 
@@ -24,8 +25,6 @@ function myFunction() {
     x.style.display = "block";
   }
 }
-
-
 
 const generateCuisines = () => {
   cuisinesSelect.innerHTML = `<option onclick="cuisine = ''">Cuisine</option>`;
@@ -93,11 +92,11 @@ const displayRecipes = (rec) => {
         `;
 };
 
-
 const generateRecipes = (recipes) => {
   listOfRecipes.innerHTML = '';
   if (recipes[0].notFound) {
-    listOfRecipes.innerHTML += '<div>There are not recipes for your search! Please modify your search to see recipes.</div>';
+    // Show no recipes modal
+    $('#recipeNotFoundModal').modal('show')
     return;
   }
   recipes.forEach(rec => {
@@ -194,6 +193,19 @@ const updateOldPassword = document.querySelector("#update-old-password");
 const updateNewPassword = document.querySelector("#update-new-password");
 const updateUserForm = document.getElementById('updateUser');
 const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
+const forgotPasswordForm = document.getElementById('forgotPassword');
+const forgotPasswordMessage = document.getElementById('forgotPasswordMessage');
+const forgotPasswordDiv = document.getElementById('forgotPasswordDiv');
+const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+const oldPasswordMessage = document.getElementById('oldPasswordMessage');
+const newPasswordMessage = document.getElementById('newPasswordMessage');
+const newEmailMessage = document.getElementById('newEmailMessage');
+const newUserNameMessage = document.getElementById('newUserNameMessage');
+const updateModal = document.getElementById('updateModal');
+const updateUserSuccessMessage = document.getElementById('updateUserSuccessMessage');
+const recipeSaveModal = document.getElementById('recipeSaveModal');
+const recipeSaveModalMessage = document.getElementById('recipeSaveModalMessage');
 
 const toggling = () => {
   let toggle = true;  
@@ -247,14 +259,15 @@ buttonRecipeFavorite.addEventListener('click', async () => {
           width="50px" 
           src="${data.saved ? './images/heart2.png' : './images/heart1.png'}"
         >`; 
-      console.log(data.message)
+        recipeSaveModalMessage.innerHTML = `${data.message}`;
+        $('#recipeSaveModal').modal('show')
 
   } catch (e) {
       console.log(e.message);
   }
 })
 
-// Save recipe modal button
+// update user modal
 updateUserForm.addEventListener('submit', async (event) => {
   try {
     event.preventDefault();
@@ -264,6 +277,7 @@ updateUserForm.addEventListener('submit', async (event) => {
     const data = {
         'userName': formData.get('userName'),
         'email': formData.get('email'),
+        'oldPassword': formData.get('oldPassword'),
         'password': formData.get('newPassword')
     };
     
@@ -273,12 +287,110 @@ updateUserForm.addEventListener('submit', async (event) => {
           headers: {'Content-Type': 'application/json'}
       });
 
-      let updatesMade = await res.json();
-
-      console.log(updatesMade)
+      let message = await res.json();
+      
+      if (message.type === 'unsuccessfulOld') {
+        oldPasswordMessage.classList.replace('hide', 'unsuccessful');
+        oldPasswordMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulNew') {
+        newPasswordMessage.classList.replace('hide', 'unsuccessful');
+        newPasswordMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulEmail') {
+          newEmailMessage.classList.replace('hide', 'unsuccessful');
+          newEmailMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulUserName') {
+          newUserNameMessage.classList.replace('hide', 'unsuccessful');
+          newUserNameMessage.innerHTML = `${message.message}`;
+      } else if (message.type === 'unsuccessfulDuplicateEmail')  {
+          updateUserForm.classList.add('hide');
+        updateUserSuccessMessage.classList.replace('successful', 'unsuccessful');
+        updateUserSuccessMessage.classList.remove('hide');
+        updateUserSuccessMessage.innerHTML = `${message.message}`;
+      } else {
+        updateUserForm.classList.add('hide');
+        updateUserSuccessMessage.classList.remove('hide');
+        updateUserSuccessMessage.innerHTML = `${message.message}`;
+      }
 
   } catch (e) {
       console.log(e.message);
   }
 })
+
+// Reset update user label after modal closes
+$(updateModal).on('hidden.bs.modal', function () {
+  if (oldPasswordMessage.classList.contains('unsuccessful')) {
+    oldPasswordMessage.classList.replace('unsuccessful','hide')
+  }
+
+  if (newPasswordMessage.classList.contains('unsuccessful')) {
+    newPasswordMessage.classList.replace('unsuccessful','hide')
+  }
+
+  if (newEmailMessage.classList.contains('unsuccessful')) {
+      newEmailMessage.classList.replace('unsuccessful','hide')
+  }
+
+  if (newUserNameMessage.classList.contains('unsuccessful')) {
+      newUserNameMessage.classList.replace('unsuccessful','hide')
+  }
+
+  if (updateUserForm.classList.contains('hide')) {
+    updateUserForm.classList.remove('hide');
+  }
+  
+  updateUserSuccessMessage.classList.add('hide')
+  updateUserSuccessMessage.classList.add('successful')
+  updateUserSuccessMessage.classList.remove('unsuccessful')
+})
+
+// Save recipe modal button
+forgotPasswordForm.addEventListener('submit', async (event) => {
+  try {
+    event.preventDefault();
+
+    let formData = new FormData(forgotPasswordForm);
+
+    const data = {
+        'email': formData.get('email')
+    };
+      console.log(data)
+      const res = await fetch('/forgotPassword', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {'Content-Type': 'application/json'}
+      });
+
+      let message = await res.json();      
+      
+      forgotPasswordMessage.classList.remove('hide')
+
+      if (message.type === 'success') {
+        forgotPasswordMessage.classList.add('successful')
+        forgotPasswordDiv.classList.add('hide');
+        forgotPasswordBtn.classList.add('hide');
+      } else {
+        forgotPasswordMessage.classList.add('unsuccessful')
+      }
+      forgotPasswordMessage.innerHTML = `${message.message}`;
+      
+  } catch (e) {
+      console.log(e.message);
+  }
+})
+
+// Reset forgot password input after modal closes
+$(forgotPasswordModal).on('hidden.bs.modal', function (e) {
+  forgotPasswordDiv.classList.remove('hide');
+  forgotPasswordBtn.classList.remove('hide');
+  forgotPasswordMessage.classList.add('hide')
+
+  if (forgotPasswordMessage.classList.contains('successful')) {
+    forgotPasswordMessage.classList.remove('successful')
+  } else {
+    forgotPasswordMessage.classList.remove('unsuccessful')
+  }
+})
+
+
 

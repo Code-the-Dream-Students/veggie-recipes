@@ -78,18 +78,6 @@ const sendWelcomeEmail = (email, name) => {
     })
 }
 
-const sendForgotPasswordEmail = (email, name, password) => {
-    sgMail.send({
-        to: email,
-        from: 'jgabitto1792@gmail.com',
-        subject: 'Request for forgotten password',
-        html: `Hello ${name}! Here is a temporary password to login. Once you're logged in, you can reset your password after you're logged in. 
-                <div>
-                    <strong>Password:</strong> ${password}
-                </div>`
-    })
-}
-
 const resetPasswordEmail = (email, name, password) => {
     sgMail.send({
         to: email,
@@ -111,15 +99,6 @@ const newPasswordEmail = (email, name) => {
     })
 }
 
-const recipeEmail = (email, name, recipe) => {
-    sgMail.send({
-        to: email,
-        from: 'jgabitto1792@gmail.com',
-        subject: `Hello ${name}! Here's your ${recipe.title} recipe!`,
-        html: `${produceRecipe(recipe)}`
-    })
-}
-
 const updateUserEmail = (email, name) => {
   sgMail.send({
     to: email,
@@ -127,6 +106,15 @@ const updateUserEmail = (email, name) => {
     subject: `Hello ${name}! You have successfully updated your user information!`,
     html: `Hello ${name}! You have succesfully updated your user information!`
   })
+}
+
+const recipeEmail = (email, name, recipe) => {
+    sgMail.send({
+        to: email,
+        from: 'jgabitto1792@gmail.com',
+        subject: `Hello ${name}! Here's your ${recipe.title} recipe!`,
+        html: `${produceRecipe(recipe)}`
+    })
 }
 
 module.exports = {
