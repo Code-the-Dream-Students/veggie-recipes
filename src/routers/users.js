@@ -73,6 +73,14 @@ router.get('/contact', searchAuth, async (req, res) => {
     let loggedIn;
     let userName;
     let email;
+
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+
     const programmers = await Programmer.find();
 
     if (req.token) {
