@@ -13,9 +13,12 @@ const pjax = require('express-pjax');
 const searchAuth = require('../middleware/searchAuth');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
+const Programmer = require('../models/programmer');
 const googleOAuth = require('../googleAuth/googleOAuth');
 const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail, recipeEmail, updateUserEmail } = require('../emails/account');
 const generateRecipes = require('../utils/generateRecipes');
+const saveProgrammer = require('../utils/saveProgrammers');
+const { find } = require('../models/user');
 
 const SCOPES = ["email"]
 /*
@@ -66,10 +69,20 @@ router.get('/home', auth, (req, res) => {
     res.render('home', {recipes, loggedIn: true, email: req.user.email, userName: req.user.userName});
 })
 // GET contact
-router.get('/contact', searchAuth, (req, res) => {
+router.get('/contact', searchAuth, async (req, res) => {
     let loggedIn;
     let userName;
     let email;
+
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
+
+    const programmers = await Programmer.find();
+
     if (req.token) {
         loggedIn = true
     }
@@ -87,10 +100,10 @@ router.get('/contact', searchAuth, (req, res) => {
     if (req.user) {
         userName = req.user.userName;
         email = req.user.email;
-        return res.render('contact', {url, loggedIn, email: req.user.email, userName: req.user.userName});
+        return res.render('contact', {programmers, url, loggedIn, email: req.user.email, userName: req.user.userName});
     }
     
-    res.render('contact', {url, loggedIn});
+    res.render('contact', {programmers, url, loggedIn});
 })
 // GET about
 router.get('/about', searchAuth, (req, res) => {
