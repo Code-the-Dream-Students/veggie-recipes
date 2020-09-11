@@ -12,9 +12,9 @@ html {
 *:after {
   box-sizing: inherit; }
 
-ul li {
+/*ul li {
     list-style: none;
-  }
+  }*/
 
 body, h1, h2, .btn, .searchbox{
   font-family: 'Montserrat', sans-serif;
@@ -23,9 +23,8 @@ body, h1, h2, .btn, .searchbox{
   .hide {
     display: none;
   }
-.container-height {
-  min-height: calc(100vh - 96px);
-}
+
+
 /* NAV */
 .logo-text, .unsuccessful {
   color: #ff914d; }
@@ -33,8 +32,12 @@ body, h1, h2, .btn, .searchbox{
 .logo-text span, .successful {
     color: #74a322; }
 
+.dropdown{
+      display:inline-block;
+ }
+
 .topnav {
-  overflow: hidden;
+  overflow: visible;
   background-color: #fff;
   position: fixed;
   width: 100%;
@@ -63,9 +66,9 @@ body, h1, h2, .btn, .searchbox{
   display: none; }
 
 /* MENU links */
-.topnav a {
+.topnav #myLinks a{
   color: #061404;
-  padding: 14px 16px;
+  padding:14px 20px;
   text-decoration: none;
   font-size: 1rem;
   display: flex;
@@ -140,30 +143,6 @@ body, h1, h2, .btn, .searchbox{
 .modal-body .btn-google span {
   padding-right: 0; }
 
-  /* About */
-  .about-jumbo.jumbotron {
-    background: #ABBDF0 url("/images/couple-cooking.jpg") no-repeat center;
-    background-size: cover;
-  }
-  .about-jumbo p {
-    color: #000;
-  }
-  .about-jumbo .searchbox {
-    position: relative;
-    background: none;
-    z-index: 2;
-  }
-  .about-jumbo .searchbox::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    opacity: .8;
-    z-index: -1;
-  }
 
 /* JUMBOTRON */
 .jumbotron {
@@ -173,9 +152,8 @@ body, h1, h2, .btn, .searchbox{
   display: flex;
   justify-content: center;
   align-items: center; 
-  margin-bottom: 0;
-}
-
+  margin:0 auto;}
+  
 .main-title {
   font-weight: 600;
   font-size: 50px;
@@ -313,11 +291,20 @@ text-decoration: none; }
     justify-content: flex-start;
     align-items: center;
     padding:.8rem; }
+.social-media-contact img {  
+      filter: brightness(20000%);
+      width: 100px;
+      height: auto; 
+} 
 
 /*   MODAL CSS */
 .modal {
   overflow-y:auto;
 }
+
+.modal-header{
+  height:60px;
+ }
 /*   MODAL delete borders */
 .modal-header, .modal-footer{
   border:none;
@@ -359,7 +346,7 @@ text-decoration: none; }
   .modal-img {
     max-width: 100%;
     height: auto;
-    padding-bottom:30px;
+    padding-bottom:15px;
    }
 
   .modal-title h5{
@@ -370,9 +357,6 @@ text-decoration: none; }
 
 }
 
-/* Review*/
-.checked {
-  color: #ff914d; }
 
 /* SPECS*/
 section{
@@ -446,6 +430,19 @@ section{
   color: grey;
   font-variant: small-caps; 
   align-self: center;
+}
+
+.addtofavorites{
+  display:flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: stretch
+}
+
+
+.addtofavorites img{
+  width:36px;
+  height:36px;
 }
 
 
@@ -555,9 +552,15 @@ margin-bottom:10px;
   margin-top: 15px;
 }
 
-/*Google*/
-
-
+/*welcome IMage*/
+.img_welcome{
+  width:200px;
+  display:flex;
+  height: auto;
+  margin:0 auto;
+  padding-bottom:20px;
+  filter: invert(50%) sepia(97%) saturate(406%) hue-rotate(40deg) brightness(96%) contrast(76%);
+}
 
 /*Google*/
 
