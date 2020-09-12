@@ -36,6 +36,14 @@ body, h1, h2, .btn, .searchbox{
       display:inline-block;
  }
 
+ .dropdown-item {
+  cursor: pointer;
+ }
+
+ .dropdown-item button{
+  border:none;
+}
+
 .topnav {
   overflow: visible;
   background-color: #fff;
@@ -44,6 +52,15 @@ body, h1, h2, .btn, .searchbox{
   left: 0;
   z-index: 3;
   box-shadow: 0px 10px 17px 0px rgba(0, 0, 0, 0.07); }
+
+  .topnav a{
+    color: #061404;
+    padding:14px 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
 
 .topnav .logo-text {
   position: absolute;
@@ -60,6 +77,31 @@ body, h1, h2, .btn, .searchbox{
   .navbar li {
     list-style: none;
   }
+
+  /* About */
+.about-jumbo.jumbotron {
+  background: #ABBDF0 url("/images/couple-cooking.jpg") no-repeat center;
+  background-size: cover;
+}
+.about-jumbo p {
+  color: #000;
+}
+.about-jumbo .searchbox {
+  position: relative;
+  background: none;
+  z-index: 2;
+}
+.about-jumbo .searchbox::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: .8;
+  z-index: -1;
+}
 
 /* Hide the links inside the navigation menu (except for logo/home) */
 .topnav #myLinks {

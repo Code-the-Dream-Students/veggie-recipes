@@ -15,64 +15,12 @@
 </head>
 <body>
       <!-----navbar---->
-  {{!-- <div class="topnav">
-    <div class="navbar navbar-expand-lg">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li>
-          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-          </a>
-        </li>
-        <li>
-        </li>
-      </ul>
-      <div class="logo-text"><span>Vege</span>loper<small>&copy;</small></div>
-      {{#if home}}
-      <a href="/favoriteRecipes" class="signUp d-none d-md-block">Home<i class="far fa-user"></i></a>
-        <form  method="POST" action="/logout">
-          <button class="btn signUp d-none d-md-block">Logout<i class="far fa-user"></i></button>
-        </form>
-      {{else}}
-      <a href="#logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login<i class="far fa-user"></i></a>
-      <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
-      {{/if}}
-    </div>
-    <!-- Navigation links (hidden by default) -->
-    <div id="myLinks">
-      <a href="#logIn" class="signUp d-block d-md-none" data-toggle="modal" data-target="#logInModal">Log in
-        <i class="far fa-user"></i></a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div> --}}
-
   {{>navbar}}
       <!-----/navbar---->
   <div class="container pt-4" id="search-results_fav">
     <!---lis of recipes---->
    <div class="card-header">
-      <h2>Welcome!</h2>
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-6 col-lg-4">
-            <img class="img-responsive img_welcome" src="./images/img_recipes.png" alt="">
-          </div>
-          <div class="col-xs-12 col-lg-8">
-            <strong>To mark a recipe as a favorite:</strong>
-            <ol>
-              <li>Open the desired recipe.</li>
-              <li>Tap on the orange heart icon <i class="fas fa-heart" style="color:#ff914d"></i> in the top right-hand
-                corner of the screen.
-              </li>
-              <li>Your recipe is saved and you can find it in your account page.</li>
-            </ol>
-            <strong>To unfavorite:</strong>
-            <ol>
-              <li>Tap the heart icon again.</li>
-            </ol>
-          </div>
-        </div>
-      </div>
+      <h2 class="pt-4">Welcome {{userName}}!</h2>
     </div>
     <div class="card-header">
       <div class="input-group mb-3 input-search">
@@ -82,19 +30,6 @@
     </div>
 
     <div id="list-of-favorite-recipes" class="row">
-        {{!-- {{#each recipes as | recipe | }}
-    <div class="col-md-6 col-lg-3 mb-5">
-      <div class="card">
-        <div style="background-image: url({{image}})" class="card-img-top"></div>
-        <div class="card-body">
-          <h5 class="card-title">{{title}}</h5>
-          <p>{{{splitString summary}}}...</p>
-        </div>
-        
-        <button id="{{id}}" class="btn my-2" type="button" onclick="recipeModal({{id}})" data-toggle="modal" data-target="#recipeModal2">Read Recipe</button>
-      </div>
-    </div>
-        {{/each}} --}}
     </div><!-- /list of recipes -->
   </div>
  
@@ -102,6 +37,7 @@
     {{>updateUser this}}
     {{> forgotPassword}}
     {{> recipeSaveModal}}
+    {{> emailRecipeModal}}
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

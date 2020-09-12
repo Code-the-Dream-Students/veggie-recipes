@@ -2,6 +2,7 @@ let recipe = '';
 let cuisine = '';
 let type = '';
 const searchRecipesForm = document.getElementById('searchRecipes');
+const searchResults = document.getElementById('search-results');
 const listOfRecipes = document.querySelector('#list-of-recipes');
 const searchbox = document.querySelector('#searchbox');
 const generateRecipesButton = document.querySelector('#generate-recipes');
@@ -111,6 +112,8 @@ generateRecipesButton.addEventListener('click', async (e) => {
 		});
 
 		recipesForCarrousel = [];
+
+		searchResults.classList.remove('hide');
 
 		generateRecipes(recipes);
 	} catch (e) {
