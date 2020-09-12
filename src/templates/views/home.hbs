@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/font.css">
   <link rel="icon" href="/images/logo.png" type="image/x-icon">
-    <title>favourite recipes</title>
+    <title>Your Favorite Recipes at Vegeloper©</title>
 </head>
 <body>
       <!-----navbar---->
@@ -48,10 +48,33 @@
 
   {{>navbar}}
       <!-----/navbar---->
-  <div class="container pt-4 container-height" id="search-results_fav">
+  <div class="container pt-4" id="search-results_fav">
     <!---lis of recipes---->
-    <div class="card-header mt-5">
-      <h2>My Favorite Recipes</h2>
+   <div class="card-header">
+      <h2>Welcome!</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-lg-4">
+            <img class="img-responsive img_welcome" src="./images/img_recipes.png" alt="">
+          </div>
+          <div class="col-xs-12 col-lg-8">
+            <strong>To mark a recipe as a favorite:</strong>
+            <ol>
+              <li>Open the desired recipe.</li>
+              <li>Tap on the orange heart icon <i class="fas fa-heart" style="color:#ff914d"></i> in the top right-hand
+                corner of the screen.
+              </li>
+              <li>Your recipe is saved and you can find it in your account page.</li>
+            </ol>
+            <strong>To unfavorite:</strong>
+            <ol>
+              <li>Tap the heart icon again.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-header">
       <div class="input-group mb-3 input-search">
         <i class="fa fa-search" aria-hidden="true"></i>
         <input id="searchbox-fav" class="form-control " placeholder="Search" aria-describedby="searchButton" />
@@ -59,6 +82,19 @@
     </div>
 
     <div id="list-of-favorite-recipes" class="row">
+        {{!-- {{#each recipes as | recipe | }}
+    <div class="col-md-6 col-lg-3 mb-5">
+      <div class="card">
+        <div style="background-image: url({{image}})" class="card-img-top"></div>
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p>{{{splitString summary}}}...</p>
+        </div>
+        
+        <button id="{{id}}" class="btn my-2" type="button" onclick="recipeModal({{id}})" data-toggle="modal" data-target="#recipeModal2">Read Recipe</button>
+      </div>
+    </div>
+        {{/each}} --}}
     </div><!-- /list of recipes -->
   </div>
  
@@ -66,8 +102,6 @@
     {{>updateUser this}}
     {{> forgotPassword}}
     {{> recipeSaveModal}}
-
-    {{> footer}}
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
