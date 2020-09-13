@@ -1,0 +1,49 @@
+  <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <!------modal body---->
+        <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="logInModal-title">Log In</h5>
+          </div>
+          <!------name input---->
+          <form action="/login" method="POST" class="needs-validation" novalidate>
+            <!------email address input---->
+            <div class="form-group m-4">
+              <label for="email-logIn">Email address</label>
+              <input name="email" type="email" id="email-logIn" class="form-control" placeholder="name@example.com" required>
+              <div class="invalid-feedback">
+                Please provide your email.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="password-logIn">Password</label>
+              <input name="password" type="password" id="password-logIn" class="form-control" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Please provide your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <button class="btn-success btn-lg btn-block" type="submit">Log in</button>
+            </div>
+            <div class="form-group m-4">
+                <a href="{{url}}" class="btn-social btn-google btn-lg">
+                  <span class="fa fa-google"></span>Signin with Google
+                </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div style="cursor: pointer;" class="dropdown-item text-primary text-md" data-dismiss="modal" data-toggle="modal" data-target="#signUpModal">New around here? Sign Up</div>
+            <div style="cursor: pointer;" class="dropdown-item text-primary text-md mb-4" data-dismiss="modal" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</div>
+          </form>
+        </div>
+        <!------/modal body---->
+      </div>
+    </div>
+  </div>

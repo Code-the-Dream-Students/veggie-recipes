@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/font.css">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <title>Your Favorite Recipes at Vegeloper©</title>
+</head>
+<body>
+      <!-----navbar---->
+  {{>navbar}}
+      <!-----/navbar---->
+  <div class="container pt-4" id="search-results_fav">
+    <!---lis of recipes---->
+   <div class="card-header">
+      <h2 class="pt-4">Welcome {{userName}}!</h2>
+    </div>
+    <div class="card-header">
+      <div class="input-group mb-3 input-search">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input id="searchbox-fav" class="form-control " placeholder="Search" aria-describedby="searchButton" />
+      </div>
+    </div>
+
+    <div id="list-of-favorite-recipes" class="row">
+    </div><!-- /list of recipes -->
+  </div>
+ 
+    {{>modalDummy }}
+    {{>updateUser this}}
+    {{> forgotPassword}}
+    {{> recipeSaveModal}}
+    {{> emailRecipeModal}}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>

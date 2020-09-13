@@ -1,0 +1,113 @@
+  {{!-- <div class="container pt-4" id="search-results">
+    <!---lis of recipes---->
+    <!-- <div class="card-header">
+      <h2>The Latest 8 Recipes </h2>
+    </div> -->
+        <div class="modal-header">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb purple lighten-4">
+          <li class="breadcrumb-item"><a href="#">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
+              aria-hidden="true"></i>
+          </li>
+          <li class="breadcrumb-item"><a href="#">recipe</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
+              aria-hidden="true"></i></li>
+          <li class="breadcrumb-item active">{{recipes.title}}</li>
+        </ol>
+      </nav>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <img src="${recipeInfo.image}" alt="Responsive image" class="img-responsive modal-img">
+        </div>
+        <div class=" col-sm-8 col-md-8">
+          <h1 class=" main-title-modal">${recipeInfo.title}</h1>
+          <p>${recipeInfo.summary}</p>
+        </div>
+      </div>
+      <section class="fieldset">
+        <div class="specs-wrapper">
+          <h4>Specs</h4>
+          <div class="specs">
+            <div class="specs-content">
+              <h2> Total</h2>
+              <div class="specs">
+                <div class="wrapper-specs">
+                  <h3>${recipeInfo.readyInMinutes}</h3>
+                </div>
+                <div class="specs-minutes">minutes </div>
+              </div>
+            </div>
+            <div class=" specs-content">
+              <h2>Servings</h2>
+              <div class=" specs">
+                <div class="wrapper-specs">
+                  <h3 class="price">${recipeInfo.servings}</h3>
+                </div>
+                <div class="specs-minutes">people</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <h1 class="sub-title-modal">Ingredients</h1>
+          <ul>
+            ${recipeInfo.ingredients.reduce((acc, ingredient) => acc += `<li>${ingredient}</li>`,"")}
+          </ul>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <h1 class="sub-title-modal">Steps</h1>
+          <ul>
+            ${recipeInfo.steps.reduce((acc, step) => acc += `<li>${step}</li>`,"")}
+          </ul>
+        </div>
+      </div>
+      <div class="additional-recipes">
+      <div class="modal-love">You may also love</div>
+    </div>
+
+    <!--carousel-->
+    <div class="container">
+      <div class="row blog">
+        <div class="col-md-12">
+          <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#blogCarousel" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  ${generateOptionalRecipes(0, 4)}        
+                </div>
+                <!--.row-->
+              </div>
+              <!--.item-->
+
+              <div class="carousel-item">
+                <div class="row">
+                  ${generateOptionalRecipes(4, 8)}      
+                </div>
+                <!--.row-->
+              </div>
+              <!--.item-->
+
+            </div>
+            <!--.carousel-inner-->
+          </div>
+          <!--.Carousel-->
+
+        </div>
+      </div>
+    </div>
+    <div id="list-of-recipes" class="row"></div><!-- /list of recipes -->
+  </div>
+
+   --}}

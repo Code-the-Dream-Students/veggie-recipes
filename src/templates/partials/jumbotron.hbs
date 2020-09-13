@@ -1,0 +1,49 @@
+  <div class="jumbotron jumbotron-fluid  text-white">
+    <div class="container text-sm-center">
+      <div class="searchbox">
+        <form id="searchRecipes" class="form-search-center">
+          <h1 class="main-title">Find a Recipe</h1>
+          <div class="form-group mb-3">
+            <div class="input-group mb-3 input-search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <input name="query" autocomplete="off" id="searchbox" class="form-control " placeholder="Search" aria-describedby="searchButton" />
+            </div>
+            <div class="container text-center">
+              <div class="advanced-search">
+                <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button"
+                  aria-expanded="false" aria-controls="collapseExample">
+                  advanced search <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </a>
+              </div>
+           <p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <div class="input-group-prepend">
+                      <select id="cuisines" class="custom-select" name="cuisine"></select>
+                    </div>
+                  </div>
+                  <!------number of people input---->
+                  <div class="col-md-6 mb-3">
+                    <div class="input-group-prepend">
+                      <select id="types" class="custom-select" name="type"></select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="smooth-scroll">
+                <button id="generate-recipes" class="btn btn-search-home" type="submit" data-pjax='search-results' href="#search-results">Search</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    <div class="container pt-4 hide" id="search-results">
+      {{> saveInstructions}}
+    <div id="list-of-recipes" class="row"></div><!-- /list of recipes -->
+  </div>
