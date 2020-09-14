@@ -129,7 +129,7 @@ generateRecipesButton.addEventListener("click", async (e) => {
 
         recipesForCarrousel = [];
         //hide loader
-        loader.classList.remove("hide");
+        loader.classList.add("hide");
         //show results
         searchResults.classList.remove("hide");
 
