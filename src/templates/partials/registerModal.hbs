@@ -1,0 +1,59 @@
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true" 
+    data-keyboard="false">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <!------modal body---->
+        <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="SignUpModal-title">Sign Up</h5>
+          </div>
+          <!------name input---->
+          <form action="/register" method="POST" class="needs-validation" novalidate>
+            <!------email address input---->
+            <div class="form-group m-4">
+              <label for="name-signUp">User Name</label>
+              <input name="userName" type="text" id="lastName-signUp" class="form-control" placeholder="User name" required>
+              <div class="invalid-feedback">
+                Please provide your username.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="email-signUp">Email address</label>
+              <input name="email" type="email" id="email-signUp" class="form-control" placeholder="name@example.com" required>
+              <div class="invalid-feedback">
+                Please provide your email.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="password-signUp">Password</label>
+              <input name="password" type="password" id="password-signUp" class="form-control" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Please provide your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="confirm-password-signUp">Confirm Password</label>
+              <input type="password" id="confirm-password-signUp" class="form-control" placeholder="Confirm Password"
+                required>
+              <div class="invalid-feedback">
+                Please confirm your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <button class="btn-success btn-lg btn-block" type="submit">Sign Up</button>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div style="cursor: pointer;" class="dropdown-item text-primary text-md mb-4" data-dismiss="modal" data-toggle="modal" data-target="#logInModal">Already User? Sign In</div>
+          </form>
+        </div>
+        <!------/modal body---->
+      </div>
+    </div>
+  </div>

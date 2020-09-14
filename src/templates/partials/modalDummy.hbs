@@ -1,0 +1,89 @@
+<div class="modal fade bd-example-modal-lg" id="recipeModal2" tabindex="-1" role="dialog" aria-labelledby="recipeModal"
+      aria-hidden="true" data-keyboard="false">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div id="modal-content" class="modal-content">
+
+          <div class="modal-header">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb purple lighten-4">
+                <li class="breadcrumb-item" style="cursor: pointer;"><a data-dismiss="modal">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
+                    aria-hidden="true"></i>
+                </li>
+                <li id="f-recipe-title" class="breadcrumb-item active"></li>
+              </ol>
+            </nav>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"> 
+            <div class="row">
+              <div class="col-lg-5">
+                <img id="f-recipe-image" alt="Responsive image" class="img-responsive modal-img">
+              </div>
+              <div class="col-lg-7">
+                <div class="addtofavorites">
+                <h1 id="f-recipe-title-h1" class=" main-title-modal"></h1>
+               <button id="saveRecipeBtn" class="float-right saveRecipeBtn" type="submit" ></button>
+                </div>
+                <p id="f-recipe-summary" ></p>
+              </div>
+            </div>
+            <section class="fieldset">
+              <div class="specs-wrapper">
+                <h4>Specs</h4>
+                <div class="specs">
+      
+                  <div class="specs-content">
+                    <h2> Cook Time </h2>
+                    <div class="specs">
+                      <div class="wrapper-specs">
+                        <h3 id="f-recipe-cooking-minutes" ></h3>
+                      </div>
+                      <div class="specs-minutes">minutes </div>
+                    </div>
+                  </div>
+      
+                  <div class="specs-content">
+                    <h2> Total</h2>
+                    <div class="specs">
+                      <div class="wrapper-specs">
+                        <h3 id="f-recipe-ready-in-minutes" ></h3>
+                      </div>
+                      <div class="specs-minutes">minutes </div>
+                    </div>
+                  </div>
+                  <div class=" specs-content">
+                    <h2>Servings</h2>
+                    <div class=" specs">
+                      <div class="wrapper-specs">
+                        <h3 id="f-recipe-servings" class="price"></h3>
+                      </div>
+                      <div class="specs-minutes">people</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <h1 class="sub-title-modal">Ingredients</h1>
+                <ul id="f-recipe-ingredients"></ul>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <h1 class="sub-title-modal">Steps</h1>
+                <ol id="f-recipe-steps"></ol>
+              </div>
+            </div>
+            <div class="additional-recipes">
+          </div>
+          <div class="modal-footer">
+            <button id="emailRecipeBtn" type="button" class="btn my-2" >Email</button>
+            <button type="button" class="btn my-2" data-dismiss="modal">Close</button>
+          </div>
+      
+        </div>
+      </div>
+    </div>
+
+  </div>
