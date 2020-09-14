@@ -72,7 +72,7 @@ const produceRecipe = (recipe) => {
 const sendWelcomeEmail = (email, name) => {
     sgMail.send({
         to: email,
-        from: 'jgabitto1792@gmail.com',
+        from: 'info.vegeloper@gmail.com',
         subject: 'Thanks for joining Veggie Recipes!',
         text: `Welcome to Veggie Recipes ${name}! Hope you enjoy our app!`
     })
@@ -81,7 +81,7 @@ const sendWelcomeEmail = (email, name) => {
 const resetPasswordEmail = (email, name, password) => {
     sgMail.send({
         to: email,
-        from: 'jgabitto1792@gmail.com',
+        from: 'info.vegeloper@gmail.com',
         subject: 'Request for forgotten password',
         html: `Hello ${name}! Here is a temporary password to login. Once you're logged in, you can reset your password after you're logged in. 
                 <div>
@@ -93,7 +93,7 @@ const resetPasswordEmail = (email, name, password) => {
 const newPasswordEmail = (email, name) => {
     sgMail.send({
         to: email,
-        from: 'jgabitto1792@gmail.com',
+        from: 'info.vegeloper@gmail.com',
         subject: 'Confirmation of password change',
         html: `Hello ${name}! You have succesfully changed your password.`
     })
@@ -102,7 +102,7 @@ const newPasswordEmail = (email, name) => {
 const updateUserEmail = (email, name) => {
   sgMail.send({
     to: email,
-    from: 'jgabitto1792@gmail.com',
+    from: 'info.vegeloper@gmail.com',
     subject: `Hello ${name}! You have successfully updated your user information!`,
     html: `Hello ${name}! You have succesfully updated your user information!`
   })
@@ -111,11 +111,12 @@ const updateUserEmail = (email, name) => {
 const recipeEmail = (email, name, recipe) => {
     sgMail.send({
         to: email,
-        from: 'jgabitto1792@gmail.com',
+        from: 'info.vegeloper@gmail.com',
         subject: `Hello ${name}! Here's your ${recipe.title} recipe!`,
         html: `${produceRecipe(recipe)}`
     })
 }
+
 
 module.exports = {
     sendWelcomeEmail,

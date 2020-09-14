@@ -24,6 +24,15 @@ body, h1, h2, .btn, .searchbox{
     display: none;
   }
 
+  .col-lg-7 a {
+    color: #218838;
+    text-decoration: none;
+}
+.col-lg-7  a:hover {
+    color: #218838;
+    text-decoration-line: underline;
+}
+
 
 /* NAV */
 .logo-text, .unsuccessful {
@@ -209,11 +218,12 @@ body, h1, h2, .btn, .searchbox{
   padding-right: 0; }
 
   .modal-body a {
-    color: #218838;
+    color: white;
     text-decoration: none;
   }
   .modal-body a:hover {
-    color: #218838;
+    color: white;
+    /* color: #218838; */
     text-decoration-line: underline;
   }
 
