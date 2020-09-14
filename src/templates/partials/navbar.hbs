@@ -21,7 +21,9 @@
             Account <i class="far fa-user"></i></button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="/home">Your Recipes</a>
-            <a class="dropdown-item" data-toggle="modal" data-target="#updateModal">Update Profile</a>
+            {{!-- <a class="dropdown-item" data-toggle="modal" data-target="#updateModal">Update Profile</a> --}}
+            {{!-- <button class="dropdown-item" href="/home">Your Recipes</button> --}}
+            <button class="dropdown-item" data-toggle="modal" data-target="#updateModal">Update Profile</button>
             <form method="POST" action="/logout">
               <button class="dropdown-item">Logout</button>
             </form>
