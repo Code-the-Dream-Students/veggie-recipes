@@ -172,26 +172,22 @@ const generateRecipes = (recipes) => {
 };
 
 let recipeInfo;
-const recipeTitle = document.querySelector("#recipe-title");
-const recipeTitleH1 = document.querySelector("#recipe-title-h1");
-const recipeImage = document.querySelector("#recipe-image");
-const recipeSummary = document.querySelector("#recipe-summary");
-const recipeCookingMinutes = document.querySelector("#recipe-cooking-minutes");
-const recipeReadyInMinutes = document.querySelector("#recipe-ready-in-minutes");
-const recipeServings = document.querySelector("#recipe-servings");
-const recipeIngredients = document.querySelector("#recipe-ingredients");
-const recipeSteps = document.querySelector("#recipe-steps");
-const optionalRecipes1 = document.querySelector("#optional-recipes1");
-const optionalRecipes2 = document.querySelector("#optional-recipes2");
-const secondCarouselLi = document.getElementById("secondCarouselLi");
-const recipeCarousel = document.getElementById("recipeCarousel");
-const carouselItem = document.getElementById("carouselItem");
-const disposableCarouselItem = document.getElementById(
-    "disposableCarouselItem"
-);
-const nondisposableCarouselItem = document.getElementById(
-    "nondisposableCarouselItem"
-);
+const recipeTitle = document.querySelector('#recipe-title');
+const recipeTitleH1 = document.querySelector('#recipe-title-h1');
+const recipeImage = document.querySelector('#recipe-image');
+const recipeSummary = document.querySelector('#recipe-summary');
+const recipeCookingMinutes = document.querySelector('#recipe-cooking-minutes');
+const recipeReadyInMinutes = document.querySelector('#recipe-ready-in-minutes');
+const recipeServings = document.querySelector('#recipe-servings');
+const recipeIngredients = document.querySelector('#recipe-ingredients');
+const recipeSteps = document.querySelector('#recipe-steps');
+const optionalRecipes1 = document.querySelector('#optional-recipes1');
+const optionalRecipes2 = document.querySelector('#optional-recipes2');
+// const secondCarouselLi = document.getElementById('secondCarouselLi');
+// const recipeCarousel = document.getElementById('recipeCarousel');
+// const carouselItem = document.getElementById('carouselItem');
+// const disposableCarouselItem = document.getElementById('disposableCarouselItem');
+// const nondisposableCarouselItem = document.getElementById('nondisposableCarouselItem');
 
 // const favfav = (something) => {
 //   let fav = recipesInformation[something.split("f")[1]];
@@ -221,37 +217,29 @@ const recipeModal = (data) => {
       id="f${data.id}" 
       src="${favorite ? "./images/heart2.png" : "./images/heart1.png"}">
   `;
-    recipeTitle.innerHTML = title;
-    recipeTitleH1.innerHTML = title;
-    recipeImage.setAttribute("src", image);
-    recipeSummary.innerHTML = summary;
-    recipeCookingMinutes.innerHTML = cookingMinutes
-        ? cookingMinutes
-        : readyInMinutes;
-    recipeReadyInMinutes.innerHTML = readyInMinutes;
-    recipeServings.innerHTML = servings;
-    recipeIngredients.innerHTML = ingredients.reduce(
-        (acc, ingredient) => (acc += `<li>${ingredient}</li>`),
-        ""
-    );
-    recipeSteps.innerHTML = steps.reduce(
-        (acc, step) => (acc += `<li>${step}</li>`),
-        ""
-    );
-    optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);
-    // optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
-    if (recipesForCarrousel.length > 4) {
-        optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
-        // disposableCarouselItem.classList.add('carousel-item');
-        // disposableCarouselItem.classList.remove('d-none');
-        disposableCarouselItem.classList.replace("d-none", "carousel-item");
-        nondisposableCarouselItem.classList.remove("active");
-    } else {
-        // disposableCarouselItem.classList.remove('carousel-item');
-        // disposableCarouselItem.classList.add('d-none');
-        disposableCarouselItem.classList.replace("carousel-item", "d-none");
-        nondisposableCarouselItem.classList.add("active");
-    }
+	recipeTitle.innerHTML = title;
+	recipeTitleH1.innerHTML = title;
+	recipeImage.setAttribute('src', image);
+	recipeSummary.innerHTML = summary;
+	recipeCookingMinutes.innerHTML = cookingMinutes ? cookingMinutes : readyInMinutes;
+	recipeReadyInMinutes.innerHTML = readyInMinutes;
+	recipeServings.innerHTML = servings;
+	recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => (acc += `<li>${ingredient}</li>`), '');
+	recipeSteps.innerHTML = steps.reduce((acc, step) => (acc += `<li>${step}</li>`), '');
+	// optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);
+	// optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
+	// if (recipesForCarrousel.length > 4) {
+	// 	optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
+	// 	// disposableCarouselItem.classList.add('carousel-item');
+	// 	// disposableCarouselItem.classList.remove('d-none');
+	// 	disposableCarouselItem.classList.replace('d-none', 'carousel-item');
+	// 	nondisposableCarouselItem.classList.remove('active');
+	// } else {
+	// 	// disposableCarouselItem.classList.remove('carousel-item');
+	// 	// disposableCarouselItem.classList.add('d-none');
+	// 	disposableCarouselItem.classList.replace('carousel-item', 'd-none');
+	// 	nondisposableCarouselItem.classList.add('active');
+	// }
 };
 
 const generateOptionalRecipes = (num1, num2) => {
