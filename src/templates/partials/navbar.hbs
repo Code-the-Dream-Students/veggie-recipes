@@ -20,7 +20,7 @@
             aria-expanded="false">
             Account <i class="far fa-user"></i></button>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="/home">Your Recipes</a>
+            <a id="padding" class="dropdown-item" href="/home">Your Recipes</a>
             {{!-- <a class="dropdown-item" data-toggle="modal" data-target="#updateModal">Update Profile</a> --}}
             {{!-- <button class="dropdown-item" href="/home">Your Recipes</button> --}}
             <button class="dropdown-item" data-toggle="modal" data-target="#updateModal">Update Profile</button>
@@ -33,13 +33,13 @@
 
 <!-- Navigation links (hidden by default) -->
       <div id="myLinks">
-        <a class="dropdown-item" href="/about">About</a>
-        <a class="dropdown-item" href="/contact">Contact</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
       </div>
       </div>
 
         {{else}}
-        <a href="/logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login <i class="far fa-user"></i></a>
+        <a id="login" href="/logIn" class="signUp d-none d-md-block" data-toggle="modal" data-target="#logInModal">Login <i class="far fa-user"></i></a>
         <button class="btn signup" type="submit" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
         {{/if}}
       </div>
