@@ -32,6 +32,8 @@ const newEmailMessage = document.getElementById('newEmailMessage');
 const newUserNameMessage = document.getElementById('newUserNameMessage');
 const updateModal = document.getElementById('updateModal');
 const updateUserSuccessMessage = document.getElementById('updateUserSuccessMessage');
+const emailRecipeModalMessage = document.getElementById('emailRecipeMessage');
+const emailRecipeModal = document.getElementById('emailRecipeModal');
 const recipeSaveModalMessage = document.getElementById('recipeSaveModalMessage');
 
 
@@ -160,8 +162,10 @@ emailRecipeBtn.addEventListener('click', async () => {
           body: JSON.stringify(recipeInfo),
           headers: {'Content-Type': 'application/json'}
       });
-      let data = await res.json();
-      console.log('email sent')
+      let message = await res.json();
+      console.log('hello')
+      emailRecipeModalMessage.innerHTML = `${message.message}`;
+      $('#emailRecipeModal').modal('show');
 
   } catch (e) {
       console.log(e.message);
@@ -271,7 +275,7 @@ buttonRecipeFavorite.addEventListener('click', async () => {
         >`; 
       
         recipeSaveModalMessage.innerHTML = `${data.message}`;
-        $('#recipeSaveModal').modal('show')
+        $('#emailRecipeModal').modal('show')
 
   } catch (e) {
       console.log(e.message);
@@ -294,7 +298,7 @@ forgotPasswordForm.addEventListener('submit', async (event) => {
     const data = {
         'email': formData.get('email')
     };
-      console.log(data)
+      
       const res = await fetch('/forgotPassword', {
           method: 'POST',
           body: JSON.stringify(data),

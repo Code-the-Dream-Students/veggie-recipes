@@ -3,29 +3,17 @@ A Router instance is a complete middleware and routing system; for this reason,
 it is often referred to as a “mini-app”. */
 
 const express = require('express');
-const fetch = require('node-fetch');
-const { google } = require('googleapis');
 const urlParse = require('url-parse');
 const jwt = require('jsonwebtoken');
 const queryParse = require('query-string');
 const bcrypt = require('bcryptjs');
-const pjax = require('express-pjax');
 const searchAuth = require('../middleware/searchAuth');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
-const Programmer = require('../models/programmer');
 const googleOAuth = require('../googleAuth/googleOAuth');
 const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail, recipeEmail, updateUserEmail } = require('../emails/account');
 const generateRecipes = require('../utils/generateRecipes');
-const saveProgrammer = require('../utils/saveProgrammers');
-const { find } = require('../models/user');
-
-const SCOPES = ["email"]
-/*
-const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}`;
-https://api.spoonacular.com/recipes/complexSearch?apiKey=c0c4732f3def410180ec614935768041&query=cheese&number=2
-const URL2 = `https://api.spoonacular.com/recipes/130320/information?apiKey=${process.env.SPOONACULAR_API_KEY}`;
-*/
+const developers = require('../utils/saveProgrammers');
 
 // Create express router module
 const router = new express.Router();
@@ -41,7 +29,7 @@ router.get('/', searchAuth, (req, res) => {
     // Create google OAuth url
     const url = googleOAuth.generateAuthUrl({
         access_type: "offline",
-        scope: SCOPES,
+        scope: "email",
         state: JSON.stringify({
             callbackUrl: req.body.callbackUrl,
             userID: req.body.userid
@@ -71,17 +59,6 @@ router.get('/home', auth, (req, res) => {
 // GET contact
 router.get('/contact', searchAuth, async (req, res) => {
     let loggedIn;
-    let userName;
-    let email;
-
-saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
-saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
-saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
-saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
-saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
-saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, rem quam. Cumque cupiditate aliquam repudiandae eligendi id harum dolor, earum facilis amet optio veritatis odio dolore fugit atque accusamus consequatur expedita, consequuntur inventore, corporis neque quidem pariatur dolores ratione quaerat.'});
-
-    const programmers = await Programmer.find();
 
     if (req.token) {
         loggedIn = true
@@ -90,7 +67,7 @@ saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', descri
     // Create google OAuth url
     const url = googleOAuth.generateAuthUrl({
         access_type: "offline",
-        scope: SCOPES,
+        scope: "email",
         state: JSON.stringify({
             callbackUrl: req.body.callbackUrl,
             userID: req.body.userid
@@ -98,12 +75,12 @@ saveProgrammer({name: 'Johan Ochoa', image: '/images/profilePicture.jpg', descri
     })
 
     if (req.user) {
-        userName = req.user.userName;
-        email = req.user.email;
-        return res.render('contact', {programmers, url, loggedIn, email: req.user.email, userName: req.user.userName});
+        const userName = req.user.userName;
+        const email = req.user.email;
+        return res.render('contact', {developers, url, loggedIn, email: email, userName: userName});
     }
     
-    res.render('contact', {programmers, url, loggedIn});
+    res.render('contact', {developers, url, loggedIn});
 })
 // GET about
 router.get('/about', searchAuth, (req, res) => {
@@ -117,7 +94,7 @@ router.get('/about', searchAuth, (req, res) => {
     // Create google OAuth url
     const url = googleOAuth.generateAuthUrl({
         access_type: "offline",
-        scope: SCOPES,
+        scope: "email",
         state: JSON.stringify({
             callbackUrl: req.body.callbackUrl,
             userID: req.body.userid
@@ -188,13 +165,7 @@ router.get('/loginGoogle', async (req, res) => {
         res.status(400).send(e.message);
     }
 })
-// GET home page
-// router.get('/home', auth, (req, res) => {
-//     // Form first and last name
-//     const name = `${req.user.firstName} ${req.user.lastName}`;
-    
-//     res.render('home', {name});
-// })
+
 // GET get recipes from db
 router.get('/getRecipes', auth, async (req, res) => {
     // Grab all the recipes from the db
@@ -295,48 +266,10 @@ router.post('/search', searchAuth, async (req, res) => {
                     newRecipes[i] = {...newRecipes[i], favorite: true};
                 }
             }
-            // for (let i = 0; i < newRecipes.length; i++) {
-            //     mySet.add(newRecipes[i].id);     
-            // }
-            // console.log(mySet)
-            // for (let j = 0; j < savedRecipes.length; j++) {
-            //     const savedParsedRecipe = JSON.parse(savedRecipes[j].recipe);
-            //     console.log(j)
-            //     console.log(savedParsedRecipe.id)
-            //     console.log(mySet.has(savedParsedRecipe.id))
-
-            //     if (mySet.has(savedParsedRecipe.id)) {
-            //         console.log({...newRecipes[j]})
-            //         newRecipes[j] = {...newRecipes[j], favorite: true};
-            //     }
-            // }
-
-            // for (let i = 0; i < newRecipes.length; i++) {
-            //     for (let j = 0; j < savedRecipes.length; j++) {
-            //         const savedParsedRecipe = JSON.parse(savedRecipes[j].recipe);
-            //         if (newRecipes[i].id === savedParsedRecipe.id) {
-            //             newRecipes[i] = {...newRecipes[i], favorite: true};
-            //             break;
-            //         }
-            //     }
-            // }
         }
 
         res.status(200).send(newRecipes)
 
-        // // User info
-        // const user = req.user;
-        // // user.recipes = user.recipes.concat({ recipe });
-        // recipes.forEach(recipe => {
-        //     recipe = JSON.stringify(recipe);
-        //     console.log(recipe)
-        //     user.recipes = [...user.recipes, {recipe}]
-        // })
-        // console.log(user.recipes)
-        // // Save user with added recipe
-        // await user.save();
-
-        // res.status(200).send(recipes)
     } catch (e) {
         res.status(500).send(e.message);
     }   
@@ -386,17 +319,6 @@ router.post('/saveRecipe', searchAuth, async (req, res) => {
 
             return res.status(200).send({recipes: user.recipes, message, saved: true});
         }
-
-        // // Check if new recipe is in db
-        // for (let i = 0; i < savedRecipes.length; i++) {
-        //     // Parse from string to obj
-        //     const parsedRecipe = JSON.parse(savedRecipes[i].recipe)
-        //     // If new recipe is in db, return 'recipe already saved' message
-        //     if (parsedRecipe.id === newRecipe.id) {
-        //         message = 'Sorry recipe already saved!';
-        //         return res.status(400).send({message, saved: false});
-        //     }
-        // }
 
         // Saved recipe message
         message = 'Log in to save recipe!';
@@ -480,46 +402,6 @@ router.post('/logout', auth, async (req, res) => {
         res.status(500).send(e.message);
     }
 })
-
-// // POST Save Recipe
-// router.post('/saveRecipe', auth, async (req, res) => {
-//     try {
-//         console.log('hello')
-//         const user = req.user;
-//         const savedRecipes = req.user.recipes;
-//         console.log(req.body.recipeInfo)
-
-//         const response = await(await fetch(newUrl)).json();
-//         const newRecipe = JSON.stringify(response);
-
-//         // Add searched recipe with logged in user
-//         user.recipes = user.recipes.concat({ recipe: newRecipe });
-//         // Save user with added recipe
-//         await user.save();
-        
-//         res.status(200).send(user.recipes[0].recipe);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// })
-// // POST Save Recipe
-// router.post('/saveRecipe', auth, async (req, res) => {
-//     try {
-//         // const newUrl = `${URL}&query=${req.body.query}&number=${req.body.number}`;
-//         const newUrl = `${URL2}/${req.body.recipeID}/information?apiKey=${process.env.SPOONACULAR_API_KEY}`;
-//         const user = req.user;
-//         const response = await(await fetch(newUrl)).json();
-//         const newRecipe = JSON.stringify(response);
-//         // Add searched recipe with logged in user
-//         user.recipes = user.recipes.concat({ recipe: newRecipe });
-//         // Save user with added recipe
-//         await user.save();
-        
-//         res.status(200).send(user.recipes[0].recipe);
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }
-// })
 // PATCH Update a user by id
 router.patch('/updateUser', auth, async (req, res) => {
     const user = req.user;
@@ -573,79 +455,5 @@ router.patch('/updateUser', auth, async (req, res) => {
 
 })
 
-// router.get('/login', async (req, res) => {
-//     const oauth2Client = new google.auth.OAuth2(
-//         // client id
-//         "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
-//         // client secret
-//         "8Orh1sSrXq_29HU_ii3Jrbjk",
-//         // link to redirect
-//         "http://localhost:3000/home"
-//     )
-
-//     const url = oauth2Client.generateAuthUrl({
-//         access_type: "offline",
-//         scope: 'email',
-//         state: JSON.stringify({
-//             callbackUrl: req.body.callbackUrl,
-//             userID: req.body.userid
-//         })
-//     })
-
-//     try {
-//         await fetch(url)
-//         res.redirect(url);
-//     } catch (e) {
-//         console.log(e.message)
-//     }
-
-
-// })
-
-// router.get('/getUrl', async (req, res) => {
-//     const oauth2Client = new google.auth.OAuth2(
-//         // client id
-//         "901057499143-76koqpu4rsdpvmbd5em4lqhdvrfj4j37.apps.googleusercontent.com",
-//         // client secret
-//         "8Orh1sSrXq_29HU_ii3Jrbjk",
-//         // link to redirect
-//         "http://localhost:3000/home"
-//     )
-
-//     const url = oauth2Client.generateAuthUrl({
-//         access_type: "offline",
-//         scope: 'email',
-//         state: JSON.stringify({
-//             callbackUrl: req.body.callbackUrl,
-//             userID: req.body.userid
-//         })
-//     })
-
-//     try {
-//         await fetch(url)
-//         res.send({url});
-//     } catch (e) {
-//         console.log(e.message)
-//     }
-
-
-// })
-
-// GET Spoonacular data
-// router.get('/search', async (req, res) => {
-//     try {
-//         const newUrl = `${process.env.URL}/complexSearch?apiKey=${process.env.SPOONACULAR_API_KEY}&query=${req.body.query}&number=${req.body.number}`;
-//         const response = await(await fetch(newUrl)).json();
-
-//         console.log(response);
-
-//         res.status(200).send({response})
-
-//         // const example = JSON.stringify(response);
-//         // res.status(200).send('dummy', { example });
-//     } catch (e) {
-//         res.status(500).send(e.message);
-//     }   
-// })
 
 module.exports = router;

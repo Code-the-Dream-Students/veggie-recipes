@@ -1,0 +1,164 @@
+body{
+    font-family: "Lato", sans-serif;
+  }
+  
+  /* Style the navigation menu */
+  .topnav {
+    overflow: hidden;
+    background-color:  rgb(236, 233, 233);
+    position: relative;
+  }
+  
+  /* Hide the links inside the navigation menu (except for logo/home) */
+  .topnav #myLinks {
+    display: none;
+  }
+  
+  /* Style navigation menu links */
+  .topnav a {
+    color: black;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  /* Style the hamburger menu */
+  .topnav a.icon {
+    color: black;
+  }
+  
+  /* Style the active link (or home/logo) */
+  .active {
+    
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
+   
+  .signUp {
+    position: initial;
+    display: block;
+  }
+   
+h1, 
+h2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+  color: rgb(85, 35, 35);
+  text-shadow: 5px 5px 10px #3b4b53;
+}
+  
+
+.jumbotron{
+  background: 
+   #abbdf0 url('./images/jumbo10.jpg') no-repeat center;
+  background-size: cover;
+
+}
+
+.searchbox{
+  padding: 50px;
+  background: linear-gradient(#f3f4f7, transparent 10%),
+  linear-gradient(0deg, #fff, transparent 10%),
+  linear-gradient(90deg, #fff, transparent 10%),
+  linear-gradient(-90deg, #fff, transparent 10%);
+}
+
+
+  #searchButton{
+    background-color: yellowgreen;
+    color: white;
+  }
+
+
+
+  text-color {
+    color: red;
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal-img{
+  width: 90%;
+  height: 60%;
+  }
+
+  .highlight{
+    border: 1;
+  }
+
+     
+  .first-letter:first-letter {
+    float: left;
+    font-size: 2em;
+    background: rgb(34, 135, 153);
+    color: white;
+    margin: auto 5px;
+    border-radius: 20%;
+    padding: 5px;
+    line-height: 1;
+  }
+  
+  
+  .mejs__container {
+    margin: 0 auto;
+  }
+
+    .footer{
+    background-color: rgb(201, 197, 194);
+    }
+
+  .social-media-contact a::after{
+    margin: 10px;
+    display: inline-block; 
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    }
+    
+    .instagram::after{
+      content: url(./media/instagram.svg);
+    }
+    .facebook::after{
+      content: url(./media/facebook.svg);
+    }
+    .twitter::after{
+      content: url(./media/twitter.svg);
+    }
+
+
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th,td {
+      border: 1px solid black;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th{
+      background-color: #c6ddf3;
+    }
+    
+    tr:nth-child(even) {
+      background-color:white;
+    }
+
+.box {
+  display: inline-block;
+  border: 1px solid #000;
+  width: 300px;
+}
+
+img {
+  width: 300px;
+}

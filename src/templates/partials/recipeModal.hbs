@@ -6,11 +6,9 @@
           <div class="modal-header">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb purple lighten-4">
-                <li class="breadcrumb-item"><a href="#">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
+                <li class="breadcrumb-item" style="cursor: pointer;"><a data-dismiss="modal">home</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
                     aria-hidden="true"></i>
                 </li>
-                <li class="breadcrumb-item"><a href="#">recipe</a><i class="fas fa-angle-right mx-2 breadcrumb-green"
-                    aria-hidden="true"></i></li>
                 <li id="recipe-title" class="breadcrumb-item active"></li>
               </ol>
             </nav>
@@ -19,13 +17,21 @@
             </button>
           </div>
           <div class="modal-body">
-            <button id="saveRecipeBtn" class="float-right saveRecipeBtn" type="submit" ></button>
             <div class="row">
-              <div class="col-sm-4 col-md-4">
+              <div class="col-lg-5">
                 <img id="recipe-image" alt="Responsive image" class="img-responsive modal-img">
               </div>
-              <div class=" col-sm-8 col-md-8">
+              <div class="col-lg-7">
+                {{!-- <div class="addtofavorites">
                 <h1 id="recipe-title-h1" class=" main-title-modal"></h1>
+                <button id="saveRecipeBtn" class="saveRecipeBtn" type="submit" ></button>
+                </div> --}}
+                  <div class="wrapper-favorites">
+                  <div class="addtofavorites">
+                    <h1 id="recipe-title-h1" class=" main-title-modal"></h1>
+                    <button id="saveRecipeBtn" class="saveRecipeBtn" type="submit" ></button>
+                  </div>
+              </div>
                 <p id="recipe-summary" ></p>
               </div>
             </div>
@@ -72,14 +78,14 @@
               </div>
               <div class="col-sm-6 col-md-6">
                 <h1 class="sub-title-modal">Steps</h1>
-                <ul id="recipe-steps"></ul>
+                <ol id="recipe-steps"></ol>
               </div>
             </div>
             <div class="additional-recipes">
           </div>
 
           <!--carousel-->
-        <div class="container">
+        {{!-- <div class="container">
           <div class="row blog">
             <div class="col-md-12">
               <div id="recipeCarousel" class="carousel slide" data-ride="carousel">
@@ -111,7 +117,7 @@
     
             </div>
           </div>
-        </div>
+        </div> --}}
 
 
           <div class="modal-footer">

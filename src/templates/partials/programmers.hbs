@@ -1,22 +1,25 @@
-      {{#each programmers  as | programmer |}}
+      {{#each developers  as | developer |}}
         <div class="b col-md-6 col-lg-4 mb-5 p-3">
         <div class="card border rounded">
-          <img src={{image}} class="mt-4 w-75 mx-auto border rounded-circle" alt="">
+          <img src={{picture}} class="mt-4 w-75 mx-auto border rounded-circle" alt="">
           <!-- <div style="background-image: url('./images/broc-pasta.jpg')" class="card-img-top"></div> -->
           <div class="card-body">
             <h5 class="card-title">{{name}}</h5>
+            {{#if role}}
+            <h6 class="card-title"><em>{{role}}</em></h6>
+            {{/if}}
             <p class="card-text">
               {{description}}
             </p>
             <div class="d-flex justify-content-between">
-              <button class="btn bg-primary mr-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+              <a class="btn bg-primary mr-2 w-50" type="submit" href="{{linkedin}}" target="_blank">
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
                 Linkedin
-              </button>
-              <button class="btn bg-success ml-2 w-50" type="submit" data-toggle="modal" data-target="#recipeModal">
+              </a>
+              <a class="btn bg-success ml-2 w-50" type="submit" href="{{github}}" target="_blank">
                 <i class="fab fa-github"></i>
                 GitHub
-              </button>
+              </a>
             </div>
           </div>
         </div>
