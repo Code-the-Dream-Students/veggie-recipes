@@ -57,10 +57,10 @@ const developers = [
     },
     {
       name: "Dejan",
-      description: "",
-      picture: "",
-      linkedin: "",
-      github: "",
+      description: "Front end developer with 3 years of experience building everything from small business sites to enterprise interactive web apps. Passionate about building high quality products. Passionate about writing efficient, maintainable, and reusable code.",
+      picture: "/images/contacts-picture/dejan.jpg",
+      linkedin: "https://www.linkedin.com/in/dejan-pantelic/",
+      github: "https://github.com/Dejzon",
       role: "Frontend Team"
     },
   ];
