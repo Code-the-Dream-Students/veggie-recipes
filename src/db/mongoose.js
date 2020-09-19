@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const dotenv = require("dotenv");
+dotenv.config();
+const mongoose = require("mongoose");
 let url = process.env.MONGODB_URI;
 
 // Connects to the database
@@ -6,13 +8,13 @@ mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
 });
 
 const connection = mongoose.connection;
 
-connection.once("open", function() {
-  console.log("MongoDB database connection established successfully");
+connection.once("open", function () {
+    console.log("MongoDB database connection established successfully");
 });
 
 /*
