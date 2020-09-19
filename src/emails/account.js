@@ -1,4 +1,6 @@
-const sgMail = require('@sendgrid/mail');
+const dotenv = require("dotenv");
+dotenv.config();
+const sgMail = require("@sendgrid/mail");
 
 const sendgridAPIKEY = `${process.env.EMAIL_API_KEY}`;
 
@@ -86,9 +88,9 @@ const resetPasswordEmail = (email, name, password) => {
         html: `Hello ${name}! Here is a temporary password to login. Once you're logged in, you can reset your password after you're logged in. 
                 <div>
                     <strong>Password:</strong> ${password}
-                </div>`
-    })
-}
+                </div>`,
+    });
+};
 
 const newPasswordEmail = (email, name) => {
     sgMail.send({

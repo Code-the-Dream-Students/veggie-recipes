@@ -3,12 +3,12 @@ let cuisine = "";
 let type = "";
 const searchRecipesForm = document.getElementById("searchRecipes");
 const searchResults = document.getElementById("search-results");
-const listOfRecipes = document.querySelector("#list-of-recipes");
-const searchbox = document.querySelector("#searchbox");
-const generateRecipesButton = document.querySelector("#generate-recipes");
+const listOfRecipes = document.getElementById("list-of-recipes");
+const searchbox = document.getElementById("searchbox");
+const generateRecipesButton = document.getElementById("generate-recipes");
 const loader = document.getElementById("saladLoader");
 const modalBody = document.querySelector(".modal-content");
-const modalButton = document.querySelector("#modal-button");
+const modalButton = document.getAnimations("#modal-button");
 const modalTitle = document.querySelector(".modal-title");
 const cuisines = [
     "african",
@@ -54,8 +54,8 @@ const types = [
     "snack",
     "drink",
 ];
-const cuisinesSelect = document.querySelector("#cuisines");
-const typesSelect = document.querySelector("#types");
+const cuisinesSelect = document.getElementById("cuisines");
+const typesSelect = document.getElementById("types");
 const recipeNotFoundModal = document.getElementById("recipeNotFoundModal");
 let recipesInformation = {};
 let recipesForCarrousel = [];
@@ -126,8 +126,6 @@ generateRecipesButton.addEventListener("click", async (e) => {
         recipes.forEach((recipe) => {
             recipesInformation[recipe.id] = recipe;
         });
-
-        recipesForCarrousel = [];
         //hide loader
         loader.classList.add("hide");
         //show results
@@ -141,6 +139,7 @@ generateRecipesButton.addEventListener("click", async (e) => {
 
 const displayRecipes = (rec) => {
     recipesForCarrousel.push(recipesInformation[rec.id]);
+    console.log(rec);
 
     let summary = rec.summary.split(" ").slice(0, 40).join(" ");
     summary = summary.replace(/(<\/?b>)/g, "");
@@ -172,22 +171,17 @@ const generateRecipes = (recipes) => {
 };
 
 let recipeInfo;
-const recipeTitle = document.querySelector('#recipe-title');
-const recipeTitleH1 = document.querySelector('#recipe-title-h1');
-const recipeImage = document.querySelector('#recipe-image');
-const recipeSummary = document.querySelector('#recipe-summary');
-const recipeCookingMinutes = document.querySelector('#recipe-cooking-minutes');
-const recipeReadyInMinutes = document.querySelector('#recipe-ready-in-minutes');
-const recipeServings = document.querySelector('#recipe-servings');
-const recipeIngredients = document.querySelector('#recipe-ingredients');
-const recipeSteps = document.querySelector('#recipe-steps');
-const optionalRecipes1 = document.querySelector('#optional-recipes1');
-const optionalRecipes2 = document.querySelector('#optional-recipes2');
-// const secondCarouselLi = document.getElementById('secondCarouselLi');
-// const recipeCarousel = document.getElementById('recipeCarousel');
-// const carouselItem = document.getElementById('carouselItem');
-// const disposableCarouselItem = document.getElementById('disposableCarouselItem');
-// const nondisposableCarouselItem = document.getElementById('nondisposableCarouselItem');
+const recipeTitle = document.getElementById("recipe-title");
+const recipeTitleH1 = document.getElementById("recipe-title-h1");
+const recipeImage = document.getElementById("recipe-image");
+const recipeSummary = document.getElementById("recipe-summary");
+const recipeCookingMinutes = document.getElementById("recipe-cooking-minutes");
+const recipeReadyInMinutes = document.getElementById("recipe-ready-in-minutes");
+const recipeServings = document.getElementById("recipe-servings");
+const recipeIngredients = document.getElementById("recipe-ingredients");
+const recipeSteps = document.getElementById("recipe-steps");
+const optionalRecipes1 = document.getElementById("optional-recipes1");
+const optionalRecipes2 = document.getElementById("optional-recipes2");
 
 // const favfav = (something) => {
 //   let fav = recipesInformation[something.split("f")[1]];
@@ -217,29 +211,25 @@ const recipeModal = (data) => {
       id="f${data.id}" 
       src="${favorite ? "./images/heart2.png" : "./images/heart1.png"}">
   `;
-	recipeTitle.innerHTML = title;
-	recipeTitleH1.innerHTML = title;
-	recipeImage.setAttribute('src', image);
-	recipeSummary.innerHTML = summary;
-	recipeCookingMinutes.innerHTML = cookingMinutes ? cookingMinutes : readyInMinutes;
-	recipeReadyInMinutes.innerHTML = readyInMinutes;
-	recipeServings.innerHTML = servings;
-	recipeIngredients.innerHTML = ingredients.reduce((acc, ingredient) => (acc += `<li>${ingredient}</li>`), '');
-	recipeSteps.innerHTML = steps.reduce((acc, step) => (acc += `<li>${step}</li>`), '');
-	// optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);
-	// optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
-	// if (recipesForCarrousel.length > 4) {
-	// 	optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
-	// 	// disposableCarouselItem.classList.add('carousel-item');
-	// 	// disposableCarouselItem.classList.remove('d-none');
-	// 	disposableCarouselItem.classList.replace('d-none', 'carousel-item');
-	// 	nondisposableCarouselItem.classList.remove('active');
-	// } else {
-	// 	// disposableCarouselItem.classList.remove('carousel-item');
-	// 	// disposableCarouselItem.classList.add('d-none');
-	// 	disposableCarouselItem.classList.replace('carousel-item', 'd-none');
-	// 	nondisposableCarouselItem.classList.add('active');
-	// }
+    recipeTitle.innerHTML = title;
+    recipeTitleH1.innerHTML = title;
+    recipeImage.setAttribute("src", image);
+    recipeSummary.innerHTML = summary;
+    recipeCookingMinutes.innerHTML = cookingMinutes
+        ? cookingMinutes
+        : readyInMinutes;
+    recipeReadyInMinutes.innerHTML = readyInMinutes;
+    recipeServings.innerHTML = servings;
+    recipeIngredients.innerHTML = ingredients.reduce(
+        (acc, ingredient) => (acc += `<li>${ingredient}</li>`),
+        ""
+    );
+    recipeSteps.innerHTML = steps.reduce(
+        (acc, step) => (acc += `<li>${step}</li>`),
+        ""
+    );
+    optionalRecipes1.innerHTML = generateOptionalRecipes(0, 4);
+    optionalRecipes2.innerHTML = generateOptionalRecipes(4, 8);
 };
 
 const generateOptionalRecipes = (num1, num2) => {
@@ -259,11 +249,11 @@ const generateOptionalRecipes = (num1, num2) => {
     }, "");
 };
 
-const fields = document.querySelector("#fields");
-const updateName = document.querySelector("#update-name");
-const updateEmail = document.querySelector("#update-email");
-const updateOldPassword = document.querySelector("#update-old-password");
-const updateNewPassword = document.querySelector("#update-new-password");
+const fields = document.getElementById("fields");
+const updateName = document.getElementById("update-name");
+const updateEmail = document.getElementById("update-email");
+const updateOldPassword = document.getElementById("update-old-password");
+const updateNewPassword = document.getElementById("update-new-password");
 const updateUserForm = document.getElementById("updateUser");
 const buttonRecipeFavorite = document.getElementById("saveRecipeBtn");
 const forgotPasswordForm = document.getElementById("forgotPassword");
