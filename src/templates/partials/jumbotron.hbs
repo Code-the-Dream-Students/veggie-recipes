@@ -9,18 +9,13 @@
               <input name="query" autocomplete="off" id="searchbox" class="form-control " placeholder="Search" aria-describedby="searchButton" />
             </div>
             <div class="container text-center">
-              <div class="smooth-scroll">
-                <button id="generate-recipes" class="btn btn-search-home" type="submit" data-pjax='search-results' href="#search-results">Search</button>
-              </div>
               <div class="advanced-search">
                 <a class="text-center" data-toggle="collapse" href="#collapseExample" role="button"
                   aria-expanded="false" aria-controls="collapseExample">
                   advanced search <i class="fa fa-caret-right" aria-hidden="true"></i>
                 </a>
               </div>
-            </div>
-
-            <p>
+           <p>
             <div class="collapse" id="collapseExample">
               <div class="card card-body">
                 <div class="form-row">
@@ -38,16 +33,17 @@
                 </div>
               </div>
             </div>
+              <div class="smooth-scroll">
+                <button id="generate-recipes" class="btn btn-search-home" type="submit" data-pjax='search-results' href="#search-results">Search</button>
+              </div>
+            </div>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-    <div class="container pt-4" id="search-results">
-    <!---lis of recipes---->
-    <!-- <div class="card-header">
-      <h2>The Latest 8 Recipes </h2>
-    </div> -->
+    <div class="container pt-4 hide" id="search-results">
+      {{> saveInstructions}}
     <div id="list-of-recipes" class="row"></div><!-- /list of recipes -->
   </div>

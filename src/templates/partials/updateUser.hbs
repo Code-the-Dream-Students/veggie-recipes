@@ -1,0 +1,66 @@
+<!---------------------------
+     FORM MODAL UPDATE
+  ----------------------------->
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light text white">
+          <div class="logo-text "><span>Vege</span>loper<small>&copy;</small></div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <!------modal body---->
+        <div class="modal-body">
+          <div class="modal-title">
+            <h5 class="mb-4 mt-4 text-dark text-center" id="update-title">Update</h5>
+          </div>
+          <!------name input---->
+          <form id="updateUser" autocomplete="off" class="needs-validation" novalidate>
+            <div class="form-group m-4">
+              <label for="update-name">User name</label>
+              <div id="newUserNameMessage" class="hide"></div>
+              <input id="update-name" value={{userName}} name="userName" type="text" class="form-control" placeholder="Name" readonly required>
+              <div class="invalid-feedback">
+                Please provide your user name.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="update-email">Email address</label>
+              <div id="newEmailMessage" class="hide"></div>
+              <input id="update-email" value={{email}} name="email" type="email" class="form-control" placeholder="Email" readonly required>
+              <div class="invalid-feedback">
+                Please provide your email.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label id="oldPasswordLabel" for="update-old-password" class>Old Password</label>
+              <div id="oldPasswordMessage" class="hide"></div>
+              <input id="update-old-password" name="oldPassword" type="password" class="form-control" placeholder="Password" readonly required>
+              <div class="invalid-feedback">
+                Please provide your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <label for="update-new-password">New Password</label>
+              <div id="newPasswordMessage" class="hide"></div>
+              <input id="update-new-password" name="newPassword" type="password" class="form-control" placeholder="Password" readonly required>
+              <div class="invalid-feedback">
+                Please provide your password.
+              </div>
+            </div>
+            <div class="form-group m-4">
+              <button id="fields" class="btn-primary btn-lg btn-block" >Enable fields</button>
+              <br>
+              <button class="btn-success btn-lg btn-block" type="submit">Update Information</button>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div style="cursor: pointer;" class="dropdown-item text-primary text-md mb-4" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</div>
+          </form>
+        </div>
+        <div id="updateUserSuccessMessage" class="text-center successful mb-4"></div>
+        <!------/modal body---->
+      </div>
+    </div>
+  </div>

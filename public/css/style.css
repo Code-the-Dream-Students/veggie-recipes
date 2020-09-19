@@ -5,31 +5,95 @@ html {
   scroll-behavior: smooth;
 }
 
+
+/*reset*/
 *,
 *:before,
 *:after {
   box-sizing: inherit; }
 
+/*ul li {
+    list-style: none;
+  }*/
+
 body, h1, h2, .btn, .searchbox{
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 1rem;}
+
+  .hide {
+    display: none;
+  }
+
+  .col-lg-7 a {
+    color: #218838;
+    text-decoration: none;
+}
+.col-lg-7  a:hover {
+    color: #218838;
+    text-decoration-line: underline;
 }
 
+
 /* NAV */
-.logo-text {
+.logo-text, .unsuccessful {
   color: #ff914d; }
 
-.logo-text span {
+.logo-text span, .successful {
     color: #74a322; }
 
+.dropdown{
+      display:inline-block;
+ }
+
+ .dropdown-item {
+  cursor: pointer;
+ }
+
+ .dropdown-item button{
+  border:none;
+}
+
+.dropdown-item a {
+	text-decoration: none;
+	background-color: transparent;
+}
+.dropdown-item:hover {
+	color: #061404;
+	text-decoration: none;
+	background-color: #F8F9FA;
+}
+.dropdown-item:active {
+	color: white;
+	text-decoration: none;
+	background-color: #218838;
+}
+.dropdown-item:visited {
+	color: black;
+	text-decoration: none;
+}
+
+.wrapper-favorites {
+	display: flex;
+	justify-content: space-between;
+}
+
 .topnav {
-  overflow: hidden;
+  overflow: visible;
   background-color: #fff;
   position: fixed;
   width: 100%;
   left: 0;
   z-index: 3;
   box-shadow: 0px 10px 17px 0px rgba(0, 0, 0, 0.07); }
+
+  .topnav a{
+    color: #061404;
+    padding-right: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
 
 .topnav .logo-text {
   position: absolute;
@@ -40,16 +104,46 @@ body, h1, h2, .btn, .searchbox{
 
 .navbar-nav {
   display: flex;
+  align-items: center; 
   flex-direction: row; }
+
+  .navbar li {
+    list-style: none;
+  }
+
+  /* About */
+.about-jumbo.jumbotron {
+  background: #ABBDF0 url("/images/couple-cooking.jpg") no-repeat center;
+  background-size: cover;
+}
+.about-jumbo p {
+  color: #000;
+}
+.about-jumbo .searchbox {
+  position: relative;
+  background: none;
+  z-index: 2;
+}
+.about-jumbo .searchbox::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: .8;
+  z-index: -1;
+}
 
 /* Hide the links inside the navigation menu (except for logo/home) */
 .topnav #myLinks {
   display: none; }
 
 /* MENU links */
-.topnav a {
+.topnav #myLinks a{
   color: #061404;
-  padding: 14px 16px;
+  padding:14px 20px;
   text-decoration: none;
   font-size: 1rem;
   display: flex;
@@ -95,6 +189,49 @@ body, h1, h2, .btn, .searchbox{
     background-color: #fff;
     color: #061404; }
 
+/*Save recipe button*/
+.saveRecipeBtn {
+  border: 0!important;
+  background: transparent;
+  outline: 0!important;
+  transition: all .2s ease-in-out;
+  
+}
+.saveRecipeBtn:hover {
+  transform: scale(1.3);
+}
+
+/*google btn*/
+.modal-body .btn-google {
+  width: 100%;
+  display: block;
+  text-align: center;
+
+}
+
+.modal-body .btn-google:hover {
+  text-decoration: none;
+}
+.modal-body .btn-success {
+  border: 0;
+}
+.modal-body .btn-google span {
+  padding-right: 0; }
+
+  .modal-body a {
+    color: white;
+    text-decoration: none;
+  }
+  .modal-body a:hover {
+    color: white;
+    /* color: #218838; */
+    text-decoration-line: underline;
+  }
+
+  .modal-header {
+    height: 70px;
+  }
+
 
 /* JUMBOTRON */
 .jumbotron {
@@ -103,8 +240,9 @@ body, h1, h2, .btn, .searchbox{
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center; }
-
+  align-items: center; 
+  margin:0 auto;}
+  
 .main-title {
   font-weight: 600;
   font-size: 50px;
@@ -242,9 +380,20 @@ text-decoration: none; }
     justify-content: flex-start;
     align-items: center;
     padding:.8rem; }
+.social-media-contact img {  
+      filter: brightness(20000%);
+      width: 100px;
+      height: auto; 
+} 
 
 /*   MODAL CSS */
+.modal {
+  overflow-y:auto;
+}
 
+.modal-header{
+  height:60px;
+ }
 /*   MODAL delete borders */
 .modal-header, .modal-footer{
   border:none;
@@ -286,7 +435,7 @@ text-decoration: none; }
   .modal-img {
     max-width: 100%;
     height: auto;
-    padding-bottom:30px;
+    padding-bottom:15px;
    }
 
   .modal-title h5{
@@ -297,9 +446,6 @@ text-decoration: none; }
 
 }
 
-/* Review*/
-.checked {
-  color: #ff914d; }
 
 /* SPECS*/
 section{
@@ -373,6 +519,19 @@ section{
   color: grey;
   font-variant: small-caps; 
   align-self: center;
+}
+
+.addtofavorites{
+  display:flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: stretch
+}
+
+
+.addtofavorites img{
+  width:36px;
+  height:36px;
 }
 
 
@@ -482,9 +641,15 @@ margin-bottom:10px;
   margin-top: 15px;
 }
 
-/*Google*/
-
-
+/*welcome IMage*/
+.img_welcome{
+  width:200px;
+  display:flex;
+  height: auto;
+  margin:0 auto;
+  padding-bottom:20px;
+  filter: invert(50%) sepia(97%) saturate(406%) hue-rotate(40deg) brightness(96%) contrast(76%);
+}
 
 /*Google*/
 

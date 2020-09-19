@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+
+        <h1>Welcome {{name}}! Login was successful!</h1>
+
+        <div class="container">
+            <form id="displayRecipe">
+                <div class="form-group">
+                    <label for="query">Query</label>
+                    <input name="query" type="text" class="form-control" id="query">
+                    <label for="number">Number</label>
+                    <input name="number" type="text" class="form-control" id="number">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {{!-- <div class="container">
+            <form id="displayRecipe">
+                <div class="form-group">
+                    <label for="recipeID">ID</label>
+                    <input name="recipeID" type="text" class="form-control" id="recipeID">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div> --}}
+
+        <div id="1"></div>
+
+        
+        {{!-- <div class="container">
+            <form method="POST" action="/logout">
+                <button>Logout</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <form id="getRecipes">
+                <button>Get Recipes</button>
+            </form>
+        </div> --}}
+
+        <div id="changePasswordDiv" class="container">
+            <form id="changePassword" class="form-inline my-2 my-lg-0">
+                <input name="password" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Search">
+                <input name="confirmPassword" class="form-control mr-sm-2" type="password" placeholder="Confirm Password" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save new Password</button>
+            </form>
+        </div>
+
+        <div class="first">
+        </div>
+        <div class="container">
+            <p>Update user</p>
+            <form id="updateUser">
+                <input id="firstName" value="{{user.firstName}}" name="firstName" class="form-control mr-sm-2" type="text" placeholder="first Name">
+                <input id="lastName" value="{{user.lastName}}" name="lastName" class="form-control mr-sm-2" type="text" placeholder="last Name">
+                <input id="email" value="{{user.email}}" name="email" class="form-control mr-sm-2" type="text" placeholder="email">
+                <button>Update User</button>
+            </form>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="/js/home.js" async defer></script>
+    </body>
+</html>

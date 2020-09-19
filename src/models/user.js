@@ -5,14 +5,9 @@ const bcrypt = require('bcryptjs');
 
 // Pass model object to create mongoose schema
 const userSchema = new mongoose.Schema({
-    firstName: {
+    userName: {
         type: String,
-        required: [true, 'Please enter a first name.'],
-        trim: true
-    },
-    lastName: {
-        type: String,
-        required: [true, 'Please enter a last name.'],
+        required: [true, 'Please enter a user name.'],
         trim: true
     },
     email: {
