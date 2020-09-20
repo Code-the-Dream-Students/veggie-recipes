@@ -415,6 +415,11 @@ text-decoration: none; }
   content: '';
 }
 
+#recipe-summary a {
+  color: black;
+  text-decoration: underline;
+}
+
 /*   MODAL img */
 #container {
   margin: 0 auto; 
