@@ -7,7 +7,7 @@ const oauth2Client = new google.auth.OAuth2(
     // client secret
     process.env.CLIENT_SECRET,
     // link to redirect
-    link.LINK
+    process.env.LINK || link.LINK
 )
 
 module.exports = oauth2Client;
