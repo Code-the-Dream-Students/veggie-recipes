@@ -1,5 +1,5 @@
 const { google } = require('googleapis');
-const link = require('../../config/constants');
+const link = require('../constants/constants');
 
 const oauth2Client = new google.auth.OAuth2(
     // client id
