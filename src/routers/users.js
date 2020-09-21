@@ -13,7 +13,7 @@ const User = require('../models/user');
 const googleOAuth = require('../googleAuth/googleOAuth');
 const { sendWelcomeEmail, resetPasswordEmail, newPasswordEmail, recipeEmail, updateUserEmail } = require('../emails/account');
 const generateRecipes = require('../utils/generateRecipes');
-const programmers = require('../utils/saveProgrammers');
+const developers = require('../utils/saveProgrammers');
 
 // Create express router module
 const router = new express.Router();
@@ -77,10 +77,10 @@ router.get('/contact', searchAuth, async (req, res) => {
     if (req.user) {
         const userName = req.user.userName;
         const email = req.user.email;
-        return res.render('contact', {programmers, url, loggedIn, email: email, userName: userName});
+        return res.render('contact', {developers, url, loggedIn, email: email, userName: userName});
     }
     
-    res.render('contact', {programmers, url, loggedIn});
+    res.render('contact', {developers, url, loggedIn});
 })
 // GET about
 router.get('/about', searchAuth, (req, res) => {
@@ -454,5 +454,6 @@ router.patch('/updateUser', auth, async (req, res) => {
     }
 
 })
+
 
 module.exports = router;

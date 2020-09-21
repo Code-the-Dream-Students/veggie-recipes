@@ -33,6 +33,7 @@ col-lg-7 a {
 	text-decoration: none;
 }
 
+
 /* DropDown*/
 .dropdown {
 	display: inline-block;
@@ -72,6 +73,30 @@ col-lg-7 a {
 	color: #74a322;
 }
 
+.dropdown-item a {
+	text-decoration: none;
+	background-color: transparent;
+}
+.dropdown-item:hover {
+	color: #061404;
+	text-decoration: none;
+	background-color: #F8F9FA;
+}
+.dropdown-item:active {
+	color: white;
+	text-decoration: none;
+	background-color: #218838;
+}
+.dropdown-item:visited {
+	color: black;
+	text-decoration: none;
+}
+
+.wrapper-favorites {
+	display: flex;
+	justify-content: space-between;
+}
+
 .topnav {
 	overflow: visible;
 	background-color: #fff;
@@ -90,6 +115,7 @@ col-lg-7 a {
 	display: flex;
 	align-items: center;
 }
+
 
 .topnav .logo-text {
 	position: absolute;
@@ -231,6 +257,7 @@ col-lg-7 a {
 .modal-body .btn-google span {
 	padding-right: 0;
 }
+
 
 /* JUMBOTRON */
 .jumbotron {
@@ -423,6 +450,11 @@ col-lg-7 a {
 .breadcrumb .breadcrumb-item::before {
 	padding: 0;
 	content: '';
+}
+
+#recipe-summary a {
+  color: black;
+  text-decoration: underline;
 }
 
 /*   MODAL img */
