@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const path = require('path');
 const hbs = require('hbs');
 const cookieParser = require('cookie-parser');
@@ -45,6 +46,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Load router module in express app (Pass middleware userRouter to app)
 app.use(userRouter);
+//allows bodyParser extended
+app.use(bodyParser.urlencoded({extended: true}));
 
 module.exports = app;
 
