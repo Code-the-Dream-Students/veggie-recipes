@@ -191,14 +191,13 @@ h2,
   text-align: center;
   color: #fff;
 }
-
 .modal-body .btn-google:hover {
   text-decoration: none;
   color: #fff;
 }
 
 .modal-body .btn-success {
-  border: 0;
+	border: 0;
 }
 
 .modal-body .btn-google span {
@@ -334,26 +333,26 @@ h2,
 }
 
 .card-header h2 {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-weight: 400;
-  font-size: 2rem;
-  padding-bottom: 1.5rem;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-weight: 400;
+	font-size: 2rem;
+	padding-bottom: 1.5rem;
 }
 
 .card-header h2:before,
 .card-header h2:after {
-  content: '';
-  border-top: 1px solid;
-  margin: 0 20px 0 0;
-  flex: 1 0 20px;
+	content: '';
+	border-top: 1px solid;
+	margin: 0 20px 0 0;
+	flex: 1 0 20px;
 }
 
 .card-header h2:after {
-  margin: 0 0 0 20px;
+	margin: 0 0 0 20px;
 }
 
 .card {
@@ -404,7 +403,7 @@ h2,
 }
 
 .social-media-contact {
-  display: flex;
+	display: flex;
 }
 
 .social-media-contact a {
@@ -682,12 +681,12 @@ section {
 }
 
 .similar-recipe .title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #061404;
-  letter-spacing: 1px;
-  text-transform: capitalize;
-  margin-top: 15px;
+	font-size: 1rem;
+	font-weight: 700;
+	color: #061404;
+	letter-spacing: 1px;
+	text-transform: capitalize;
+	margin-top: 15px;
 }
 
 /*CONTACT */
