@@ -35,6 +35,7 @@ const updateUserSuccessMessage = document.getElementById('updateUserSuccessMessa
 const emailRecipeModalMessage = document.getElementById('emailRecipeMessage');
 const emailRecipeModal = document.getElementById('emailRecipeModal');
 const recipeSaveModalMessage = document.getElementById('recipeSaveModalMessage');
+const recipeSaveModal = document.getElementById('recipeSaveModal');
 
 
 // updateName.value = information.name;
@@ -275,7 +276,7 @@ buttonRecipeFavorite.addEventListener('click', async () => {
         >`; 
       
         recipeSaveModalMessage.innerHTML = `${data.message}`;
-        $('#emailRecipeModal').modal('show')
+        $('#recipeSaveModal').modal('show')
 
   } catch (e) {
       console.log(e.message);
