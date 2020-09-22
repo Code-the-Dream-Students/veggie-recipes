@@ -615,4 +615,9 @@ router.patch("/updateUser", auth, async (req, res) => {
     }
 });
 
+router.get("/errorHandling", (req, res) => {
+    const json = {"objects": [{"Source": "National Employment Law Project", "DataOrder": "1", "SourceLink": "http://www.nelp.org/", "Data": "12.29.2012", "Title": "The last day anyone will receive benefits from the Emergency Unemployment Compensation program unless Congress acts to renew it."}, {"Source": "Congressional Budget Office", "DataOrder": "2", "SourceLink": "", "Data": "$30,000,000,000", "Title": "Estimated cost to renew the Emergency Unemployment Compensation program through the end of 2013."}]};
+    res.json(json);
+})
+
 module.exports = router;
