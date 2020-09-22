@@ -171,10 +171,6 @@ h2,
   background-color: #218838;
 }
 
-.dropdown-item:visited {
-  color: #000;
-  text-decoration: none;
-}
 
 .padding {
   padding: 4px 20px;
@@ -225,6 +221,7 @@ h2,
 
 .about-jumbo p {
   color: #000;
+  line-height: 2;
 }
 
 .about-jumbo .searchbox {
