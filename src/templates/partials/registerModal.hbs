@@ -13,13 +13,13 @@
         <div class="modal-title">
           <h5 class="mb-4 mt-4 text-dark text-center" id="SignUpModal-title">Sign Up</h5>
         </div>
-        <div id="data-details"></div>
+        <div id="errorResponse"></div>
         <!------name input---->
-        <form action="/register" method="POST" class="needs-validation" novalidate>
+        <form action="/register" method="POST" id="registerForm" class="needs-validation" novalidate>
           <!------email address input---->
           <div class="form-group m-4">
             <label for="name-signUp">Username</label>
-            <input name="userName" type="text" id="lastName-signUp" class="form-control" required>
+            <input name="userName" type="text" id="lastName-signUp" class="form-control" min-length="2" required>
             <div class="invalid-feedback">
               Please provide your username.
             </div>
@@ -42,7 +42,7 @@
           </div>
           <div class="form-group m-4">
             <label for="confirm-password-signUp">Confirm Password</label>
-            <input type="password" id="confirm-password-signUp" class="form-control" placeholder="*********"
+            <input name="confirmPassword" type="password" id="confirm-password-signUp" class="form-control" placeholder="*********"
               minlength="7" required>
             <div class="invalid-feedback">
               Please confirm your password
