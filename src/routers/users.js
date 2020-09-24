@@ -11,6 +11,7 @@ const searchAuth = require("../middleware/searchAuth");
 const auth = require("../middleware/auth");
 const User = require("../models/user");
 const googleOAuth = require("../googleAuth/googleOAuth");
+const {check, validationResult} = require("express-validator");
 const {
     sendWelcomeEmail,
     resetPasswordEmail,
@@ -464,21 +465,53 @@ router.post("/emailRecipe", auth, async (req, res) => {
 });
 
 // POST Create users
-router.post("/register", async (req, res) => {
-    try {
-        const user = new User(req.body);
-        const token = await user.generateAuthToken();
-        await sendWelcomeEmail(user.email, user.userName);
-        await user.save();
-
-        // Put JWT in cookie
-        res.cookie("auth_token", token);
-
-        res.redirect(201, "home");
-    } catch (e) {
-        res.status(400).send({
-            message: e.message,
-        });
+router.post("/register", [
+    check("userName")
+        .exists().withMessage("Username must be provided")
+        .isLength({ min: 2 }).withMessage("Username must be more than 2 characters long"),
+    check("email")
+        .exists().withMessage("Email address must be provided")
+        .custom(value => {
+            return User.findOne({email: value}).then(user => {
+                if(user){
+                    throw new Error("The email address is already taken")
+                }
+            })
+        }),
+    check("password")
+        .exists().withMessage("Password must be provided")
+        .isLength({ min: 7}).withMessage("Password should be more then 7 characters"),
+    check("confirmPassword")
+        .exists().withMessage("Confirmation password must be provided")
+    // >>NEEDS FIX: could not return correct req properties to check if password checks confirmation password
+    // .custom((value,{req}) =>{
+    //         console.log(req.body.password)
+    //         if(value !== req.body.password){
+    //             throw new Error("Password does not match password")
+    //         }
+                // return true;
+    //     })
+],  async(req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(500).send(errors);
+    }else{
+        try {
+            const user = new User(req.body);
+            const token = await user.generateAuthToken();
+            sendWelcomeEmail(user.email, user.userName);
+            await user.save();
+    
+            // Put JWT in cookie
+            res.cookie("auth_token", token);
+    
+            //res status 200 = Okay
+            //NOTE: redirect is passed from client-side in file form-validation.js
+            res.status(200).send();
+        } catch (e) {
+            res.status(500).send();
+            console.log("ERROR FROM CATCH", e);
+        }
     }
 });
 
