@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const path = require('path');
 const hbs = require('hbs');
 const cookieParser = require('cookie-parser');
@@ -40,6 +41,8 @@ app.use(express.static(publicDirectoryPath));
 app.use(express.json());
 // Processes data sent from inbuilt form method and action
 app.use(express.urlencoded({ extended: true }));
+//allows bodyParser extended
+app.use(bodyParser.urlencoded({extended: false}));
 // Parse Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, 
 // which assigns req.secret so it may be used by other middleware.
 app.use(cookieParser());
