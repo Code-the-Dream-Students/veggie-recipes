@@ -486,7 +486,6 @@ router.post("/register", [
         })
 ],  async(req, res) => {
     const errors = validationResult(req);
-    console.log("req.body" , req.body);
     if(!errors.isEmpty()){
         return res.status(500).send(errors);
     }else{
