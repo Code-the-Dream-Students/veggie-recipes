@@ -135,7 +135,7 @@ router.get("/about", searchAuth, (req, res) => {
 });
 
 // GET favorite recipes
-router.get("/home", auth, (req, res) => {
+router.get("/getFavoriteRecipes", auth, (req, res) => {
     // Grab all the recipes from the db
     const recipesData = req.user.recipes;
     // Create an array of each recipe from data
