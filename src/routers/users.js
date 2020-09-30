@@ -135,7 +135,7 @@ router.get("/about", searchAuth, (req, res) => {
 });
 
 // GET favorite recipes
-router.get("/home", auth, (req, res) => {
+router.get("/getFavoriteRecipes", auth, (req, res) => {
     // Grab all the recipes from the db
     const recipesData = req.user.recipes;
     // Create an array of each recipe from data
@@ -145,12 +145,7 @@ router.get("/home", auth, (req, res) => {
         return obj;
     });
 
-    res.render("home", {
-        recipes,
-        loggedIn: true,
-        email: req.user.email,
-        userName: req.user.userName,
-    });
+    res.send(recipes);
 });
 // GET contact
 router.get("/contact", searchAuth, async (req, res) => {
