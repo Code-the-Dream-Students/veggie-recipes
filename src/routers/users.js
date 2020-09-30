@@ -478,16 +478,15 @@ router.post("/register", [
         .isLength({ min: 7}).withMessage("Password should be more then 7 characters"),
     check("confirmPassword")
         .exists().withMessage("Confirmation password must be provided")
-    // >>NEEDS FIX: could not return correct req properties to check if password checks confirmation password
-    // .custom((value,{req}) =>{
-    //         console.log(req.body.password)
-    //         if(value !== req.body.password){
-    //             throw new Error("Password does not match password")
-    //         }
-                // return true;
-    //     })
+        .custom((value, {req}) =>{
+            if(value !== req.body.password){
+                throw new Error("Password does not match password")
+            }
+                return true;
+        })
 ],  async(req, res) => {
     const errors = validationResult(req);
+    console.log("req.body" , req.body);
     if(!errors.isEmpty()){
         return res.status(500).send(errors);
     }else{
