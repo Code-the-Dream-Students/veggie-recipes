@@ -70,6 +70,15 @@ const developers = [
 		linkedin    : 'https://www.linkedin.com/in/dejan-pantelic/',
 		github      : 'https://github.com/Dejzon',
 		role        : 'Frontend Team'
+	},
+	{
+		name        : 'Denilson Velasquez',
+		description :
+			'I’m a passionately driven, self-taught full-stack web developer located in Durham, NC USA. I have specialized in building modern and responsive websites with languages like HTML, CSS and Javascript within my six plus years of experience. I’m actively seeking new technologies and staying up-to-date with popular tech trends including ReactJS and Ruby on Rails. I’m happy to be part of the developer world where I can  help people solve real-world problems!',
+		picture     : '/images/contacts-picture/dee.jpg',
+		linkedin    : 'https://www.linkedin.com/in/deethedev/',
+		github      : 'https://github.com/Deethedev',
+		role        : 'Backend Team'
 	}
 ];
 
