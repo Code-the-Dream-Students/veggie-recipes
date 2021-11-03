@@ -34,7 +34,7 @@
     "node-fetch": "^2.6.1",
     "query-string": "^6.13.1",
     "url-parse": "^1.4.7",
-    "validator": "^13.1.1"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
